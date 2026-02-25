@@ -34,3 +34,24 @@ The model is trained using real datasets and deployed through a Flask web applic
 ---
 
 ## 📂 Project Structure
+crop-yield-project/
+│
+├── app/
+│ ├── app.py
+│ └── templates/
+│ └── index.html
+│
+├── data/
+│ ├── crop_data.csv
+│ └── weather_data.csv
+│
+├── models/
+│ └── yield_model.pkl
+│
+├── notebooks/
+│ └── analysis.ipynb
+│
+├── src/
+│ └── model.py
+│
+└── README.md
