@@ -1,35 +1,37 @@
 import pandas as pd
+import os
+import pickle
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import r2_score, mean_absolute_error
-import pickle
 
-# Load datasets
-crop = pd.read_csv("data/crop_data.csv")
-weather = pd.read_csv("data/weather_data.csv")
+# 🔹 AUTO LOAD FILES
+files = os.listdir("data")
 
-# Merge datasets
+crop_file = None
+weather_file = None
+
+for file in files:
+    if "crop" in file.lower():
+        crop_file = file
+    elif "weather" in file.lower():
+        weather_file = file
+
+# 🔹 LOAD DATA
+crop = pd.read_csv(f"data/{crop_file}")
+weather = pd.read_csv(f"data/{weather_file}")
+
+# 🔹 MERGE DATA
 data = pd.merge(crop, weather, on="Year")
 
-# Prepare data
+# 🔹 FEATURES
 X = data[['Rainfall', 'Temperature', 'Humidity']]
 y = data['Yield']
 
-# Split data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-# Train model
+# 🔹 TRAIN MODEL
 model = LinearRegression()
-model.fit(X_train, y_train)
+model.fit(X, y)
 
-# Predict
-y_pred = model.predict(X_test)
-
-# Evaluate
-print("R2 Score:", r2_score(y_test, y_pred))
-print("MAE:", mean_absolute_error(y_test, y_pred))
-
-# Save model
+# 🔹 SAVE MODEL
 pickle.dump(model, open("models/yield_model.pkl", "wb"))
 
-print("Model saved successfully ")
+print("Model trained using:", crop_file, "and", weather_file)

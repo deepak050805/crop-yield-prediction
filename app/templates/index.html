@@ -111,21 +111,28 @@
     <!-- RIGHT SIDE -->
     <div class="right">
         <div class="form-box">
-            <form action="/predict" method="post">
+            <form action="/predict" method="post" enctype="multipart/form-data">
 
-                <label>Rainfall (mm)</label>
-                <input type="number" name="rainfall" required>
+    <label>Upload Crop Data (CSV)</label>
+    <input type="file" name="crop_file" required>
 
-                <label>Temperature (°C)</label>
-                <input type="number" name="temp" required>
+    <label>Upload Weather Data (CSV)</label>
+    <input type="file" name="weather_file" required>
 
-                <label>Humidity (%)</label>
-                <input type="number" name="humidity" required>
+    <br><br>
 
-                <button type="submit">Predict</button>
+    <label>Rainfall (mm)</label>
+    <input type="number" name="rainfall" required>
 
-            </form>
+    <label>Temperature (°C)</label>
+    <input type="number" name="temp" required>
 
+    <label>Humidity (%)</label>
+    <input type="number" name="humidity" required>
+
+    <button type="submit">Predict</button>
+
+</form>
             {% if result %}
             <div class="result">
                 Predicted Yield: {{ result }} tons/hectare

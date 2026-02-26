@@ -1,16 +1,45 @@
 from flask import Flask, render_template, request
+import pandas as pd
 import pickle
-import numpy as np
+import os
 
 app = Flask(__name__)
-model = pickle.load(open("models/yield_model.pkl", "rb"))
 
 @app.route('/')
 def home():
-    return render_template("index.html", result="")
+    return render_template("index.html")
 
 @app.route('/predict', methods=['POST'])
 def predict():
+
+    # 🔹 Get uploaded files
+    crop_file = request.files['crop_file']
+    weather_file = request.files['weather_file']
+
+    # 🔹 Save files temporarily
+    crop_path = os.path.join("data", crop_file.filename)
+    weather_path = os.path.join("data", weather_file.filename)
+
+    crop_file.save(crop_path)
+    weather_file.save(weather_path)
+
+    # 🔹 Load data
+    crop = pd.read_csv(crop_path)
+    weather = pd.read_csv(weather_path)
+
+    # 🔹 Merge
+    data = pd.merge(crop, weather, on="Year")
+
+    # 🔹 Train model
+    from sklearn.linear_model import LinearRegression
+
+    X = data[['Rainfall', 'Temperature', 'Humidity']]
+    y = data['Yield']
+
+    model = LinearRegression()
+    model.fit(X, y)
+
+    # 🔹 Predict
     rainfall = float(request.form['rainfall'])
     temp = float(request.form['temp'])
     humidity = float(request.form['humidity'])
