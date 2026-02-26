@@ -1,99 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Crop Yield Predictor</title>
+<meta charset="UTF-8">
+<title>Crop Yield Predictor</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #56ab2f, #a8e063);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f0f1a;
+        color: #eaeaea;
+    }
 
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            width: 350px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            text-align: center;
-            animation: fadeIn 1s ease-in-out;
-        }
+    .wrapper {
+        display: flex;
+        height: 100vh;
+    }
 
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
+    /* Left panel (info) */
+    .left {
+        width: 40%;
+        background: #1c1c2e;
+        padding: 60px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            transition: 0.3s;
-        }
+    .left h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
 
-        input:focus {
-            border-color: #56ab2f;
-            outline: none;
-            box-shadow: 0 0 5px #56ab2f;
-        }
+    .left p {
+        color: #aaa;
+        font-size: 14px;
+        line-height: 1.5;
+    }
 
-        button {
-            width: 95%;
-            padding: 10px;
-            margin-top: 10px;
-            border: none;
-            background: #56ab2f;
-            color: white;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    /* Right panel (form) */
+    .right {
+        width: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        button:hover {
-            background: #3e8e41;
-        }
+    .form-box {
+        width: 320px;
+    }
 
-        .result {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #2e7d32;
-            font-weight: bold;
-        }
+    label {
+        font-size: 13px;
+        color: #bbb;
+    }
 
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-    </style>
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 6px 0 15px 0;
+        border: 1px solid #333;
+        background: #1a1a2e;
+        color: white;
+        border-radius: 6px;
+    }
+
+    input:focus {
+        border-color: #7b2cbf;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        background: #7b2cbf;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    button:hover {
+        background: #5a189a;
+    }
+
+    .result {
+        margin-top: 15px;
+        font-size: 16px;
+        color: #c77dff;
+    }
+
+</style>
 </head>
 
 <body>
 
-<div class="container">
-    <h2>🌾 Crop Yield Predictor</h2>
+<div class="wrapper">
 
-    <form action="/predict" method="post">
-        <input type="number" name="rainfall" placeholder="Rainfall (mm)" required>
-        <input type="number" name="temp" placeholder="Temperature (°C)" required>
-        <input type="number" name="humidity" placeholder="Humidity (%)" required>
-
-        <button type="submit">Predict Yield</button>
-    </form>
-
-    {% if result %}
-    <div class="result">
-        Predicted Yield: {{ result }} tons/hectare
+    <!-- LEFT SIDE -->
+    <div class="left">
+        <h1>Crop Yield Predictor</h1>
+        <p>
+            This tool estimates crop yield based on weather conditions like rainfall,
+            temperature, and humidity. It uses a trained machine learning model
+            to give quick predictions.
+        </p>
     </div>
-    {% endif %}
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+        <div class="form-box">
+            <form action="/predict" method="post">
+
+                <label>Rainfall (mm)</label>
+                <input type="number" name="rainfall" required>
+
+                <label>Temperature (°C)</label>
+                <input type="number" name="temp" required>
+
+                <label>Humidity (%)</label>
+                <input type="number" name="humidity" required>
+
+                <button type="submit">Predict</button>
+
+            </form>
+
+            {% if result %}
+            <div class="result">
+                Predicted Yield: {{ result }} tons/hectare
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
 </div>
 
 </body>
