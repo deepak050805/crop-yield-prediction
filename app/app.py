@@ -1,56 +1,105 @@
 from flask import Flask, render_template, request
 import pandas as pd
+import numpy as np
+import pickle
+import os
 
 app = Flask(__name__)
 
-#HOME ROUTE (VERY IMPORTANT)
+# Path setup
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+model_path = os.path.join(BASE_DIR, "models", "yield_model.pkl")
+
+# Load model (if exists)
+if os.path.exists(model_path):
+    model = pickle.load(open(model_path, "rb"))
+else:
+    model = None
+
+# ✅ HOME ROUTE (IMPORTANT)
 @app.route('/')
 def home():
     return render_template("index.html", result=None)
 
-#PREDICT ROUTE
-@app.route('/predict', methods=['POST'])
-def predict():
+# ✅ UPLOAD + TRAIN
+@app.route('/upload', methods=['POST'])
+def upload():
+    global model
     try:
         crop_file = request.files['crop_file']
         weather_file = request.files['weather_file']
 
-        #Read files
-        if crop_file.filename.endswith('.csv'):
-            crop = pd.read_csv(crop_file)
-        else:
-            crop = pd.read_excel(crop_file)
+        # 🔹 SAFE FILE READING
+        def read_file(file):
+            try:
+                return pd.read_csv(file, encoding='latin1', on_bad_lines='skip')
+            except:
+                return pd.read_excel(file)
 
-        if weather_file.filename.endswith('.csv'):
-            weather = pd.read_csv(weather_file)
-        else:
-            weather = pd.read_excel(weather_file)
+        crop = read_file(crop_file)
+        weather = read_file(weather_file)
 
-        #Merge
+        # 🔹 CLEAN COLUMN NAMES
+        crop.columns = crop.columns.str.strip()
+        weather.columns = weather.columns.str.strip()
+
+        # 🔹 VALIDATION
+        if 'Year' not in crop.columns or 'Yield' not in crop.columns:
+            return render_template("index.html", result="❌ Crop file must contain Year & Yield")
+
+        if not all(col in weather.columns for col in ['Year', 'Rainfall', 'Temperature', 'Humidity']):
+            return render_template("index.html", result="❌ Weather file missing required columns")
+
+        # 🔹 MERGE
         data = pd.merge(crop, weather, on="Year")
 
-        #Train model
+        # 🔹 CLEAN DATA
+        data = data.dropna()
+
+        # Convert to numeric (important fix)
+        data[['Rainfall', 'Temperature', 'Humidity', 'Yield']] = \
+            data[['Rainfall', 'Temperature', 'Humidity', 'Yield']].apply(pd.to_numeric, errors='coerce')
+
+        data = data.dropna()
+
+        # 🔹 FEATURES
         X = data[['Rainfall', 'Temperature', 'Humidity']]
         y = data['Yield']
 
+        # 🔹 TRAIN MODEL
         from sklearn.linear_model import LinearRegression
         model = LinearRegression()
         model.fit(X, y)
 
-        #Input
+        # 🔹 SAVE MODEL
+        pickle.dump(model, open(model_path, "wb"))
+
+        return render_template("index.html", result="✅ Model updated successfully!")
+
+    except Exception as e:
+        return render_template("index.html", result=f"❌ Error: {str(e)}")
+
+# ✅ FAST PREDICTION
+@app.route('/predict', methods=['POST'])
+def predict():
+    global model
+    try:
+        if model is None:
+            return render_template("index.html", result="⚠️ Please upload data first")
+
         rainfall = float(request.form['rainfall'])
         temp = float(request.form['temp'])
         humidity = float(request.form['humidity'])
 
-        prediction = model.predict([[rainfall, temp, humidity]])
+        input_data = np.array([[rainfall, temp, humidity]])
 
-        return render_template("index.html", result=round(prediction[0], 2))
+        prediction = model.predict(input_data)
+
+        return render_template("index.html", result=f"🌾 {round(prediction[0], 2)} tons/hectare")
 
     except Exception as e:
-        return f"Error: {str(e)}"
+        return render_template("index.html", result=f"❌ Error: {str(e)}")
 
-#RUN APP
-import os
-
+# RUN
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
+    app.run(debug=True)
