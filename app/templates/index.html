@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Crop Yield vs Weather</title>
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="{{ url_for('static', filename='chart.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+<style>
+/* (UNCHANGED CSS — SAME AS YOURS) */
+body{
+font-family: 'Inter', sans-serif;
+background:#f5f7fa;
+margin:0;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+p, span {
+  font-weight: 400;
+}
+/* HEADER */
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:white;
+border-bottom:1px solid #ddd;
+}
+
+.header-title{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.logo-box{
+background:#e8f5e9;
+color:#2e8b57;
+font-size:22px;
+width:40px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+}
+
+.header-title h2{
+margin:0;
+font-size:22px;
+font-weight:600;
+}
+
+.header-title span{
+font-size:13px;
+color:#666;
+}
+
+.filters select{
+padding:8px;
+border-radius:6px;
+border:1px solid #ccc;
+margin-left:10px;
+}
+
+/* STAT CARDS */
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+padding:30px 40px;
+}
+
+.stat-card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+}
+
+.stat-card h3{
+margin:0;
+font-size:14px;
+color:#666;
+}
+
+.stat-card p{
+margin:5px 0 0 0;
+font-size:22px;
+font-weight:600;
+}
+
+/* MAIN GRID */
+.dashboard{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:25px;
+padding:0 40px 40px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.05);
+margin-bottom:25px;
+}
+
+.chart-container{
+height:220px;
+position:relative;
+width:100%;
+}
+
+/* SLIDERS */
+input[type=range]{
+-webkit-appearance:none;
+width:100%;
+height:6px;
+background:#dcdcdc;
+border-radius:5px;
+outline:none;
+}
+
+input[type=range]::-webkit-slider-thumb{
+-webkit-appearance:none;
+height:16px;
+width:16px;
+border-radius:50%;
+background:#2e8b57;
+margin-top:-5px;
+cursor:pointer;
+}
+
+/* BUTTON */
+.predict-btn{
+margin-top:15px;
+background:linear-gradient(90deg,#2e8b57,#3cb371);
+border:none;
+color:white;
+padding:10px;
+border-radius:6px;
+width:100%;
+cursor:pointer;
+font-weight:500;
+}
+
+/* RESULT */
+.result{
+margin-top:15px;
+font-size:18px;
+font-weight:600;
+background:linear-gradient(90deg,#2e8b57,#3cb371);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+<div class="header-title">
+<div class="logo-box">🌽</div>
+<div>
+<h2>Crop Yield vs Weather</h2>
+<span>Correlation Analysis Dashboard · Punjab Region</span>
+</div>
+</div>
+
+<div class="filters">
+<select id="crop">
+{% for c in crops %}
+<option>{{c}}</option>
+{% endfor %}
+</select>
+
+<select id="district">
+{% for d in districts %}
+<option>{{d}}</option>
+{% endfor %}
+</select>
+</div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+<div class="stat-card"><h3>Avg Yield</h3><p id="avgYield">--</p></div>
+<div class="stat-card"><h3>Avg Rainfall</h3><p id="avgRain">--</p></div>
+<div class="stat-card"><h3>Avg Temperature</h3><p id="avgTemp">--</p></div>
+<div class="stat-card"><h3>Avg Humidity</h3><p id="avgHum">--</p></div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard">
+
+<div>
+<div class="card">
+<h3>Yield Trend Over Years</h3>
+<div class="chart-container">
+<canvas id="yieldChart" style="width:100%; height:100%;"></canvas>
+</div>
+</div>
+
+<div class="card">
+<h3>Rainfall vs Yield</h3>
+<div class="chart-container">
+<canvas id="rainChart"></canvas>
+</div>
+</div>
+</div>
+
+<!-- PREDICTOR -->
+<div class="card predictor">
+
+<h3>Yield Predictor</h3>
+
+<label>Rainfall</label>
+<div id="rainValue">600 mm</div>
+<input type="range" id="rain" min="300" max="1000" value="600">
+
+<label>Temperature</label>
+<div id="tempValue">27°C</div>
+<input type="range" id="temp" min="15" max="40" value="27">
+
+<label>Humidity</label>
+<div id="humValue">65%</div>
+<input type="range" id="hum" min="40" max="90" value="65">
+
+<button type="button" class="predict-btn" onclick="predict()">Predict Yield</button>
+
+<div class="result" id="result"></div>
+<div id="bestWeather"></div>
+
+<div class="chart-container">
+<canvas id="predictionChart"></canvas>
+</div>
+
+</div>
+
+</div>
+
+<!-- JS -->
+<script>
+
+let yieldChart, rainChart, predictionChart;
+
+// ================= SLIDERS =================
+document.getElementById('rain').oninput = function(){
+    document.getElementById('rainValue').innerText = this.value+" mm";
+}
+document.getElementById('temp').oninput = function(){
+    document.getElementById('tempValue').innerText = this.value+"°C";
+}
+document.getElementById('hum').oninput = function(){
+    document.getElementById('humValue').innerText = this.value+"%";
+}
+
+// ================= LOAD DASHBOARD =================
+function loadDashboard(){
+
+fetch("/get_data",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+    district:document.getElementById("district").value,
+    crop:document.getElementById("crop").value
+})
+})
+.then(res=>res.json())
+.then(data=>{
+
+if(!data.length) return;
+
+let years=data.map(d=>d.Year)
+let yieldVals=data.map(d=>d.Yield)
+let rain=data.map(d=>d.Rainfall)
+let temp=data.map(d=>d.Temperature)
+let hum=data.map(d=>d.Humidity)
+
+// ================= STATS =================
+document.getElementById("avgYield").innerText =
+(yieldVals.reduce((a,b)=>a+b)/yieldVals.length).toFixed(2)+" t/ha";
+
+document.getElementById("avgRain").innerText =
+Math.round(rain.reduce((a,b)=>a+b)/rain.length)+" mm";
+
+document.getElementById("avgTemp").innerText =
+(temp.reduce((a,b)=>a+b)/temp.length).toFixed(1)+" °C";
+
+document.getElementById("avgHum").innerText =
+Math.round(hum.reduce((a,b)=>a+b)/hum.length)+" %";
+
+// ================= YIELD CHART =================
+if(yieldChart) yieldChart.destroy();
+
+yieldChart = new Chart(document.getElementById("yieldChart"),{
+type:"line",
+data:{
+labels:years,
+datasets:[{
+label:"Yield",
+data:yieldVals,
+borderColor:"#2e8b57",
+backgroundColor:"rgba(46,139,87,0.2)",
+tension:0.4,
+fill:true
+}]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false
+}
+});
+
+// ================= RAIN CHART =================
+if(rainChart) rainChart.destroy();
+
+rainChart = new Chart(document.getElementById("rainChart"),{
+type:"scatter",
+data:{
+datasets:[{
+label:"Rainfall vs Yield",
+data:rain.map((r,i)=>({x:r,y:yieldVals[i]})),
+backgroundColor:"#2e8b57"
+}]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+
+scales:{
+x:{title:{display:true,text:"Rainfall"}},
+y:{title:{display:true,text:"Yield"}}
+}
+}
+});
+
+})
+.catch(err=>console.error("Dashboard error:",err));
+}
+
+// ================= PREDICT =================
+function predict(){
+
+let payload={
+rainfall:document.getElementById("rain").value,
+temperature:document.getElementById("temp").value,
+humidity:document.getElementById("hum").value,
+crop:document.getElementById("crop").value,
+district:document.getElementById("district").value
+};
+
+fetch("/predict",{
+method:"POST",
+headers:{"Content-Type":"application/x-www-form-urlencoded"},
+body:new URLSearchParams(payload)
+})
+.then(res=>res.json())
+.then(data=>{
+
+// ================= RESULT TEXT =================
+let diff = ((data.optimal - data.predicted)/data.optimal * 100).toFixed(1)
+
+let msg = `Predicted ${data.crop} Yield: ${data.predicted} t/ha`
+
+if(diff > 0){
+    msg += ` (⚠️ ${diff}% below optimal)`
+}else{
+    msg += ` (✅ Optimal conditions)`
+}
+
+document.getElementById("result").innerText = msg
+
+// ================= BEST WEATHER =================
+document.getElementById("bestWeather").innerText =
+`Best → Rain: ${data.best_rain}, Temp: ${data.best_temp}, Hum: ${data.best_hum}`;
+
+// ================= GRAPH =================
+const ctx=document.getElementById("predictionChart").getContext("2d");
+
+if(predictionChart) predictionChart.destroy();
+let minVal = Math.min(data.predicted, data.optimal);
+let maxVal = Math.max(data.predicted, data.optimal);
+if(minVal === maxVal){
+    minVal = minVal - 1;
+    maxVal = maxVal + 1;
+}
+
+predictionChart = new Chart(ctx,{
+type:"bar",
+data:{
+labels:["Predicted","Optimal"],
+datasets:[{
+label:"Yield (t/ha)",
+data:[data.predicted,data.optimal],
+backgroundColor:["#ff6b6b","#2e8b57"]
+}]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+
+plugins:{
+    legend:{display:true},
+    tooltip:{enabled:true},
+    datalabels:{
+        anchor:'end',
+        align:'top',
+        formatter:(value)=> value.toFixed(2)
+    }
+},
+
+// ✅ CORRECT PLACE
+scales:{
+    y:{
+        beginAtZero:false,
+        min: minVal - (maxVal - minVal) * 0.5,
+        max: maxVal + (maxVal - minVal) * 0.5
+    }
+}
+}
+});
+
+})
+.catch(err=>{
+console.error("Prediction error:",err);
+});
+
+}
+
+// ================= INIT =================
+window.onload = loadDashboard;
+
+document.getElementById("crop").onchange = loadDashboard;
+document.getElementById("district").onchange = loadDashboard;
+
+</script>
+
+</body>
+</html>
