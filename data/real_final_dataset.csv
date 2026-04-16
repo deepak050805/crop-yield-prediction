@@ -1,0 +1,2001 @@
+District,Crop,Year,Temperature,Rainfall,Humidity,Yield
+Amritsar,Bajra,2015,24.7,788.0,60.0,2.29
+Amritsar,Bajra,2016,26.7,738.0,65.0,1.73
+Amritsar,Bajra,2017,25.7,808.0,70.0,1.98
+Amritsar,Bajra,2018,27.7,688.0,68.0,2.24
+Amritsar,Bajra,2019,28.7,668.0,72.0,2.06
+Amritsar,Bajra,2020,29.7,638.0,75.0,2.52
+Amritsar,Bajra,2021,26.7,768.0,66.0,2.19
+Amritsar,Bajra,2022,25.7,798.0,64.0,2.35
+Amritsar,Bajra,2023,27.7,708.0,69.0,2.68
+Amritsar,Bajra,2024,28.7,678.0,71.0,2.15
+Amritsar,Cotton,2015,24.7,788.0,60.0,2.78
+Amritsar,Cotton,2016,26.7,738.0,65.0,3.0
+Amritsar,Cotton,2017,25.7,808.0,70.0,2.47
+Amritsar,Cotton,2018,27.7,688.0,68.0,2.75
+Amritsar,Cotton,2019,28.7,668.0,72.0,2.72
+Amritsar,Cotton,2020,29.7,638.0,75.0,2.39
+Amritsar,Cotton,2021,26.7,768.0,66.0,3.01
+Amritsar,Cotton,2022,25.7,798.0,64.0,2.47
+Amritsar,Cotton,2023,27.7,708.0,69.0,2.44
+Amritsar,Cotton,2024,28.7,678.0,71.0,2.93
+Amritsar,Gram,2015,24.7,788.0,60.0,1.49
+Amritsar,Gram,2016,26.7,738.0,65.0,2.07
+Amritsar,Gram,2017,25.7,808.0,70.0,1.46
+Amritsar,Gram,2018,27.7,688.0,68.0,1.33
+Amritsar,Gram,2019,28.7,668.0,72.0,1.85
+Amritsar,Gram,2020,29.7,638.0,75.0,1.84
+Amritsar,Gram,2021,26.7,768.0,66.0,1.63
+Amritsar,Gram,2022,25.7,798.0,64.0,1.57
+Amritsar,Gram,2023,27.7,708.0,69.0,1.53
+Amritsar,Gram,2024,28.7,678.0,71.0,1.92
+Amritsar,Maize,2015,24.7,788.0,60.0,2.72
+Amritsar,Maize,2016,26.7,738.0,65.0,3.36
+Amritsar,Maize,2017,25.7,808.0,70.0,3.19
+Amritsar,Maize,2018,27.7,688.0,68.0,2.67
+Amritsar,Maize,2019,28.7,668.0,72.0,3.16
+Amritsar,Maize,2020,29.7,638.0,75.0,2.73
+Amritsar,Maize,2021,26.7,768.0,66.0,3.12
+Amritsar,Maize,2022,25.7,798.0,64.0,2.55
+Amritsar,Maize,2023,27.7,708.0,69.0,2.68
+Amritsar,Maize,2024,28.7,678.0,71.0,2.54
+Amritsar,Mustard,2015,24.7,788.0,60.0,2.06
+Amritsar,Mustard,2016,26.7,738.0,65.0,2.46
+Amritsar,Mustard,2017,25.7,808.0,70.0,1.9
+Amritsar,Mustard,2018,27.7,688.0,68.0,1.8
+Amritsar,Mustard,2019,28.7,668.0,72.0,2.38
+Amritsar,Mustard,2020,29.7,638.0,75.0,1.92
+Amritsar,Mustard,2021,26.7,768.0,66.0,1.65
+Amritsar,Mustard,2022,25.7,798.0,64.0,1.9
+Amritsar,Mustard,2023,27.7,708.0,69.0,2.36
+Amritsar,Mustard,2024,28.7,678.0,71.0,2.03
+Amritsar,Potato,2015,24.7,788.0,60.0,5.4
+Amritsar,Potato,2016,26.7,738.0,65.0,4.87
+Amritsar,Potato,2017,25.7,808.0,70.0,5.03
+Amritsar,Potato,2018,27.7,688.0,68.0,5.45
+Amritsar,Potato,2019,28.7,668.0,72.0,4.73
+Amritsar,Potato,2020,29.7,638.0,75.0,4.51
+Amritsar,Potato,2021,26.7,768.0,66.0,4.74
+Amritsar,Potato,2022,25.7,798.0,64.0,4.73
+Amritsar,Potato,2023,27.7,708.0,69.0,4.9
+Amritsar,Potato,2024,28.7,678.0,71.0,5.24
+Amritsar,Rice,2015,24.7,788.0,60.0,4.28
+Amritsar,Rice,2016,26.7,738.0,65.0,4.57
+Amritsar,Rice,2017,25.7,808.0,70.0,4.33
+Amritsar,Rice,2018,27.7,688.0,68.0,4.09
+Amritsar,Rice,2019,28.7,668.0,72.0,4.86
+Amritsar,Rice,2020,29.7,638.0,75.0,4.77
+Amritsar,Rice,2021,26.7,768.0,66.0,4.27
+Amritsar,Rice,2022,25.7,798.0,64.0,4.42
+Amritsar,Rice,2023,27.7,708.0,69.0,4.53
+Amritsar,Rice,2024,28.7,678.0,71.0,4.93
+Amritsar,Sugarcane,2015,24.7,788.0,60.0,6.19
+Amritsar,Sugarcane,2016,26.7,738.0,65.0,5.99
+Amritsar,Sugarcane,2017,25.7,808.0,70.0,5.97
+Amritsar,Sugarcane,2018,27.7,688.0,68.0,5.87
+Amritsar,Sugarcane,2019,28.7,668.0,72.0,5.85
+Amritsar,Sugarcane,2020,29.7,638.0,75.0,5.95
+Amritsar,Sugarcane,2021,26.7,768.0,66.0,5.67
+Amritsar,Sugarcane,2022,25.7,798.0,64.0,6.07
+Amritsar,Sugarcane,2023,27.7,708.0,69.0,5.91
+Amritsar,Sugarcane,2024,28.7,678.0,71.0,5.83
+Amritsar,Sunflower,2015,24.7,788.0,60.0,1.98
+Amritsar,Sunflower,2016,26.7,738.0,65.0,1.81
+Amritsar,Sunflower,2017,25.7,808.0,70.0,2.41
+Amritsar,Sunflower,2018,27.7,688.0,68.0,2.54
+Amritsar,Sunflower,2019,28.7,668.0,72.0,2.56
+Amritsar,Sunflower,2020,29.7,638.0,75.0,2.65
+Amritsar,Sunflower,2021,26.7,768.0,66.0,1.9
+Amritsar,Sunflower,2022,25.7,798.0,64.0,1.94
+Amritsar,Sunflower,2023,27.7,708.0,69.0,2.54
+Amritsar,Sunflower,2024,28.7,678.0,71.0,2.52
+Amritsar,Wheat,2015,24.7,788.0,60.0,3.68
+Amritsar,Wheat,2016,26.7,738.0,65.0,3.2
+Amritsar,Wheat,2017,25.7,808.0,70.0,3.08
+Amritsar,Wheat,2018,27.7,688.0,68.0,3.56
+Amritsar,Wheat,2019,28.7,668.0,72.0,3.31
+Amritsar,Wheat,2020,29.7,638.0,75.0,3.47
+Amritsar,Wheat,2021,26.7,768.0,66.0,3.1
+Amritsar,Wheat,2022,25.7,798.0,64.0,3.15
+Amritsar,Wheat,2023,27.7,708.0,69.0,3.05
+Amritsar,Wheat,2024,28.7,678.0,71.0,3.98
+Barnala,Bajra,2015,24.85,792.0,60.0,2.41
+Barnala,Bajra,2016,26.85,742.0,65.0,2.15
+Barnala,Bajra,2017,25.85,812.0,70.0,2.34
+Barnala,Bajra,2018,27.85,692.0,68.0,2.44
+Barnala,Bajra,2019,28.85,672.0,72.0,2.49
+Barnala,Bajra,2020,29.85,642.0,75.0,1.82
+Barnala,Bajra,2021,26.85,772.0,66.0,2.1
+Barnala,Bajra,2022,25.85,802.0,64.0,2.68
+Barnala,Bajra,2023,27.85,712.0,69.0,1.74
+Barnala,Bajra,2024,28.85,682.0,71.0,1.81
+Barnala,Cotton,2015,24.85,792.0,60.0,3.11
+Barnala,Cotton,2016,26.85,742.0,65.0,2.46
+Barnala,Cotton,2017,25.85,812.0,70.0,2.68
+Barnala,Cotton,2018,27.85,692.0,68.0,2.43
+Barnala,Cotton,2019,28.85,672.0,72.0,2.6
+Barnala,Cotton,2020,29.85,642.0,75.0,2.94
+Barnala,Cotton,2021,26.85,772.0,66.0,2.47
+Barnala,Cotton,2022,25.85,802.0,64.0,2.85
+Barnala,Cotton,2023,27.85,712.0,69.0,3.03
+Barnala,Cotton,2024,28.85,682.0,71.0,2.99
+Barnala,Gram,2015,24.85,792.0,60.0,2.15
+Barnala,Gram,2016,26.85,742.0,65.0,1.7
+Barnala,Gram,2017,25.85,812.0,70.0,1.42
+Barnala,Gram,2018,27.85,692.0,68.0,2.26
+Barnala,Gram,2019,28.85,672.0,72.0,1.85
+Barnala,Gram,2020,29.85,642.0,75.0,2.17
+Barnala,Gram,2021,26.85,772.0,66.0,2.03
+Barnala,Gram,2022,25.85,802.0,64.0,1.5
+Barnala,Gram,2023,27.85,712.0,69.0,1.94
+Barnala,Gram,2024,28.85,682.0,71.0,1.43
+Barnala,Maize,2015,24.85,792.0,60.0,3.48
+Barnala,Maize,2016,26.85,742.0,65.0,2.67
+Barnala,Maize,2017,25.85,812.0,70.0,3.0
+Barnala,Maize,2018,27.85,692.0,68.0,3.36
+Barnala,Maize,2019,28.85,672.0,72.0,3.25
+Barnala,Maize,2020,29.85,642.0,75.0,3.34
+Barnala,Maize,2021,26.85,772.0,66.0,2.96
+Barnala,Maize,2022,25.85,802.0,64.0,2.9
+Barnala,Maize,2023,27.85,712.0,69.0,2.54
+Barnala,Maize,2024,28.85,682.0,71.0,3.41
+Barnala,Mustard,2015,24.85,792.0,60.0,2.04
+Barnala,Mustard,2016,26.85,742.0,65.0,1.67
+Barnala,Mustard,2017,25.85,812.0,70.0,2.18
+Barnala,Mustard,2018,27.85,692.0,68.0,2.4
+Barnala,Mustard,2019,28.85,672.0,72.0,2.44
+Barnala,Mustard,2020,29.85,642.0,75.0,2.33
+Barnala,Mustard,2021,26.85,772.0,66.0,2.0
+Barnala,Mustard,2022,25.85,802.0,64.0,1.88
+Barnala,Mustard,2023,27.85,712.0,69.0,1.58
+Barnala,Mustard,2024,28.85,682.0,71.0,2.16
+Barnala,Potato,2015,24.85,792.0,60.0,5.36
+Barnala,Potato,2016,26.85,742.0,65.0,5.11
+Barnala,Potato,2017,25.85,812.0,70.0,4.77
+Barnala,Potato,2018,27.85,692.0,68.0,5.48
+Barnala,Potato,2019,28.85,672.0,72.0,5.26
+Barnala,Potato,2020,29.85,642.0,75.0,5.33
+Barnala,Potato,2021,26.85,772.0,66.0,5.35
+Barnala,Potato,2022,25.85,802.0,64.0,4.86
+Barnala,Potato,2023,27.85,712.0,69.0,5.18
+Barnala,Potato,2024,28.85,682.0,71.0,5.13
+Barnala,Rice,2015,24.85,792.0,60.0,4.71
+Barnala,Rice,2016,26.85,742.0,65.0,4.29
+Barnala,Rice,2017,25.85,812.0,70.0,4.5
+Barnala,Rice,2018,27.85,692.0,68.0,4.71
+Barnala,Rice,2019,28.85,672.0,72.0,4.64
+Barnala,Rice,2020,29.85,642.0,75.0,4.07
+Barnala,Rice,2021,26.85,772.0,66.0,4.08
+Barnala,Rice,2022,25.85,802.0,64.0,4.99
+Barnala,Rice,2023,27.85,712.0,69.0,4.28
+Barnala,Rice,2024,28.85,682.0,71.0,4.61
+Barnala,Sugarcane,2015,24.85,792.0,60.0,6.25
+Barnala,Sugarcane,2016,26.85,742.0,65.0,5.88
+Barnala,Sugarcane,2017,25.85,812.0,70.0,6.37
+Barnala,Sugarcane,2018,27.85,692.0,68.0,6.45
+Barnala,Sugarcane,2019,28.85,672.0,72.0,6.39
+Barnala,Sugarcane,2020,29.85,642.0,75.0,5.51
+Barnala,Sugarcane,2021,26.85,772.0,66.0,6.12
+Barnala,Sugarcane,2022,25.85,802.0,64.0,5.57
+Barnala,Sugarcane,2023,27.85,712.0,69.0,5.67
+Barnala,Sugarcane,2024,28.85,682.0,71.0,6.16
+Barnala,Sunflower,2015,24.85,792.0,60.0,2.15
+Barnala,Sunflower,2016,26.85,742.0,65.0,2.0
+Barnala,Sunflower,2017,25.85,812.0,70.0,2.42
+Barnala,Sunflower,2018,27.85,692.0,68.0,2.4
+Barnala,Sunflower,2019,28.85,672.0,72.0,2.44
+Barnala,Sunflower,2020,29.85,642.0,75.0,2.19
+Barnala,Sunflower,2021,26.85,772.0,66.0,2.72
+Barnala,Sunflower,2022,25.85,802.0,64.0,2.77
+Barnala,Sunflower,2023,27.85,712.0,69.0,2.14
+Barnala,Sunflower,2024,28.85,682.0,71.0,2.7
+Barnala,Wheat,2015,24.85,792.0,60.0,3.58
+Barnala,Wheat,2016,26.85,742.0,65.0,3.83
+Barnala,Wheat,2017,25.85,812.0,70.0,3.95
+Barnala,Wheat,2018,27.85,692.0,68.0,3.54
+Barnala,Wheat,2019,28.85,672.0,72.0,3.11
+Barnala,Wheat,2020,29.85,642.0,75.0,3.31
+Barnala,Wheat,2021,26.85,772.0,66.0,3.81
+Barnala,Wheat,2022,25.85,802.0,64.0,3.02
+Barnala,Wheat,2023,27.85,712.0,69.0,3.76
+Barnala,Wheat,2024,28.85,682.0,71.0,3.44
+Bathinda,Bajra,2015,25.0,796.0,60.0,1.85
+Bathinda,Bajra,2016,27.0,746.0,65.0,2.66
+Bathinda,Bajra,2017,26.0,816.0,70.0,2.54
+Bathinda,Bajra,2018,28.0,696.0,68.0,2.58
+Bathinda,Bajra,2019,29.0,676.0,72.0,1.74
+Bathinda,Bajra,2020,30.0,646.0,75.0,2.46
+Bathinda,Bajra,2021,27.0,776.0,66.0,2.32
+Bathinda,Bajra,2022,26.0,806.0,64.0,2.25
+Bathinda,Bajra,2023,28.0,716.0,69.0,2.43
+Bathinda,Bajra,2024,29.0,686.0,71.0,2.24
+Bathinda,Cotton,2015,25.0,796.0,60.0,2.39
+Bathinda,Cotton,2016,27.0,746.0,65.0,2.72
+Bathinda,Cotton,2017,26.0,816.0,70.0,2.66
+Bathinda,Cotton,2018,28.0,696.0,68.0,3.11
+Bathinda,Cotton,2019,29.0,676.0,72.0,3.29
+Bathinda,Cotton,2020,30.0,646.0,75.0,3.11
+Bathinda,Cotton,2021,27.0,776.0,66.0,3.1
+Bathinda,Cotton,2022,26.0,806.0,64.0,2.31
+Bathinda,Cotton,2023,28.0,716.0,69.0,2.73
+Bathinda,Cotton,2024,29.0,686.0,71.0,2.91
+Bathinda,Gram,2015,25.0,796.0,60.0,1.3
+Bathinda,Gram,2016,27.0,746.0,65.0,1.55
+Bathinda,Gram,2017,26.0,816.0,70.0,1.97
+Bathinda,Gram,2018,28.0,696.0,68.0,1.68
+Bathinda,Gram,2019,29.0,676.0,72.0,1.37
+Bathinda,Gram,2020,30.0,646.0,75.0,1.32
+Bathinda,Gram,2021,27.0,776.0,66.0,1.33
+Bathinda,Gram,2022,26.0,806.0,64.0,1.47
+Bathinda,Gram,2023,28.0,716.0,69.0,1.92
+Bathinda,Gram,2024,29.0,686.0,71.0,1.9
+Bathinda,Maize,2015,25.0,796.0,60.0,3.0
+Bathinda,Maize,2016,27.0,746.0,65.0,2.53
+Bathinda,Maize,2017,26.0,816.0,70.0,3.2
+Bathinda,Maize,2018,28.0,696.0,68.0,3.38
+Bathinda,Maize,2019,29.0,676.0,72.0,2.9
+Bathinda,Maize,2020,30.0,646.0,75.0,2.83
+Bathinda,Maize,2021,27.0,776.0,66.0,2.57
+Bathinda,Maize,2022,26.0,806.0,64.0,2.79
+Bathinda,Maize,2023,28.0,716.0,69.0,3.46
+Bathinda,Maize,2024,29.0,686.0,71.0,2.59
+Bathinda,Mustard,2015,25.0,796.0,60.0,1.57
+Bathinda,Mustard,2016,27.0,746.0,65.0,1.77
+Bathinda,Mustard,2017,26.0,816.0,70.0,2.01
+Bathinda,Mustard,2018,28.0,696.0,68.0,2.35
+Bathinda,Mustard,2019,29.0,676.0,72.0,2.35
+Bathinda,Mustard,2020,30.0,646.0,75.0,2.41
+Bathinda,Mustard,2021,27.0,776.0,66.0,2.18
+Bathinda,Mustard,2022,26.0,806.0,64.0,2.15
+Bathinda,Mustard,2023,28.0,716.0,69.0,2.49
+Bathinda,Mustard,2024,29.0,686.0,71.0,2.31
+Bathinda,Potato,2015,25.0,796.0,60.0,5.18
+Bathinda,Potato,2016,27.0,746.0,65.0,4.88
+Bathinda,Potato,2017,26.0,816.0,70.0,5.26
+Bathinda,Potato,2018,28.0,696.0,68.0,5.27
+Bathinda,Potato,2019,29.0,676.0,72.0,5.07
+Bathinda,Potato,2020,30.0,646.0,75.0,4.61
+Bathinda,Potato,2021,27.0,776.0,66.0,5.44
+Bathinda,Potato,2022,26.0,806.0,64.0,4.6
+Bathinda,Potato,2023,28.0,716.0,69.0,4.94
+Bathinda,Potato,2024,29.0,686.0,71.0,4.58
+Bathinda,Rice,2015,25.0,796.0,60.0,4.92
+Bathinda,Rice,2016,27.0,746.0,65.0,4.22
+Bathinda,Rice,2017,26.0,816.0,70.0,4.0
+Bathinda,Rice,2018,28.0,696.0,68.0,4.26
+Bathinda,Rice,2019,29.0,676.0,72.0,4.83
+Bathinda,Rice,2020,30.0,646.0,75.0,4.06
+Bathinda,Rice,2021,27.0,776.0,66.0,4.29
+Bathinda,Rice,2022,26.0,806.0,64.0,4.36
+Bathinda,Rice,2023,28.0,716.0,69.0,4.36
+Bathinda,Rice,2024,29.0,686.0,71.0,4.69
+Bathinda,Sugarcane,2015,25.0,796.0,60.0,5.76
+Bathinda,Sugarcane,2016,27.0,746.0,65.0,6.46
+Bathinda,Sugarcane,2017,26.0,816.0,70.0,6.5
+Bathinda,Sugarcane,2018,28.0,696.0,68.0,5.65
+Bathinda,Sugarcane,2019,29.0,676.0,72.0,6.22
+Bathinda,Sugarcane,2020,30.0,646.0,75.0,6.4
+Bathinda,Sugarcane,2021,27.0,776.0,66.0,6.37
+Bathinda,Sugarcane,2022,26.0,806.0,64.0,5.9
+Bathinda,Sugarcane,2023,28.0,716.0,69.0,5.63
+Bathinda,Sugarcane,2024,29.0,686.0,71.0,5.89
+Bathinda,Sunflower,2015,25.0,796.0,60.0,2.0
+Bathinda,Sunflower,2016,27.0,746.0,65.0,2.17
+Bathinda,Sunflower,2017,26.0,816.0,70.0,2.43
+Bathinda,Sunflower,2018,28.0,696.0,68.0,2.46
+Bathinda,Sunflower,2019,29.0,676.0,72.0,2.78
+Bathinda,Sunflower,2020,30.0,646.0,75.0,2.16
+Bathinda,Sunflower,2021,27.0,776.0,66.0,1.99
+Bathinda,Sunflower,2022,26.0,806.0,64.0,2.12
+Bathinda,Sunflower,2023,28.0,716.0,69.0,2.0
+Bathinda,Sunflower,2024,29.0,686.0,71.0,2.23
+Bathinda,Wheat,2015,25.0,796.0,60.0,3.05
+Bathinda,Wheat,2016,27.0,746.0,65.0,3.18
+Bathinda,Wheat,2017,26.0,816.0,70.0,3.56
+Bathinda,Wheat,2018,28.0,696.0,68.0,3.85
+Bathinda,Wheat,2019,29.0,676.0,72.0,3.21
+Bathinda,Wheat,2020,30.0,646.0,75.0,3.7
+Bathinda,Wheat,2021,27.0,776.0,66.0,3.32
+Bathinda,Wheat,2022,26.0,806.0,64.0,3.48
+Bathinda,Wheat,2023,28.0,716.0,69.0,3.55
+Bathinda,Wheat,2024,29.0,686.0,71.0,3.08
+Faridkot,Bajra,2015,25.15,800.0,60.0,2.08
+Faridkot,Bajra,2016,27.15,750.0,65.0,1.82
+Faridkot,Bajra,2017,26.15,820.0,70.0,2.62
+Faridkot,Bajra,2018,28.15,700.0,68.0,2.38
+Faridkot,Bajra,2019,29.15,680.0,72.0,2.53
+Faridkot,Bajra,2020,30.15,650.0,75.0,2.4
+Faridkot,Bajra,2021,27.15,780.0,66.0,2.0
+Faridkot,Bajra,2022,26.15,810.0,64.0,1.72
+Faridkot,Bajra,2023,28.15,720.0,69.0,2.65
+Faridkot,Bajra,2024,29.15,690.0,71.0,2.13
+Faridkot,Cotton,2015,25.15,800.0,60.0,2.75
+Faridkot,Cotton,2016,27.15,750.0,65.0,2.32
+Faridkot,Cotton,2017,26.15,820.0,70.0,3.01
+Faridkot,Cotton,2018,28.15,700.0,68.0,3.29
+Faridkot,Cotton,2019,29.15,680.0,72.0,2.32
+Faridkot,Cotton,2020,30.15,650.0,75.0,3.29
+Faridkot,Cotton,2021,27.15,780.0,66.0,2.93
+Faridkot,Cotton,2022,26.15,810.0,64.0,3.12
+Faridkot,Cotton,2023,28.15,720.0,69.0,2.89
+Faridkot,Cotton,2024,29.15,690.0,71.0,3.17
+Faridkot,Gram,2015,25.15,800.0,60.0,2.18
+Faridkot,Gram,2016,27.15,750.0,65.0,1.88
+Faridkot,Gram,2017,26.15,820.0,70.0,1.92
+Faridkot,Gram,2018,28.15,700.0,68.0,1.84
+Faridkot,Gram,2019,29.15,680.0,72.0,1.72
+Faridkot,Gram,2020,30.15,650.0,75.0,1.93
+Faridkot,Gram,2021,27.15,780.0,66.0,1.56
+Faridkot,Gram,2022,26.15,810.0,64.0,2.09
+Faridkot,Gram,2023,28.15,720.0,69.0,2.25
+Faridkot,Gram,2024,29.15,690.0,71.0,1.7
+Faridkot,Maize,2015,25.15,800.0,60.0,2.97
+Faridkot,Maize,2016,27.15,750.0,65.0,2.64
+Faridkot,Maize,2017,26.15,820.0,70.0,3.28
+Faridkot,Maize,2018,28.15,700.0,68.0,2.99
+Faridkot,Maize,2019,29.15,680.0,72.0,3.2
+Faridkot,Maize,2020,30.15,650.0,75.0,2.68
+Faridkot,Maize,2021,27.15,780.0,66.0,3.03
+Faridkot,Maize,2022,26.15,810.0,64.0,2.78
+Faridkot,Maize,2023,28.15,720.0,69.0,2.77
+Faridkot,Maize,2024,29.15,690.0,71.0,3.16
+Faridkot,Mustard,2015,25.15,800.0,60.0,2.33
+Faridkot,Mustard,2016,27.15,750.0,65.0,1.85
+Faridkot,Mustard,2017,26.15,820.0,70.0,1.61
+Faridkot,Mustard,2018,28.15,700.0,68.0,2.09
+Faridkot,Mustard,2019,29.15,680.0,72.0,2.09
+Faridkot,Mustard,2020,30.15,650.0,75.0,2.1
+Faridkot,Mustard,2021,27.15,780.0,66.0,2.47
+Faridkot,Mustard,2022,26.15,810.0,64.0,1.95
+Faridkot,Mustard,2023,28.15,720.0,69.0,1.95
+Faridkot,Mustard,2024,29.15,690.0,71.0,2.16
+Faridkot,Potato,2015,25.15,800.0,60.0,5.42
+Faridkot,Potato,2016,27.15,750.0,65.0,4.73
+Faridkot,Potato,2017,26.15,820.0,70.0,4.51
+Faridkot,Potato,2018,28.15,700.0,68.0,4.52
+Faridkot,Potato,2019,29.15,680.0,72.0,5.17
+Faridkot,Potato,2020,30.15,650.0,75.0,5.21
+Faridkot,Potato,2021,27.15,780.0,66.0,5.35
+Faridkot,Potato,2022,26.15,810.0,64.0,4.68
+Faridkot,Potato,2023,28.15,720.0,69.0,5.39
+Faridkot,Potato,2024,29.15,690.0,71.0,4.81
+Faridkot,Rice,2015,25.15,800.0,60.0,4.22
+Faridkot,Rice,2016,27.15,750.0,65.0,4.41
+Faridkot,Rice,2017,26.15,820.0,70.0,4.45
+Faridkot,Rice,2018,28.15,700.0,68.0,4.04
+Faridkot,Rice,2019,29.15,680.0,72.0,4.38
+Faridkot,Rice,2020,30.15,650.0,75.0,4.78
+Faridkot,Rice,2021,27.15,780.0,66.0,4.71
+Faridkot,Rice,2022,26.15,810.0,64.0,4.82
+Faridkot,Rice,2023,28.15,720.0,69.0,4.7
+Faridkot,Rice,2024,29.15,690.0,71.0,4.85
+Faridkot,Sugarcane,2015,25.15,800.0,60.0,5.53
+Faridkot,Sugarcane,2016,27.15,750.0,65.0,5.75
+Faridkot,Sugarcane,2017,26.15,820.0,70.0,6.45
+Faridkot,Sugarcane,2018,28.15,700.0,68.0,5.8
+Faridkot,Sugarcane,2019,29.15,680.0,72.0,6.38
+Faridkot,Sugarcane,2020,30.15,650.0,75.0,6.02
+Faridkot,Sugarcane,2021,27.15,780.0,66.0,5.81
+Faridkot,Sugarcane,2022,26.15,810.0,64.0,5.78
+Faridkot,Sugarcane,2023,28.15,720.0,69.0,5.8
+Faridkot,Sugarcane,2024,29.15,690.0,71.0,5.61
+Faridkot,Sunflower,2015,25.15,800.0,60.0,2.73
+Faridkot,Sunflower,2016,27.15,750.0,65.0,2.19
+Faridkot,Sunflower,2017,26.15,820.0,70.0,2.75
+Faridkot,Sunflower,2018,28.15,700.0,68.0,2.06
+Faridkot,Sunflower,2019,29.15,680.0,72.0,2.05
+Faridkot,Sunflower,2020,30.15,650.0,75.0,2.71
+Faridkot,Sunflower,2021,27.15,780.0,66.0,1.93
+Faridkot,Sunflower,2022,26.15,810.0,64.0,1.91
+Faridkot,Sunflower,2023,28.15,720.0,69.0,2.02
+Faridkot,Sunflower,2024,29.15,690.0,71.0,2.33
+Faridkot,Wheat,2015,25.15,800.0,60.0,3.18
+Faridkot,Wheat,2016,27.15,750.0,65.0,3.68
+Faridkot,Wheat,2017,26.15,820.0,70.0,3.78
+Faridkot,Wheat,2018,28.15,700.0,68.0,3.55
+Faridkot,Wheat,2019,29.15,680.0,72.0,3.6
+Faridkot,Wheat,2020,30.15,650.0,75.0,3.4
+Faridkot,Wheat,2021,27.15,780.0,66.0,3.58
+Faridkot,Wheat,2022,26.15,810.0,64.0,3.88
+Faridkot,Wheat,2023,28.15,720.0,69.0,3.5
+Faridkot,Wheat,2024,29.15,690.0,71.0,3.2
+Fatehgarh Sahib,Bajra,2015,25.3,804.0,60.0,1.85
+Fatehgarh Sahib,Bajra,2016,27.3,754.0,65.0,2.7
+Fatehgarh Sahib,Bajra,2017,26.3,824.0,70.0,1.89
+Fatehgarh Sahib,Bajra,2018,28.3,704.0,68.0,1.81
+Fatehgarh Sahib,Bajra,2019,29.3,684.0,72.0,2.61
+Fatehgarh Sahib,Bajra,2020,30.3,654.0,75.0,2.09
+Fatehgarh Sahib,Bajra,2021,27.3,784.0,66.0,2.29
+Fatehgarh Sahib,Bajra,2022,26.3,814.0,64.0,2.62
+Fatehgarh Sahib,Bajra,2023,28.3,724.0,69.0,1.92
+Fatehgarh Sahib,Bajra,2024,29.3,694.0,71.0,2.35
+Fatehgarh Sahib,Cotton,2015,25.3,804.0,60.0,2.39
+Fatehgarh Sahib,Cotton,2016,27.3,754.0,65.0,3.09
+Fatehgarh Sahib,Cotton,2017,26.3,824.0,70.0,2.7
+Fatehgarh Sahib,Cotton,2018,28.3,704.0,68.0,2.42
+Fatehgarh Sahib,Cotton,2019,29.3,684.0,72.0,3.0
+Fatehgarh Sahib,Cotton,2020,30.3,654.0,75.0,3.15
+Fatehgarh Sahib,Cotton,2021,27.3,784.0,66.0,3.17
+Fatehgarh Sahib,Cotton,2022,26.3,814.0,64.0,2.69
+Fatehgarh Sahib,Cotton,2023,28.3,724.0,69.0,2.84
+Fatehgarh Sahib,Cotton,2024,29.3,694.0,71.0,2.95
+Fatehgarh Sahib,Gram,2015,25.3,804.0,60.0,1.66
+Fatehgarh Sahib,Gram,2016,27.3,754.0,65.0,1.47
+Fatehgarh Sahib,Gram,2017,26.3,824.0,70.0,2.07
+Fatehgarh Sahib,Gram,2018,28.3,704.0,68.0,1.72
+Fatehgarh Sahib,Gram,2019,29.3,684.0,72.0,1.68
+Fatehgarh Sahib,Gram,2020,30.3,654.0,75.0,1.8
+Fatehgarh Sahib,Gram,2021,27.3,784.0,66.0,1.96
+Fatehgarh Sahib,Gram,2022,26.3,814.0,64.0,2.22
+Fatehgarh Sahib,Gram,2023,28.3,724.0,69.0,1.86
+Fatehgarh Sahib,Gram,2024,29.3,694.0,71.0,1.79
+Fatehgarh Sahib,Maize,2015,25.3,804.0,60.0,3.44
+Fatehgarh Sahib,Maize,2016,27.3,754.0,65.0,3.3
+Fatehgarh Sahib,Maize,2017,26.3,824.0,70.0,2.6
+Fatehgarh Sahib,Maize,2018,28.3,704.0,68.0,2.82
+Fatehgarh Sahib,Maize,2019,29.3,684.0,72.0,3.09
+Fatehgarh Sahib,Maize,2020,30.3,654.0,75.0,3.47
+Fatehgarh Sahib,Maize,2021,27.3,784.0,66.0,2.57
+Fatehgarh Sahib,Maize,2022,26.3,814.0,64.0,2.96
+Fatehgarh Sahib,Maize,2023,28.3,724.0,69.0,3.46
+Fatehgarh Sahib,Maize,2024,29.3,694.0,71.0,3.01
+Fatehgarh Sahib,Mustard,2015,25.3,804.0,60.0,2.14
+Fatehgarh Sahib,Mustard,2016,27.3,754.0,65.0,1.75
+Fatehgarh Sahib,Mustard,2017,26.3,824.0,70.0,1.56
+Fatehgarh Sahib,Mustard,2018,28.3,704.0,68.0,2.43
+Fatehgarh Sahib,Mustard,2019,29.3,684.0,72.0,2.24
+Fatehgarh Sahib,Mustard,2020,30.3,654.0,75.0,2.02
+Fatehgarh Sahib,Mustard,2021,27.3,784.0,66.0,1.85
+Fatehgarh Sahib,Mustard,2022,26.3,814.0,64.0,1.89
+Fatehgarh Sahib,Mustard,2023,28.3,724.0,69.0,1.71
+Fatehgarh Sahib,Mustard,2024,29.3,694.0,71.0,1.83
+Fatehgarh Sahib,Potato,2015,25.3,804.0,60.0,4.74
+Fatehgarh Sahib,Potato,2016,27.3,754.0,65.0,4.78
+Fatehgarh Sahib,Potato,2017,26.3,824.0,70.0,5.4
+Fatehgarh Sahib,Potato,2018,28.3,704.0,68.0,4.87
+Fatehgarh Sahib,Potato,2019,29.3,684.0,72.0,5.24
+Fatehgarh Sahib,Potato,2020,30.3,654.0,75.0,4.54
+Fatehgarh Sahib,Potato,2021,27.3,784.0,66.0,5.25
+Fatehgarh Sahib,Potato,2022,26.3,814.0,64.0,5.42
+Fatehgarh Sahib,Potato,2023,28.3,724.0,69.0,4.68
+Fatehgarh Sahib,Potato,2024,29.3,694.0,71.0,5.36
+Fatehgarh Sahib,Rice,2015,25.3,804.0,60.0,4.01
+Fatehgarh Sahib,Rice,2016,27.3,754.0,65.0,4.21
+Fatehgarh Sahib,Rice,2017,26.3,824.0,70.0,4.94
+Fatehgarh Sahib,Rice,2018,28.3,704.0,68.0,4.98
+Fatehgarh Sahib,Rice,2019,29.3,684.0,72.0,4.92
+Fatehgarh Sahib,Rice,2020,30.3,654.0,75.0,4.76
+Fatehgarh Sahib,Rice,2021,27.3,784.0,66.0,4.51
+Fatehgarh Sahib,Rice,2022,26.3,814.0,64.0,4.18
+Fatehgarh Sahib,Rice,2023,28.3,724.0,69.0,4.31
+Fatehgarh Sahib,Rice,2024,29.3,694.0,71.0,4.55
+Fatehgarh Sahib,Sugarcane,2015,25.3,804.0,60.0,5.77
+Fatehgarh Sahib,Sugarcane,2016,27.3,754.0,65.0,5.91
+Fatehgarh Sahib,Sugarcane,2017,26.3,824.0,70.0,6.17
+Fatehgarh Sahib,Sugarcane,2018,28.3,704.0,68.0,6.36
+Fatehgarh Sahib,Sugarcane,2019,29.3,684.0,72.0,6.25
+Fatehgarh Sahib,Sugarcane,2020,30.3,654.0,75.0,5.79
+Fatehgarh Sahib,Sugarcane,2021,27.3,784.0,66.0,5.77
+Fatehgarh Sahib,Sugarcane,2022,26.3,814.0,64.0,5.63
+Fatehgarh Sahib,Sugarcane,2023,28.3,724.0,69.0,6.08
+Fatehgarh Sahib,Sugarcane,2024,29.3,694.0,71.0,5.91
+Fatehgarh Sahib,Sunflower,2015,25.3,804.0,60.0,2.4
+Fatehgarh Sahib,Sunflower,2016,27.3,754.0,65.0,2.7
+Fatehgarh Sahib,Sunflower,2017,26.3,824.0,70.0,2.65
+Fatehgarh Sahib,Sunflower,2018,28.3,704.0,68.0,2.48
+Fatehgarh Sahib,Sunflower,2019,29.3,684.0,72.0,2.49
+Fatehgarh Sahib,Sunflower,2020,30.3,654.0,75.0,2.18
+Fatehgarh Sahib,Sunflower,2021,27.3,784.0,66.0,1.82
+Fatehgarh Sahib,Sunflower,2022,26.3,814.0,64.0,2.17
+Fatehgarh Sahib,Sunflower,2023,28.3,724.0,69.0,2.72
+Fatehgarh Sahib,Sunflower,2024,29.3,694.0,71.0,2.0
+Fatehgarh Sahib,Wheat,2015,25.3,804.0,60.0,3.39
+Fatehgarh Sahib,Wheat,2016,27.3,754.0,65.0,3.2
+Fatehgarh Sahib,Wheat,2017,26.3,824.0,70.0,3.66
+Fatehgarh Sahib,Wheat,2018,28.3,704.0,68.0,3.97
+Fatehgarh Sahib,Wheat,2019,29.3,684.0,72.0,3.92
+Fatehgarh Sahib,Wheat,2020,30.3,654.0,75.0,3.59
+Fatehgarh Sahib,Wheat,2021,27.3,784.0,66.0,3.35
+Fatehgarh Sahib,Wheat,2022,26.3,814.0,64.0,3.12
+Fatehgarh Sahib,Wheat,2023,28.3,724.0,69.0,3.54
+Fatehgarh Sahib,Wheat,2024,29.3,694.0,71.0,3.84
+Ferozepur,Bajra,2015,24.7,808.0,60.0,1.77
+Ferozepur,Bajra,2016,26.7,758.0,65.0,2.01
+Ferozepur,Bajra,2017,25.7,828.0,70.0,2.15
+Ferozepur,Bajra,2018,27.7,708.0,68.0,1.81
+Ferozepur,Bajra,2019,28.7,688.0,72.0,2.36
+Ferozepur,Bajra,2020,29.7,658.0,75.0,2.02
+Ferozepur,Bajra,2021,26.7,788.0,66.0,2.53
+Ferozepur,Bajra,2022,25.7,818.0,64.0,2.35
+Ferozepur,Bajra,2023,27.7,728.0,69.0,2.39
+Ferozepur,Bajra,2024,28.7,698.0,71.0,2.04
+Ferozepur,Cotton,2015,24.7,808.0,60.0,3.19
+Ferozepur,Cotton,2016,26.7,758.0,65.0,3.02
+Ferozepur,Cotton,2017,25.7,828.0,70.0,2.92
+Ferozepur,Cotton,2018,27.7,708.0,68.0,3.28
+Ferozepur,Cotton,2019,28.7,688.0,72.0,2.98
+Ferozepur,Cotton,2020,29.7,658.0,75.0,2.9
+Ferozepur,Cotton,2021,26.7,788.0,66.0,2.87
+Ferozepur,Cotton,2022,25.7,818.0,64.0,2.45
+Ferozepur,Cotton,2023,27.7,728.0,69.0,3.06
+Ferozepur,Cotton,2024,28.7,698.0,71.0,3.16
+Ferozepur,Gram,2015,24.7,808.0,60.0,2.08
+Ferozepur,Gram,2016,26.7,758.0,65.0,2.18
+Ferozepur,Gram,2017,25.7,828.0,70.0,1.58
+Ferozepur,Gram,2018,27.7,708.0,68.0,2.08
+Ferozepur,Gram,2019,28.7,688.0,72.0,1.9
+Ferozepur,Gram,2020,29.7,658.0,75.0,1.63
+Ferozepur,Gram,2021,26.7,788.0,66.0,1.51
+Ferozepur,Gram,2022,25.7,818.0,64.0,2.05
+Ferozepur,Gram,2023,27.7,728.0,69.0,1.64
+Ferozepur,Gram,2024,28.7,698.0,71.0,1.85
+Ferozepur,Maize,2015,24.7,808.0,60.0,3.03
+Ferozepur,Maize,2016,26.7,758.0,65.0,2.94
+Ferozepur,Maize,2017,25.7,828.0,70.0,2.78
+Ferozepur,Maize,2018,27.7,708.0,68.0,3.09
+Ferozepur,Maize,2019,28.7,688.0,72.0,3.45
+Ferozepur,Maize,2020,29.7,658.0,75.0,3.47
+Ferozepur,Maize,2021,26.7,788.0,66.0,2.61
+Ferozepur,Maize,2022,25.7,818.0,64.0,2.78
+Ferozepur,Maize,2023,27.7,728.0,69.0,2.63
+Ferozepur,Maize,2024,28.7,698.0,71.0,3.11
+Ferozepur,Mustard,2015,24.7,808.0,60.0,1.75
+Ferozepur,Mustard,2016,26.7,758.0,65.0,1.6
+Ferozepur,Mustard,2017,25.7,828.0,70.0,1.56
+Ferozepur,Mustard,2018,27.7,708.0,68.0,2.35
+Ferozepur,Mustard,2019,28.7,688.0,72.0,1.89
+Ferozepur,Mustard,2020,29.7,658.0,75.0,2.45
+Ferozepur,Mustard,2021,26.7,788.0,66.0,2.0
+Ferozepur,Mustard,2022,25.7,818.0,64.0,1.51
+Ferozepur,Mustard,2023,27.7,728.0,69.0,2.19
+Ferozepur,Mustard,2024,28.7,698.0,71.0,2.3
+Ferozepur,Potato,2015,24.7,808.0,60.0,5.17
+Ferozepur,Potato,2016,26.7,758.0,65.0,5.42
+Ferozepur,Potato,2017,25.7,828.0,70.0,4.6
+Ferozepur,Potato,2018,27.7,708.0,68.0,5.41
+Ferozepur,Potato,2019,28.7,688.0,72.0,4.72
+Ferozepur,Potato,2020,29.7,658.0,75.0,4.71
+Ferozepur,Potato,2021,26.7,788.0,66.0,5.48
+Ferozepur,Potato,2022,25.7,818.0,64.0,5.33
+Ferozepur,Potato,2023,27.7,728.0,69.0,5.01
+Ferozepur,Potato,2024,28.7,698.0,71.0,4.8
+Ferozepur,Rice,2015,24.7,808.0,60.0,4.02
+Ferozepur,Rice,2016,26.7,758.0,65.0,4.13
+Ferozepur,Rice,2017,25.7,828.0,70.0,4.23
+Ferozepur,Rice,2018,27.7,708.0,68.0,4.68
+Ferozepur,Rice,2019,28.7,688.0,72.0,4.3
+Ferozepur,Rice,2020,29.7,658.0,75.0,4.08
+Ferozepur,Rice,2021,26.7,788.0,66.0,4.88
+Ferozepur,Rice,2022,25.7,818.0,64.0,4.33
+Ferozepur,Rice,2023,27.7,728.0,69.0,4.75
+Ferozepur,Rice,2024,28.7,698.0,71.0,4.31
+Ferozepur,Sugarcane,2015,24.7,808.0,60.0,5.53
+Ferozepur,Sugarcane,2016,26.7,758.0,65.0,6.26
+Ferozepur,Sugarcane,2017,25.7,828.0,70.0,6.06
+Ferozepur,Sugarcane,2018,27.7,708.0,68.0,5.69
+Ferozepur,Sugarcane,2019,28.7,688.0,72.0,5.56
+Ferozepur,Sugarcane,2020,29.7,658.0,75.0,5.55
+Ferozepur,Sugarcane,2021,26.7,788.0,66.0,6.33
+Ferozepur,Sugarcane,2022,25.7,818.0,64.0,5.91
+Ferozepur,Sugarcane,2023,27.7,728.0,69.0,5.64
+Ferozepur,Sugarcane,2024,28.7,698.0,71.0,6.36
+Ferozepur,Sunflower,2015,24.7,808.0,60.0,2.14
+Ferozepur,Sunflower,2016,26.7,758.0,65.0,2.22
+Ferozepur,Sunflower,2017,25.7,828.0,70.0,2.53
+Ferozepur,Sunflower,2018,27.7,708.0,68.0,2.27
+Ferozepur,Sunflower,2019,28.7,688.0,72.0,2.35
+Ferozepur,Sunflower,2020,29.7,658.0,75.0,1.82
+Ferozepur,Sunflower,2021,26.7,788.0,66.0,2.42
+Ferozepur,Sunflower,2022,25.7,818.0,64.0,2.29
+Ferozepur,Sunflower,2023,27.7,728.0,69.0,2.18
+Ferozepur,Sunflower,2024,28.7,698.0,71.0,2.16
+Ferozepur,Wheat,2015,24.7,808.0,60.0,3.34
+Ferozepur,Wheat,2016,26.7,758.0,65.0,3.94
+Ferozepur,Wheat,2017,25.7,828.0,70.0,3.01
+Ferozepur,Wheat,2018,27.7,708.0,68.0,3.11
+Ferozepur,Wheat,2019,28.7,688.0,72.0,3.63
+Ferozepur,Wheat,2020,29.7,658.0,75.0,3.1
+Ferozepur,Wheat,2021,26.7,788.0,66.0,3.96
+Ferozepur,Wheat,2022,25.7,818.0,64.0,3.46
+Ferozepur,Wheat,2023,27.7,728.0,69.0,3.95
+Ferozepur,Wheat,2024,28.7,698.0,71.0,3.3
+Gurdaspur,Bajra,2015,24.85,812.0,60.0,2.62
+Gurdaspur,Bajra,2016,26.85,762.0,65.0,1.97
+Gurdaspur,Bajra,2017,25.85,832.0,70.0,2.21
+Gurdaspur,Bajra,2018,27.85,712.0,68.0,2.58
+Gurdaspur,Bajra,2019,28.85,692.0,72.0,2.25
+Gurdaspur,Bajra,2020,29.85,662.0,75.0,2.03
+Gurdaspur,Bajra,2021,26.85,792.0,66.0,2.05
+Gurdaspur,Bajra,2022,25.85,822.0,64.0,1.91
+Gurdaspur,Bajra,2023,27.85,732.0,69.0,1.89
+Gurdaspur,Bajra,2024,28.85,702.0,71.0,2.53
+Gurdaspur,Cotton,2015,24.85,812.0,60.0,3.04
+Gurdaspur,Cotton,2016,26.85,762.0,65.0,3.03
+Gurdaspur,Cotton,2017,25.85,832.0,70.0,3.16
+Gurdaspur,Cotton,2018,27.85,712.0,68.0,2.61
+Gurdaspur,Cotton,2019,28.85,692.0,72.0,3.28
+Gurdaspur,Cotton,2020,29.85,662.0,75.0,2.41
+Gurdaspur,Cotton,2021,26.85,792.0,66.0,2.79
+Gurdaspur,Cotton,2022,25.85,822.0,64.0,2.42
+Gurdaspur,Cotton,2023,27.85,732.0,69.0,2.95
+Gurdaspur,Cotton,2024,28.85,702.0,71.0,2.94
+Gurdaspur,Gram,2015,24.85,812.0,60.0,2.08
+Gurdaspur,Gram,2016,26.85,762.0,65.0,1.42
+Gurdaspur,Gram,2017,25.85,832.0,70.0,1.99
+Gurdaspur,Gram,2018,27.85,712.0,68.0,1.77
+Gurdaspur,Gram,2019,28.85,692.0,72.0,1.52
+Gurdaspur,Gram,2020,29.85,662.0,75.0,1.9
+Gurdaspur,Gram,2021,26.85,792.0,66.0,1.6
+Gurdaspur,Gram,2022,25.85,822.0,64.0,2.15
+Gurdaspur,Gram,2023,27.85,732.0,69.0,1.47
+Gurdaspur,Gram,2024,28.85,702.0,71.0,2.22
+Gurdaspur,Maize,2015,24.85,812.0,60.0,3.35
+Gurdaspur,Maize,2016,26.85,762.0,65.0,3.49
+Gurdaspur,Maize,2017,25.85,832.0,70.0,3.02
+Gurdaspur,Maize,2018,27.85,712.0,68.0,3.4
+Gurdaspur,Maize,2019,28.85,692.0,72.0,3.34
+Gurdaspur,Maize,2020,29.85,662.0,75.0,2.81
+Gurdaspur,Maize,2021,26.85,792.0,66.0,2.91
+Gurdaspur,Maize,2022,25.85,822.0,64.0,2.65
+Gurdaspur,Maize,2023,27.85,732.0,69.0,2.89
+Gurdaspur,Maize,2024,28.85,702.0,71.0,2.76
+Gurdaspur,Mustard,2015,24.85,812.0,60.0,2.05
+Gurdaspur,Mustard,2016,26.85,762.0,65.0,1.76
+Gurdaspur,Mustard,2017,25.85,832.0,70.0,1.99
+Gurdaspur,Mustard,2018,27.85,712.0,68.0,2.26
+Gurdaspur,Mustard,2019,28.85,692.0,72.0,1.86
+Gurdaspur,Mustard,2020,29.85,662.0,75.0,1.84
+Gurdaspur,Mustard,2021,26.85,792.0,66.0,2.01
+Gurdaspur,Mustard,2022,25.85,822.0,64.0,1.54
+Gurdaspur,Mustard,2023,27.85,732.0,69.0,2.48
+Gurdaspur,Mustard,2024,28.85,702.0,71.0,1.73
+Gurdaspur,Potato,2015,24.85,812.0,60.0,4.69
+Gurdaspur,Potato,2016,26.85,762.0,65.0,5.4
+Gurdaspur,Potato,2017,25.85,832.0,70.0,4.88
+Gurdaspur,Potato,2018,27.85,712.0,68.0,5.48
+Gurdaspur,Potato,2019,28.85,692.0,72.0,5.31
+Gurdaspur,Potato,2020,29.85,662.0,75.0,4.57
+Gurdaspur,Potato,2021,26.85,792.0,66.0,4.8
+Gurdaspur,Potato,2022,25.85,822.0,64.0,4.86
+Gurdaspur,Potato,2023,27.85,732.0,69.0,5.04
+Gurdaspur,Potato,2024,28.85,702.0,71.0,5.11
+Gurdaspur,Rice,2015,24.85,812.0,60.0,4.2
+Gurdaspur,Rice,2016,26.85,762.0,65.0,4.76
+Gurdaspur,Rice,2017,25.85,832.0,70.0,4.71
+Gurdaspur,Rice,2018,27.85,712.0,68.0,4.89
+Gurdaspur,Rice,2019,28.85,692.0,72.0,4.54
+Gurdaspur,Rice,2020,29.85,662.0,75.0,4.17
+Gurdaspur,Rice,2021,26.85,792.0,66.0,4.71
+Gurdaspur,Rice,2022,25.85,822.0,64.0,4.93
+Gurdaspur,Rice,2023,27.85,732.0,69.0,4.33
+Gurdaspur,Rice,2024,28.85,702.0,71.0,4.96
+Gurdaspur,Sugarcane,2015,24.85,812.0,60.0,5.75
+Gurdaspur,Sugarcane,2016,26.85,762.0,65.0,5.52
+Gurdaspur,Sugarcane,2017,25.85,832.0,70.0,5.54
+Gurdaspur,Sugarcane,2018,27.85,712.0,68.0,5.78
+Gurdaspur,Sugarcane,2019,28.85,692.0,72.0,6.22
+Gurdaspur,Sugarcane,2020,29.85,662.0,75.0,6.2
+Gurdaspur,Sugarcane,2021,26.85,792.0,66.0,6.3
+Gurdaspur,Sugarcane,2022,25.85,822.0,64.0,6.25
+Gurdaspur,Sugarcane,2023,27.85,732.0,69.0,5.85
+Gurdaspur,Sugarcane,2024,28.85,702.0,71.0,5.65
+Gurdaspur,Sunflower,2015,24.85,812.0,60.0,2.43
+Gurdaspur,Sunflower,2016,26.85,762.0,65.0,2.14
+Gurdaspur,Sunflower,2017,25.85,832.0,70.0,1.85
+Gurdaspur,Sunflower,2018,27.85,712.0,68.0,2.08
+Gurdaspur,Sunflower,2019,28.85,692.0,72.0,1.85
+Gurdaspur,Sunflower,2020,29.85,662.0,75.0,2.39
+Gurdaspur,Sunflower,2021,26.85,792.0,66.0,2.64
+Gurdaspur,Sunflower,2022,25.85,822.0,64.0,1.91
+Gurdaspur,Sunflower,2023,27.85,732.0,69.0,2.61
+Gurdaspur,Sunflower,2024,28.85,702.0,71.0,2.15
+Gurdaspur,Wheat,2015,24.85,812.0,60.0,3.91
+Gurdaspur,Wheat,2016,26.85,762.0,65.0,3.65
+Gurdaspur,Wheat,2017,25.85,832.0,70.0,3.64
+Gurdaspur,Wheat,2018,27.85,712.0,68.0,3.55
+Gurdaspur,Wheat,2019,28.85,692.0,72.0,3.91
+Gurdaspur,Wheat,2020,29.85,662.0,75.0,3.3
+Gurdaspur,Wheat,2021,26.85,792.0,66.0,3.11
+Gurdaspur,Wheat,2022,25.85,822.0,64.0,3.35
+Gurdaspur,Wheat,2023,27.85,732.0,69.0,3.55
+Gurdaspur,Wheat,2024,28.85,702.0,71.0,3.09
+Hoshiarpur,Bajra,2015,25.0,788.0,60.0,1.73
+Hoshiarpur,Bajra,2016,27.0,738.0,65.0,2.12
+Hoshiarpur,Bajra,2017,26.0,808.0,70.0,1.93
+Hoshiarpur,Bajra,2018,28.0,688.0,68.0,2.47
+Hoshiarpur,Bajra,2019,29.0,668.0,72.0,1.94
+Hoshiarpur,Bajra,2020,30.0,638.0,75.0,2.08
+Hoshiarpur,Bajra,2021,27.0,768.0,66.0,2.01
+Hoshiarpur,Bajra,2022,26.0,798.0,64.0,2.32
+Hoshiarpur,Bajra,2023,28.0,708.0,69.0,2.33
+Hoshiarpur,Bajra,2024,29.0,678.0,71.0,1.97
+Hoshiarpur,Cotton,2015,25.0,788.0,60.0,3.15
+Hoshiarpur,Cotton,2016,27.0,738.0,65.0,3.08
+Hoshiarpur,Cotton,2017,26.0,808.0,70.0,3.12
+Hoshiarpur,Cotton,2018,28.0,688.0,68.0,2.7
+Hoshiarpur,Cotton,2019,29.0,668.0,72.0,2.8
+Hoshiarpur,Cotton,2020,30.0,638.0,75.0,2.98
+Hoshiarpur,Cotton,2021,27.0,768.0,66.0,2.56
+Hoshiarpur,Cotton,2022,26.0,798.0,64.0,2.8
+Hoshiarpur,Cotton,2023,28.0,708.0,69.0,2.55
+Hoshiarpur,Cotton,2024,29.0,678.0,71.0,2.48
+Hoshiarpur,Gram,2015,25.0,788.0,60.0,2.26
+Hoshiarpur,Gram,2016,27.0,738.0,65.0,2.0
+Hoshiarpur,Gram,2017,26.0,808.0,70.0,2.23
+Hoshiarpur,Gram,2018,28.0,688.0,68.0,1.37
+Hoshiarpur,Gram,2019,29.0,668.0,72.0,2.1
+Hoshiarpur,Gram,2020,30.0,638.0,75.0,1.93
+Hoshiarpur,Gram,2021,27.0,768.0,66.0,1.69
+Hoshiarpur,Gram,2022,26.0,798.0,64.0,1.75
+Hoshiarpur,Gram,2023,28.0,708.0,69.0,1.63
+Hoshiarpur,Gram,2024,29.0,678.0,71.0,2.08
+Hoshiarpur,Maize,2015,25.0,788.0,60.0,2.87
+Hoshiarpur,Maize,2016,27.0,738.0,65.0,2.91
+Hoshiarpur,Maize,2017,26.0,808.0,70.0,3.27
+Hoshiarpur,Maize,2018,28.0,688.0,68.0,3.12
+Hoshiarpur,Maize,2019,29.0,668.0,72.0,3.36
+Hoshiarpur,Maize,2020,30.0,638.0,75.0,2.95
+Hoshiarpur,Maize,2021,27.0,768.0,66.0,2.57
+Hoshiarpur,Maize,2022,26.0,798.0,64.0,2.84
+Hoshiarpur,Maize,2023,28.0,708.0,69.0,3.16
+Hoshiarpur,Maize,2024,29.0,678.0,71.0,3.09
+Hoshiarpur,Mustard,2015,25.0,788.0,60.0,1.99
+Hoshiarpur,Mustard,2016,27.0,738.0,65.0,1.72
+Hoshiarpur,Mustard,2017,26.0,808.0,70.0,1.75
+Hoshiarpur,Mustard,2018,28.0,688.0,68.0,2.22
+Hoshiarpur,Mustard,2019,29.0,668.0,72.0,1.91
+Hoshiarpur,Mustard,2020,30.0,638.0,75.0,1.65
+Hoshiarpur,Mustard,2021,27.0,768.0,66.0,2.32
+Hoshiarpur,Mustard,2022,26.0,798.0,64.0,1.91
+Hoshiarpur,Mustard,2023,28.0,708.0,69.0,2.4
+Hoshiarpur,Mustard,2024,29.0,678.0,71.0,1.77
+Hoshiarpur,Potato,2015,25.0,788.0,60.0,5.49
+Hoshiarpur,Potato,2016,27.0,738.0,65.0,5.16
+Hoshiarpur,Potato,2017,26.0,808.0,70.0,4.54
+Hoshiarpur,Potato,2018,28.0,688.0,68.0,5.33
+Hoshiarpur,Potato,2019,29.0,668.0,72.0,4.54
+Hoshiarpur,Potato,2020,30.0,638.0,75.0,4.84
+Hoshiarpur,Potato,2021,27.0,768.0,66.0,4.55
+Hoshiarpur,Potato,2022,26.0,798.0,64.0,4.7
+Hoshiarpur,Potato,2023,28.0,708.0,69.0,4.92
+Hoshiarpur,Potato,2024,29.0,678.0,71.0,5.01
+Hoshiarpur,Rice,2015,25.0,788.0,60.0,4.43
+Hoshiarpur,Rice,2016,27.0,738.0,65.0,4.17
+Hoshiarpur,Rice,2017,26.0,808.0,70.0,4.47
+Hoshiarpur,Rice,2018,28.0,688.0,68.0,4.15
+Hoshiarpur,Rice,2019,29.0,668.0,72.0,4.92
+Hoshiarpur,Rice,2020,30.0,638.0,75.0,4.79
+Hoshiarpur,Rice,2021,27.0,768.0,66.0,4.3
+Hoshiarpur,Rice,2022,26.0,798.0,64.0,4.37
+Hoshiarpur,Rice,2023,28.0,708.0,69.0,4.11
+Hoshiarpur,Rice,2024,29.0,678.0,71.0,4.97
+Hoshiarpur,Sugarcane,2015,25.0,788.0,60.0,6.46
+Hoshiarpur,Sugarcane,2016,27.0,738.0,65.0,6.43
+Hoshiarpur,Sugarcane,2017,26.0,808.0,70.0,5.78
+Hoshiarpur,Sugarcane,2018,28.0,688.0,68.0,6.17
+Hoshiarpur,Sugarcane,2019,29.0,668.0,72.0,6.29
+Hoshiarpur,Sugarcane,2020,30.0,638.0,75.0,6.32
+Hoshiarpur,Sugarcane,2021,27.0,768.0,66.0,6.19
+Hoshiarpur,Sugarcane,2022,26.0,798.0,64.0,5.72
+Hoshiarpur,Sugarcane,2023,28.0,708.0,69.0,5.77
+Hoshiarpur,Sugarcane,2024,29.0,678.0,71.0,6.07
+Hoshiarpur,Sunflower,2015,25.0,788.0,60.0,2.73
+Hoshiarpur,Sunflower,2016,27.0,738.0,65.0,2.57
+Hoshiarpur,Sunflower,2017,26.0,808.0,70.0,2.27
+Hoshiarpur,Sunflower,2018,28.0,688.0,68.0,2.22
+Hoshiarpur,Sunflower,2019,29.0,668.0,72.0,2.34
+Hoshiarpur,Sunflower,2020,30.0,638.0,75.0,1.9
+Hoshiarpur,Sunflower,2021,27.0,768.0,66.0,1.88
+Hoshiarpur,Sunflower,2022,26.0,798.0,64.0,2.72
+Hoshiarpur,Sunflower,2023,28.0,708.0,69.0,2.46
+Hoshiarpur,Sunflower,2024,29.0,678.0,71.0,2.39
+Hoshiarpur,Wheat,2015,25.0,788.0,60.0,3.61
+Hoshiarpur,Wheat,2016,27.0,738.0,65.0,3.16
+Hoshiarpur,Wheat,2017,26.0,808.0,70.0,3.69
+Hoshiarpur,Wheat,2018,28.0,688.0,68.0,3.87
+Hoshiarpur,Wheat,2019,29.0,668.0,72.0,3.88
+Hoshiarpur,Wheat,2020,30.0,638.0,75.0,3.05
+Hoshiarpur,Wheat,2021,27.0,768.0,66.0,3.78
+Hoshiarpur,Wheat,2022,26.0,798.0,64.0,3.08
+Hoshiarpur,Wheat,2023,28.0,708.0,69.0,3.05
+Hoshiarpur,Wheat,2024,29.0,678.0,71.0,3.94
+Jalandhar,Bajra,2015,25.15,792.0,60.0,2.37
+Jalandhar,Bajra,2016,27.15,742.0,65.0,2.39
+Jalandhar,Bajra,2017,26.15,812.0,70.0,1.94
+Jalandhar,Bajra,2018,28.15,692.0,68.0,1.77
+Jalandhar,Bajra,2019,29.15,672.0,72.0,2.61
+Jalandhar,Bajra,2020,30.15,642.0,75.0,2.1
+Jalandhar,Bajra,2021,27.15,772.0,66.0,1.94
+Jalandhar,Bajra,2022,26.15,802.0,64.0,2.08
+Jalandhar,Bajra,2023,28.15,712.0,69.0,2.45
+Jalandhar,Bajra,2024,29.15,682.0,71.0,1.74
+Jalandhar,Cotton,2015,25.15,792.0,60.0,2.87
+Jalandhar,Cotton,2016,27.15,742.0,65.0,2.71
+Jalandhar,Cotton,2017,26.15,812.0,70.0,2.65
+Jalandhar,Cotton,2018,28.15,692.0,68.0,3.21
+Jalandhar,Cotton,2019,29.15,672.0,72.0,2.53
+Jalandhar,Cotton,2020,30.15,642.0,75.0,2.9
+Jalandhar,Cotton,2021,27.15,772.0,66.0,2.84
+Jalandhar,Cotton,2022,26.15,802.0,64.0,3.16
+Jalandhar,Cotton,2023,28.15,712.0,69.0,2.33
+Jalandhar,Cotton,2024,29.15,682.0,71.0,2.51
+Jalandhar,Gram,2015,25.15,792.0,60.0,1.78
+Jalandhar,Gram,2016,27.15,742.0,65.0,2.18
+Jalandhar,Gram,2017,26.15,812.0,70.0,1.55
+Jalandhar,Gram,2018,28.15,692.0,68.0,1.5
+Jalandhar,Gram,2019,29.15,672.0,72.0,1.97
+Jalandhar,Gram,2020,30.15,642.0,75.0,2.23
+Jalandhar,Gram,2021,27.15,772.0,66.0,1.34
+Jalandhar,Gram,2022,26.15,802.0,64.0,1.99
+Jalandhar,Gram,2023,28.15,712.0,69.0,1.7
+Jalandhar,Gram,2024,29.15,682.0,71.0,2.22
+Jalandhar,Maize,2015,25.15,792.0,60.0,3.4
+Jalandhar,Maize,2016,27.15,742.0,65.0,3.46
+Jalandhar,Maize,2017,26.15,812.0,70.0,3.34
+Jalandhar,Maize,2018,28.15,692.0,68.0,2.54
+Jalandhar,Maize,2019,29.15,672.0,72.0,2.53
+Jalandhar,Maize,2020,30.15,642.0,75.0,2.89
+Jalandhar,Maize,2021,27.15,772.0,66.0,2.67
+Jalandhar,Maize,2022,26.15,802.0,64.0,2.83
+Jalandhar,Maize,2023,28.15,712.0,69.0,3.24
+Jalandhar,Maize,2024,29.15,682.0,71.0,3.42
+Jalandhar,Mustard,2015,25.15,792.0,60.0,2.25
+Jalandhar,Mustard,2016,27.15,742.0,65.0,1.66
+Jalandhar,Mustard,2017,26.15,812.0,70.0,2.27
+Jalandhar,Mustard,2018,28.15,692.0,68.0,1.77
+Jalandhar,Mustard,2019,29.15,672.0,72.0,1.64
+Jalandhar,Mustard,2020,30.15,642.0,75.0,1.58
+Jalandhar,Mustard,2021,27.15,772.0,66.0,2.03
+Jalandhar,Mustard,2022,26.15,802.0,64.0,2.17
+Jalandhar,Mustard,2023,28.15,712.0,69.0,2.13
+Jalandhar,Mustard,2024,29.15,682.0,71.0,2.28
+Jalandhar,Potato,2015,25.15,792.0,60.0,4.81
+Jalandhar,Potato,2016,27.15,742.0,65.0,4.54
+Jalandhar,Potato,2017,26.15,812.0,70.0,5.29
+Jalandhar,Potato,2018,28.15,692.0,68.0,4.59
+Jalandhar,Potato,2019,29.15,672.0,72.0,4.83
+Jalandhar,Potato,2020,30.15,642.0,75.0,5.47
+Jalandhar,Potato,2021,27.15,772.0,66.0,4.9
+Jalandhar,Potato,2022,26.15,802.0,64.0,5.04
+Jalandhar,Potato,2023,28.15,712.0,69.0,4.58
+Jalandhar,Potato,2024,29.15,682.0,71.0,4.52
+Jalandhar,Rice,2015,25.15,792.0,60.0,4.71
+Jalandhar,Rice,2016,27.15,742.0,65.0,4.76
+Jalandhar,Rice,2017,26.15,812.0,70.0,4.96
+Jalandhar,Rice,2018,28.15,692.0,68.0,4.14
+Jalandhar,Rice,2019,29.15,672.0,72.0,4.83
+Jalandhar,Rice,2020,30.15,642.0,75.0,4.74
+Jalandhar,Rice,2021,27.15,772.0,66.0,4.72
+Jalandhar,Rice,2022,26.15,802.0,64.0,4.89
+Jalandhar,Rice,2023,28.15,712.0,69.0,4.71
+Jalandhar,Rice,2024,29.15,682.0,71.0,4.82
+Jalandhar,Sugarcane,2015,25.15,792.0,60.0,5.74
+Jalandhar,Sugarcane,2016,27.15,742.0,65.0,5.9
+Jalandhar,Sugarcane,2017,26.15,812.0,70.0,5.96
+Jalandhar,Sugarcane,2018,28.15,692.0,68.0,6.38
+Jalandhar,Sugarcane,2019,29.15,672.0,72.0,5.78
+Jalandhar,Sugarcane,2020,30.15,642.0,75.0,5.67
+Jalandhar,Sugarcane,2021,27.15,772.0,66.0,5.51
+Jalandhar,Sugarcane,2022,26.15,802.0,64.0,5.93
+Jalandhar,Sugarcane,2023,28.15,712.0,69.0,6.39
+Jalandhar,Sugarcane,2024,29.15,682.0,71.0,5.85
+Jalandhar,Sunflower,2015,25.15,792.0,60.0,2.57
+Jalandhar,Sunflower,2016,27.15,742.0,65.0,2.31
+Jalandhar,Sunflower,2017,26.15,812.0,70.0,2.67
+Jalandhar,Sunflower,2018,28.15,692.0,68.0,1.81
+Jalandhar,Sunflower,2019,29.15,672.0,72.0,2.79
+Jalandhar,Sunflower,2020,30.15,642.0,75.0,1.82
+Jalandhar,Sunflower,2021,27.15,772.0,66.0,1.87
+Jalandhar,Sunflower,2022,26.15,802.0,64.0,2.32
+Jalandhar,Sunflower,2023,28.15,712.0,69.0,1.91
+Jalandhar,Sunflower,2024,29.15,682.0,71.0,2.45
+Jalandhar,Wheat,2015,25.15,792.0,60.0,3.58
+Jalandhar,Wheat,2016,27.15,742.0,65.0,3.61
+Jalandhar,Wheat,2017,26.15,812.0,70.0,3.12
+Jalandhar,Wheat,2018,28.15,692.0,68.0,3.64
+Jalandhar,Wheat,2019,29.15,672.0,72.0,3.74
+Jalandhar,Wheat,2020,30.15,642.0,75.0,3.92
+Jalandhar,Wheat,2021,27.15,772.0,66.0,3.35
+Jalandhar,Wheat,2022,26.15,802.0,64.0,3.45
+Jalandhar,Wheat,2023,28.15,712.0,69.0,3.3
+Jalandhar,Wheat,2024,29.15,682.0,71.0,3.57
+Kapurthala,Bajra,2015,25.3,796.0,60.0,2.54
+Kapurthala,Bajra,2016,27.3,746.0,65.0,2.04
+Kapurthala,Bajra,2017,26.3,816.0,70.0,1.78
+Kapurthala,Bajra,2018,28.3,696.0,68.0,2.27
+Kapurthala,Bajra,2019,29.3,676.0,72.0,2.28
+Kapurthala,Bajra,2020,30.3,646.0,75.0,1.77
+Kapurthala,Bajra,2021,27.3,776.0,66.0,2.36
+Kapurthala,Bajra,2022,26.3,806.0,64.0,2.48
+Kapurthala,Bajra,2023,28.3,716.0,69.0,2.28
+Kapurthala,Bajra,2024,29.3,686.0,71.0,2.69
+Kapurthala,Cotton,2015,25.3,796.0,60.0,2.81
+Kapurthala,Cotton,2016,27.3,746.0,65.0,3.1
+Kapurthala,Cotton,2017,26.3,816.0,70.0,2.67
+Kapurthala,Cotton,2018,28.3,696.0,68.0,2.88
+Kapurthala,Cotton,2019,29.3,676.0,72.0,3.06
+Kapurthala,Cotton,2020,30.3,646.0,75.0,2.31
+Kapurthala,Cotton,2021,27.3,776.0,66.0,2.57
+Kapurthala,Cotton,2022,26.3,806.0,64.0,2.73
+Kapurthala,Cotton,2023,28.3,716.0,69.0,2.95
+Kapurthala,Cotton,2024,29.3,686.0,71.0,2.77
+Kapurthala,Gram,2015,25.3,796.0,60.0,1.43
+Kapurthala,Gram,2016,27.3,746.0,65.0,1.63
+Kapurthala,Gram,2017,26.3,816.0,70.0,1.89
+Kapurthala,Gram,2018,28.3,696.0,68.0,1.52
+Kapurthala,Gram,2019,29.3,676.0,72.0,1.47
+Kapurthala,Gram,2020,30.3,646.0,75.0,1.93
+Kapurthala,Gram,2021,27.3,776.0,66.0,2.24
+Kapurthala,Gram,2022,26.3,806.0,64.0,1.84
+Kapurthala,Gram,2023,28.3,716.0,69.0,1.96
+Kapurthala,Gram,2024,29.3,686.0,71.0,1.8
+Kapurthala,Maize,2015,25.3,796.0,60.0,2.59
+Kapurthala,Maize,2016,27.3,746.0,65.0,3.29
+Kapurthala,Maize,2017,26.3,816.0,70.0,3.45
+Kapurthala,Maize,2018,28.3,696.0,68.0,3.26
+Kapurthala,Maize,2019,29.3,676.0,72.0,3.48
+Kapurthala,Maize,2020,30.3,646.0,75.0,3.07
+Kapurthala,Maize,2021,27.3,776.0,66.0,2.87
+Kapurthala,Maize,2022,26.3,806.0,64.0,3.0
+Kapurthala,Maize,2023,28.3,716.0,69.0,3.21
+Kapurthala,Maize,2024,29.3,686.0,71.0,3.4
+Kapurthala,Mustard,2015,25.3,796.0,60.0,2.12
+Kapurthala,Mustard,2016,27.3,746.0,65.0,1.52
+Kapurthala,Mustard,2017,26.3,816.0,70.0,1.63
+Kapurthala,Mustard,2018,28.3,696.0,68.0,1.86
+Kapurthala,Mustard,2019,29.3,676.0,72.0,1.85
+Kapurthala,Mustard,2020,30.3,646.0,75.0,1.68
+Kapurthala,Mustard,2021,27.3,776.0,66.0,2.17
+Kapurthala,Mustard,2022,26.3,806.0,64.0,2.08
+Kapurthala,Mustard,2023,28.3,716.0,69.0,1.68
+Kapurthala,Mustard,2024,29.3,686.0,71.0,2.06
+Kapurthala,Potato,2015,25.3,796.0,60.0,5.45
+Kapurthala,Potato,2016,27.3,746.0,65.0,5.02
+Kapurthala,Potato,2017,26.3,816.0,70.0,5.5
+Kapurthala,Potato,2018,28.3,696.0,68.0,4.97
+Kapurthala,Potato,2019,29.3,676.0,72.0,5.09
+Kapurthala,Potato,2020,30.3,646.0,75.0,5.07
+Kapurthala,Potato,2021,27.3,776.0,66.0,4.79
+Kapurthala,Potato,2022,26.3,806.0,64.0,4.96
+Kapurthala,Potato,2023,28.3,716.0,69.0,4.8
+Kapurthala,Potato,2024,29.3,686.0,71.0,5.41
+Kapurthala,Rice,2015,25.3,796.0,60.0,4.45
+Kapurthala,Rice,2016,27.3,746.0,65.0,4.12
+Kapurthala,Rice,2017,26.3,816.0,70.0,5.0
+Kapurthala,Rice,2018,28.3,696.0,68.0,4.4
+Kapurthala,Rice,2019,29.3,676.0,72.0,4.76
+Kapurthala,Rice,2020,30.3,646.0,75.0,4.57
+Kapurthala,Rice,2021,27.3,776.0,66.0,4.45
+Kapurthala,Rice,2022,26.3,806.0,64.0,4.66
+Kapurthala,Rice,2023,28.3,716.0,69.0,4.26
+Kapurthala,Rice,2024,29.3,686.0,71.0,4.52
+Kapurthala,Sugarcane,2015,25.3,796.0,60.0,6.19
+Kapurthala,Sugarcane,2016,27.3,746.0,65.0,5.83
+Kapurthala,Sugarcane,2017,26.3,816.0,70.0,6.49
+Kapurthala,Sugarcane,2018,28.3,696.0,68.0,6.01
+Kapurthala,Sugarcane,2019,29.3,676.0,72.0,6.32
+Kapurthala,Sugarcane,2020,30.3,646.0,75.0,5.62
+Kapurthala,Sugarcane,2021,27.3,776.0,66.0,5.78
+Kapurthala,Sugarcane,2022,26.3,806.0,64.0,6.45
+Kapurthala,Sugarcane,2023,28.3,716.0,69.0,5.52
+Kapurthala,Sugarcane,2024,29.3,686.0,71.0,5.91
+Kapurthala,Sunflower,2015,25.3,796.0,60.0,2.42
+Kapurthala,Sunflower,2016,27.3,746.0,65.0,2.09
+Kapurthala,Sunflower,2017,26.3,816.0,70.0,2.41
+Kapurthala,Sunflower,2018,28.3,696.0,68.0,2.22
+Kapurthala,Sunflower,2019,29.3,676.0,72.0,2.48
+Kapurthala,Sunflower,2020,30.3,646.0,75.0,2.34
+Kapurthala,Sunflower,2021,27.3,776.0,66.0,1.9
+Kapurthala,Sunflower,2022,26.3,806.0,64.0,2.77
+Kapurthala,Sunflower,2023,28.3,716.0,69.0,2.25
+Kapurthala,Sunflower,2024,29.3,686.0,71.0,2.58
+Kapurthala,Wheat,2015,25.3,796.0,60.0,3.46
+Kapurthala,Wheat,2016,27.3,746.0,65.0,3.84
+Kapurthala,Wheat,2017,26.3,816.0,70.0,3.07
+Kapurthala,Wheat,2018,28.3,696.0,68.0,3.26
+Kapurthala,Wheat,2019,29.3,676.0,72.0,3.5
+Kapurthala,Wheat,2020,30.3,646.0,75.0,3.49
+Kapurthala,Wheat,2021,27.3,776.0,66.0,3.78
+Kapurthala,Wheat,2022,26.3,806.0,64.0,3.33
+Kapurthala,Wheat,2023,28.3,716.0,69.0,3.81
+Kapurthala,Wheat,2024,29.3,686.0,71.0,3.81
+Ludhiana,Bajra,2015,24.7,800.0,60.0,1.82
+Ludhiana,Bajra,2016,26.7,750.0,65.0,2.23
+Ludhiana,Bajra,2017,25.7,820.0,70.0,1.94
+Ludhiana,Bajra,2018,27.7,700.0,68.0,2.09
+Ludhiana,Bajra,2019,28.7,680.0,72.0,2.34
+Ludhiana,Bajra,2020,29.7,650.0,75.0,2.34
+Ludhiana,Bajra,2021,26.7,780.0,66.0,2.47
+Ludhiana,Bajra,2022,25.7,810.0,64.0,1.74
+Ludhiana,Bajra,2023,27.7,720.0,69.0,2.21
+Ludhiana,Bajra,2024,28.7,690.0,71.0,2.26
+Ludhiana,Cotton,2015,24.7,800.0,60.0,3.25
+Ludhiana,Cotton,2016,26.7,750.0,65.0,2.9
+Ludhiana,Cotton,2017,25.7,820.0,70.0,2.91
+Ludhiana,Cotton,2018,27.7,700.0,68.0,2.77
+Ludhiana,Cotton,2019,28.7,680.0,72.0,3.04
+Ludhiana,Cotton,2020,29.7,650.0,75.0,2.76
+Ludhiana,Cotton,2021,26.7,780.0,66.0,3.07
+Ludhiana,Cotton,2022,25.7,810.0,64.0,2.89
+Ludhiana,Cotton,2023,27.7,720.0,69.0,3.15
+Ludhiana,Cotton,2024,28.7,690.0,71.0,2.47
+Ludhiana,Gram,2015,24.7,800.0,60.0,1.6
+Ludhiana,Gram,2016,26.7,750.0,65.0,2.06
+Ludhiana,Gram,2017,25.7,820.0,70.0,2.06
+Ludhiana,Gram,2018,27.7,700.0,68.0,1.34
+Ludhiana,Gram,2019,28.7,680.0,72.0,1.82
+Ludhiana,Gram,2020,29.7,650.0,75.0,1.98
+Ludhiana,Gram,2021,26.7,780.0,66.0,1.33
+Ludhiana,Gram,2022,25.7,810.0,64.0,1.69
+Ludhiana,Gram,2023,27.7,720.0,69.0,1.85
+Ludhiana,Gram,2024,28.7,690.0,71.0,1.45
+Ludhiana,Maize,2015,24.7,800.0,60.0,2.84
+Ludhiana,Maize,2016,26.7,750.0,65.0,2.86
+Ludhiana,Maize,2017,25.7,820.0,70.0,2.52
+Ludhiana,Maize,2018,27.7,700.0,68.0,2.82
+Ludhiana,Maize,2019,28.7,680.0,72.0,3.44
+Ludhiana,Maize,2020,29.7,650.0,75.0,3.45
+Ludhiana,Maize,2021,26.7,780.0,66.0,3.28
+Ludhiana,Maize,2022,25.7,810.0,64.0,2.67
+Ludhiana,Maize,2023,27.7,720.0,69.0,2.96
+Ludhiana,Maize,2024,28.7,690.0,71.0,2.8
+Ludhiana,Mustard,2015,24.7,800.0,60.0,2.27
+Ludhiana,Mustard,2016,26.7,750.0,65.0,1.92
+Ludhiana,Mustard,2017,25.7,820.0,70.0,2.39
+Ludhiana,Mustard,2018,27.7,700.0,68.0,2.33
+Ludhiana,Mustard,2019,28.7,680.0,72.0,2.27
+Ludhiana,Mustard,2020,29.7,650.0,75.0,2.28
+Ludhiana,Mustard,2021,26.7,780.0,66.0,1.97
+Ludhiana,Mustard,2022,25.7,810.0,64.0,2.29
+Ludhiana,Mustard,2023,27.7,720.0,69.0,2.25
+Ludhiana,Mustard,2024,28.7,690.0,71.0,1.71
+Ludhiana,Potato,2015,24.7,800.0,60.0,4.67
+Ludhiana,Potato,2016,26.7,750.0,65.0,4.52
+Ludhiana,Potato,2017,25.7,820.0,70.0,5.06
+Ludhiana,Potato,2018,27.7,700.0,68.0,5.23
+Ludhiana,Potato,2019,28.7,680.0,72.0,4.91
+Ludhiana,Potato,2020,29.7,650.0,75.0,4.68
+Ludhiana,Potato,2021,26.7,780.0,66.0,4.76
+Ludhiana,Potato,2022,25.7,810.0,64.0,4.79
+Ludhiana,Potato,2023,27.7,720.0,69.0,5.35
+Ludhiana,Potato,2024,28.7,690.0,71.0,5.33
+Ludhiana,Rice,2015,24.7,800.0,60.0,4.47
+Ludhiana,Rice,2016,26.7,750.0,65.0,4.91
+Ludhiana,Rice,2017,25.7,820.0,70.0,4.79
+Ludhiana,Rice,2018,27.7,700.0,68.0,4.48
+Ludhiana,Rice,2019,28.7,680.0,72.0,4.54
+Ludhiana,Rice,2020,29.7,650.0,75.0,4.2
+Ludhiana,Rice,2021,26.7,780.0,66.0,4.17
+Ludhiana,Rice,2022,25.7,810.0,64.0,4.75
+Ludhiana,Rice,2023,27.7,720.0,69.0,4.51
+Ludhiana,Rice,2024,28.7,690.0,71.0,4.24
+Ludhiana,Sugarcane,2015,24.7,800.0,60.0,6.48
+Ludhiana,Sugarcane,2016,26.7,750.0,65.0,6.08
+Ludhiana,Sugarcane,2017,25.7,820.0,70.0,5.6
+Ludhiana,Sugarcane,2018,27.7,700.0,68.0,5.89
+Ludhiana,Sugarcane,2019,28.7,680.0,72.0,6.23
+Ludhiana,Sugarcane,2020,29.7,650.0,75.0,5.87
+Ludhiana,Sugarcane,2021,26.7,780.0,66.0,5.78
+Ludhiana,Sugarcane,2022,25.7,810.0,64.0,6.46
+Ludhiana,Sugarcane,2023,27.7,720.0,69.0,5.87
+Ludhiana,Sugarcane,2024,28.7,690.0,71.0,5.7
+Ludhiana,Sunflower,2015,24.7,800.0,60.0,2.64
+Ludhiana,Sunflower,2016,26.7,750.0,65.0,2.77
+Ludhiana,Sunflower,2017,25.7,820.0,70.0,1.86
+Ludhiana,Sunflower,2018,27.7,700.0,68.0,1.93
+Ludhiana,Sunflower,2019,28.7,680.0,72.0,1.92
+Ludhiana,Sunflower,2020,29.7,650.0,75.0,2.64
+Ludhiana,Sunflower,2021,26.7,780.0,66.0,2.54
+Ludhiana,Sunflower,2022,25.7,810.0,64.0,2.61
+Ludhiana,Sunflower,2023,27.7,720.0,69.0,2.52
+Ludhiana,Sunflower,2024,28.7,690.0,71.0,2.54
+Ludhiana,Wheat,2015,24.7,800.0,60.0,3.79
+Ludhiana,Wheat,2016,26.7,750.0,65.0,3.95
+Ludhiana,Wheat,2017,25.7,820.0,70.0,3.11
+Ludhiana,Wheat,2018,27.7,700.0,68.0,3.91
+Ludhiana,Wheat,2019,28.7,680.0,72.0,3.61
+Ludhiana,Wheat,2020,29.7,650.0,75.0,3.52
+Ludhiana,Wheat,2021,26.7,780.0,66.0,3.57
+Ludhiana,Wheat,2022,25.7,810.0,64.0,3.34
+Ludhiana,Wheat,2023,27.7,720.0,69.0,3.78
+Ludhiana,Wheat,2024,28.7,690.0,71.0,3.98
+Mansa,Bajra,2015,24.85,804.0,60.0,2.56
+Mansa,Bajra,2016,26.85,754.0,65.0,2.05
+Mansa,Bajra,2017,25.85,824.0,70.0,2.13
+Mansa,Bajra,2018,27.85,704.0,68.0,2.28
+Mansa,Bajra,2019,28.85,684.0,72.0,2.55
+Mansa,Bajra,2020,29.85,654.0,75.0,2.06
+Mansa,Bajra,2021,26.85,784.0,66.0,2.32
+Mansa,Bajra,2022,25.85,814.0,64.0,1.96
+Mansa,Bajra,2023,27.85,724.0,69.0,2.35
+Mansa,Bajra,2024,28.85,694.0,71.0,2.66
+Mansa,Cotton,2015,24.85,804.0,60.0,2.79
+Mansa,Cotton,2016,26.85,754.0,65.0,2.46
+Mansa,Cotton,2017,25.85,824.0,70.0,2.53
+Mansa,Cotton,2018,27.85,704.0,68.0,2.98
+Mansa,Cotton,2019,28.85,684.0,72.0,2.85
+Mansa,Cotton,2020,29.85,654.0,75.0,2.73
+Mansa,Cotton,2021,26.85,784.0,66.0,3.03
+Mansa,Cotton,2022,25.85,814.0,64.0,2.57
+Mansa,Cotton,2023,27.85,724.0,69.0,2.41
+Mansa,Cotton,2024,28.85,694.0,71.0,2.65
+Mansa,Gram,2015,24.85,804.0,60.0,1.53
+Mansa,Gram,2016,26.85,754.0,65.0,1.92
+Mansa,Gram,2017,25.85,824.0,70.0,2.29
+Mansa,Gram,2018,27.85,704.0,68.0,1.61
+Mansa,Gram,2019,28.85,684.0,72.0,1.45
+Mansa,Gram,2020,29.85,654.0,75.0,2.22
+Mansa,Gram,2021,26.85,784.0,66.0,1.88
+Mansa,Gram,2022,25.85,814.0,64.0,2.1
+Mansa,Gram,2023,27.85,724.0,69.0,2.15
+Mansa,Gram,2024,28.85,694.0,71.0,1.76
+Mansa,Maize,2015,24.85,804.0,60.0,2.88
+Mansa,Maize,2016,26.85,754.0,65.0,2.79
+Mansa,Maize,2017,25.85,824.0,70.0,3.35
+Mansa,Maize,2018,27.85,704.0,68.0,3.13
+Mansa,Maize,2019,28.85,684.0,72.0,2.88
+Mansa,Maize,2020,29.85,654.0,75.0,3.24
+Mansa,Maize,2021,26.85,784.0,66.0,2.57
+Mansa,Maize,2022,25.85,814.0,64.0,2.71
+Mansa,Maize,2023,27.85,724.0,69.0,3.32
+Mansa,Maize,2024,28.85,694.0,71.0,2.64
+Mansa,Mustard,2015,24.85,804.0,60.0,1.92
+Mansa,Mustard,2016,26.85,754.0,65.0,1.55
+Mansa,Mustard,2017,25.85,824.0,70.0,1.85
+Mansa,Mustard,2018,27.85,704.0,68.0,1.96
+Mansa,Mustard,2019,28.85,684.0,72.0,1.53
+Mansa,Mustard,2020,29.85,654.0,75.0,1.62
+Mansa,Mustard,2021,26.85,784.0,66.0,2.01
+Mansa,Mustard,2022,25.85,814.0,64.0,1.83
+Mansa,Mustard,2023,27.85,724.0,69.0,1.67
+Mansa,Mustard,2024,28.85,694.0,71.0,1.82
+Mansa,Potato,2015,24.85,804.0,60.0,5.42
+Mansa,Potato,2016,26.85,754.0,65.0,4.91
+Mansa,Potato,2017,25.85,824.0,70.0,5.21
+Mansa,Potato,2018,27.85,704.0,68.0,5.42
+Mansa,Potato,2019,28.85,684.0,72.0,4.53
+Mansa,Potato,2020,29.85,654.0,75.0,4.92
+Mansa,Potato,2021,26.85,784.0,66.0,5.03
+Mansa,Potato,2022,25.85,814.0,64.0,4.93
+Mansa,Potato,2023,27.85,724.0,69.0,4.92
+Mansa,Potato,2024,28.85,694.0,71.0,5.16
+Mansa,Rice,2015,24.85,804.0,60.0,4.86
+Mansa,Rice,2016,26.85,754.0,65.0,4.17
+Mansa,Rice,2017,25.85,824.0,70.0,4.41
+Mansa,Rice,2018,27.85,704.0,68.0,4.36
+Mansa,Rice,2019,28.85,684.0,72.0,4.84
+Mansa,Rice,2020,29.85,654.0,75.0,4.23
+Mansa,Rice,2021,26.85,784.0,66.0,4.41
+Mansa,Rice,2022,25.85,814.0,64.0,4.42
+Mansa,Rice,2023,27.85,724.0,69.0,4.81
+Mansa,Rice,2024,28.85,694.0,71.0,4.01
+Mansa,Sugarcane,2015,24.85,804.0,60.0,6.03
+Mansa,Sugarcane,2016,26.85,754.0,65.0,5.93
+Mansa,Sugarcane,2017,25.85,824.0,70.0,5.68
+Mansa,Sugarcane,2018,27.85,704.0,68.0,6.39
+Mansa,Sugarcane,2019,28.85,684.0,72.0,6.15
+Mansa,Sugarcane,2020,29.85,654.0,75.0,6.15
+Mansa,Sugarcane,2021,26.85,784.0,66.0,6.02
+Mansa,Sugarcane,2022,25.85,814.0,64.0,6.42
+Mansa,Sugarcane,2023,27.85,724.0,69.0,5.62
+Mansa,Sugarcane,2024,28.85,694.0,71.0,6.02
+Mansa,Sunflower,2015,24.85,804.0,60.0,2.73
+Mansa,Sunflower,2016,26.85,754.0,65.0,2.37
+Mansa,Sunflower,2017,25.85,824.0,70.0,2.49
+Mansa,Sunflower,2018,27.85,704.0,68.0,2.64
+Mansa,Sunflower,2019,28.85,684.0,72.0,2.63
+Mansa,Sunflower,2020,29.85,654.0,75.0,2.27
+Mansa,Sunflower,2021,26.85,784.0,66.0,1.95
+Mansa,Sunflower,2022,25.85,814.0,64.0,2.27
+Mansa,Sunflower,2023,27.85,724.0,69.0,1.81
+Mansa,Sunflower,2024,28.85,694.0,71.0,2.61
+Mansa,Wheat,2015,24.85,804.0,60.0,3.01
+Mansa,Wheat,2016,26.85,754.0,65.0,3.46
+Mansa,Wheat,2017,25.85,824.0,70.0,3.92
+Mansa,Wheat,2018,27.85,704.0,68.0,3.5
+Mansa,Wheat,2019,28.85,684.0,72.0,3.88
+Mansa,Wheat,2020,29.85,654.0,75.0,3.24
+Mansa,Wheat,2021,26.85,784.0,66.0,3.12
+Mansa,Wheat,2022,25.85,814.0,64.0,3.06
+Mansa,Wheat,2023,27.85,724.0,69.0,3.79
+Mansa,Wheat,2024,28.85,694.0,71.0,3.84
+Moga,Bajra,2015,25.0,808.0,60.0,1.91
+Moga,Bajra,2016,27.0,758.0,65.0,2.24
+Moga,Bajra,2017,26.0,828.0,70.0,2.42
+Moga,Bajra,2018,28.0,708.0,68.0,2.35
+Moga,Bajra,2019,29.0,688.0,72.0,1.92
+Moga,Bajra,2020,30.0,658.0,75.0,2.28
+Moga,Bajra,2021,27.0,788.0,66.0,1.91
+Moga,Bajra,2022,26.0,818.0,64.0,2.55
+Moga,Bajra,2023,28.0,728.0,69.0,1.77
+Moga,Bajra,2024,29.0,698.0,71.0,2.37
+Moga,Cotton,2015,25.0,808.0,60.0,3.08
+Moga,Cotton,2016,27.0,758.0,65.0,3.03
+Moga,Cotton,2017,26.0,828.0,70.0,2.69
+Moga,Cotton,2018,28.0,708.0,68.0,2.98
+Moga,Cotton,2019,29.0,688.0,72.0,2.44
+Moga,Cotton,2020,30.0,658.0,75.0,3.02
+Moga,Cotton,2021,27.0,788.0,66.0,3.12
+Moga,Cotton,2022,26.0,818.0,64.0,2.52
+Moga,Cotton,2023,28.0,728.0,69.0,3.26
+Moga,Cotton,2024,29.0,698.0,71.0,3.1
+Moga,Gram,2015,25.0,808.0,60.0,2.11
+Moga,Gram,2016,27.0,758.0,65.0,1.51
+Moga,Gram,2017,26.0,828.0,70.0,1.66
+Moga,Gram,2018,28.0,708.0,68.0,1.62
+Moga,Gram,2019,29.0,688.0,72.0,1.44
+Moga,Gram,2020,30.0,658.0,75.0,1.84
+Moga,Gram,2021,27.0,788.0,66.0,1.3
+Moga,Gram,2022,26.0,818.0,64.0,1.85
+Moga,Gram,2023,28.0,728.0,69.0,1.92
+Moga,Gram,2024,29.0,698.0,71.0,1.77
+Moga,Maize,2015,25.0,808.0,60.0,3.07
+Moga,Maize,2016,27.0,758.0,65.0,3.41
+Moga,Maize,2017,26.0,828.0,70.0,2.91
+Moga,Maize,2018,28.0,708.0,68.0,2.78
+Moga,Maize,2019,29.0,688.0,72.0,3.38
+Moga,Maize,2020,30.0,658.0,75.0,3.0
+Moga,Maize,2021,27.0,788.0,66.0,2.65
+Moga,Maize,2022,26.0,818.0,64.0,2.77
+Moga,Maize,2023,28.0,728.0,69.0,2.74
+Moga,Maize,2024,29.0,698.0,71.0,3.4
+Moga,Mustard,2015,25.0,808.0,60.0,2.12
+Moga,Mustard,2016,27.0,758.0,65.0,1.79
+Moga,Mustard,2017,26.0,828.0,70.0,1.67
+Moga,Mustard,2018,28.0,708.0,68.0,1.81
+Moga,Mustard,2019,29.0,688.0,72.0,2.28
+Moga,Mustard,2020,30.0,658.0,75.0,1.64
+Moga,Mustard,2021,27.0,788.0,66.0,1.87
+Moga,Mustard,2022,26.0,818.0,64.0,1.56
+Moga,Mustard,2023,28.0,728.0,69.0,2.37
+Moga,Mustard,2024,29.0,698.0,71.0,2.45
+Moga,Potato,2015,25.0,808.0,60.0,4.52
+Moga,Potato,2016,27.0,758.0,65.0,5.02
+Moga,Potato,2017,26.0,828.0,70.0,4.56
+Moga,Potato,2018,28.0,708.0,68.0,5.15
+Moga,Potato,2019,29.0,688.0,72.0,5.02
+Moga,Potato,2020,30.0,658.0,75.0,4.81
+Moga,Potato,2021,27.0,788.0,66.0,4.59
+Moga,Potato,2022,26.0,818.0,64.0,5.39
+Moga,Potato,2023,28.0,728.0,69.0,5.11
+Moga,Potato,2024,29.0,698.0,71.0,4.52
+Moga,Rice,2015,25.0,808.0,60.0,4.77
+Moga,Rice,2016,27.0,758.0,65.0,4.07
+Moga,Rice,2017,26.0,828.0,70.0,4.61
+Moga,Rice,2018,28.0,708.0,68.0,4.71
+Moga,Rice,2019,29.0,688.0,72.0,4.19
+Moga,Rice,2020,30.0,658.0,75.0,4.67
+Moga,Rice,2021,27.0,788.0,66.0,4.16
+Moga,Rice,2022,26.0,818.0,64.0,4.29
+Moga,Rice,2023,28.0,728.0,69.0,4.79
+Moga,Rice,2024,29.0,698.0,71.0,4.2
+Moga,Sugarcane,2015,25.0,808.0,60.0,5.97
+Moga,Sugarcane,2016,27.0,758.0,65.0,6.15
+Moga,Sugarcane,2017,26.0,828.0,70.0,5.52
+Moga,Sugarcane,2018,28.0,708.0,68.0,6.09
+Moga,Sugarcane,2019,29.0,688.0,72.0,6.41
+Moga,Sugarcane,2020,30.0,658.0,75.0,5.83
+Moga,Sugarcane,2021,27.0,788.0,66.0,5.64
+Moga,Sugarcane,2022,26.0,818.0,64.0,5.53
+Moga,Sugarcane,2023,28.0,728.0,69.0,6.12
+Moga,Sugarcane,2024,29.0,698.0,71.0,6.1
+Moga,Sunflower,2015,25.0,808.0,60.0,2.55
+Moga,Sunflower,2016,27.0,758.0,65.0,2.36
+Moga,Sunflower,2017,26.0,828.0,70.0,2.42
+Moga,Sunflower,2018,28.0,708.0,68.0,2.55
+Moga,Sunflower,2019,29.0,688.0,72.0,2.56
+Moga,Sunflower,2020,30.0,658.0,75.0,2.38
+Moga,Sunflower,2021,27.0,788.0,66.0,2.69
+Moga,Sunflower,2022,26.0,818.0,64.0,2.52
+Moga,Sunflower,2023,28.0,728.0,69.0,1.98
+Moga,Sunflower,2024,29.0,698.0,71.0,2.16
+Moga,Wheat,2015,25.0,808.0,60.0,3.72
+Moga,Wheat,2016,27.0,758.0,65.0,3.18
+Moga,Wheat,2017,26.0,828.0,70.0,3.86
+Moga,Wheat,2018,28.0,708.0,68.0,3.56
+Moga,Wheat,2019,29.0,688.0,72.0,3.67
+Moga,Wheat,2020,30.0,658.0,75.0,3.43
+Moga,Wheat,2021,27.0,788.0,66.0,3.02
+Moga,Wheat,2022,26.0,818.0,64.0,3.93
+Moga,Wheat,2023,28.0,728.0,69.0,3.45
+Moga,Wheat,2024,29.0,698.0,71.0,3.47
+Mohali,Bajra,2015,25.15,812.0,60.0,2.29
+Mohali,Bajra,2016,27.15,762.0,65.0,1.91
+Mohali,Bajra,2017,26.15,832.0,70.0,1.71
+Mohali,Bajra,2018,28.15,712.0,68.0,2.4
+Mohali,Bajra,2019,29.15,692.0,72.0,2.54
+Mohali,Bajra,2020,30.15,662.0,75.0,1.92
+Mohali,Bajra,2021,27.15,792.0,66.0,2.56
+Mohali,Bajra,2022,26.15,822.0,64.0,2.39
+Mohali,Bajra,2023,28.15,732.0,69.0,1.94
+Mohali,Bajra,2024,29.15,702.0,71.0,2.25
+Mohali,Cotton,2015,25.15,812.0,60.0,2.94
+Mohali,Cotton,2016,27.15,762.0,65.0,2.52
+Mohali,Cotton,2017,26.15,832.0,70.0,3.29
+Mohali,Cotton,2018,28.15,712.0,68.0,2.75
+Mohali,Cotton,2019,29.15,692.0,72.0,2.7
+Mohali,Cotton,2020,30.15,662.0,75.0,2.81
+Mohali,Cotton,2021,27.15,792.0,66.0,2.64
+Mohali,Cotton,2022,26.15,822.0,64.0,2.84
+Mohali,Cotton,2023,28.15,732.0,69.0,2.42
+Mohali,Cotton,2024,29.15,702.0,71.0,2.84
+Mohali,Gram,2015,25.15,812.0,60.0,2.18
+Mohali,Gram,2016,27.15,762.0,65.0,1.75
+Mohali,Gram,2017,26.15,832.0,70.0,1.88
+Mohali,Gram,2018,28.15,712.0,68.0,1.55
+Mohali,Gram,2019,29.15,692.0,72.0,1.8
+Mohali,Gram,2020,30.15,662.0,75.0,2.3
+Mohali,Gram,2021,27.15,792.0,66.0,1.83
+Mohali,Gram,2022,26.15,822.0,64.0,1.46
+Mohali,Gram,2023,28.15,732.0,69.0,1.73
+Mohali,Gram,2024,29.15,702.0,71.0,2.22
+Mohali,Maize,2015,25.15,812.0,60.0,2.97
+Mohali,Maize,2016,27.15,762.0,65.0,2.91
+Mohali,Maize,2017,26.15,832.0,70.0,2.88
+Mohali,Maize,2018,28.15,712.0,68.0,3.49
+Mohali,Maize,2019,29.15,692.0,72.0,3.26
+Mohali,Maize,2020,30.15,662.0,75.0,2.55
+Mohali,Maize,2021,27.15,792.0,66.0,2.85
+Mohali,Maize,2022,26.15,822.0,64.0,2.51
+Mohali,Maize,2023,28.15,732.0,69.0,3.27
+Mohali,Maize,2024,29.15,702.0,71.0,3.01
+Mohali,Mustard,2015,25.15,812.0,60.0,1.63
+Mohali,Mustard,2016,27.15,762.0,65.0,2.27
+Mohali,Mustard,2017,26.15,832.0,70.0,2.44
+Mohali,Mustard,2018,28.15,712.0,68.0,1.77
+Mohali,Mustard,2019,29.15,692.0,72.0,2.0
+Mohali,Mustard,2020,30.15,662.0,75.0,2.46
+Mohali,Mustard,2021,27.15,792.0,66.0,1.86
+Mohali,Mustard,2022,26.15,822.0,64.0,2.32
+Mohali,Mustard,2023,28.15,732.0,69.0,1.73
+Mohali,Mustard,2024,29.15,702.0,71.0,1.76
+Mohali,Potato,2015,25.15,812.0,60.0,4.91
+Mohali,Potato,2016,27.15,762.0,65.0,4.91
+Mohali,Potato,2017,26.15,832.0,70.0,4.62
+Mohali,Potato,2018,28.15,712.0,68.0,4.5
+Mohali,Potato,2019,29.15,692.0,72.0,4.86
+Mohali,Potato,2020,30.15,662.0,75.0,4.74
+Mohali,Potato,2021,27.15,792.0,66.0,5.22
+Mohali,Potato,2022,26.15,822.0,64.0,5.04
+Mohali,Potato,2023,28.15,732.0,69.0,4.95
+Mohali,Potato,2024,29.15,702.0,71.0,5.47
+Mohali,Rice,2015,25.15,812.0,60.0,4.05
+Mohali,Rice,2016,27.15,762.0,65.0,4.93
+Mohali,Rice,2017,26.15,832.0,70.0,4.13
+Mohali,Rice,2018,28.15,712.0,68.0,4.47
+Mohali,Rice,2019,29.15,692.0,72.0,4.7
+Mohali,Rice,2020,30.15,662.0,75.0,4.13
+Mohali,Rice,2021,27.15,792.0,66.0,4.04
+Mohali,Rice,2022,26.15,822.0,64.0,4.95
+Mohali,Rice,2023,28.15,732.0,69.0,4.32
+Mohali,Rice,2024,29.15,702.0,71.0,4.8
+Mohali,Sugarcane,2015,25.15,812.0,60.0,5.72
+Mohali,Sugarcane,2016,27.15,762.0,65.0,6.25
+Mohali,Sugarcane,2017,26.15,832.0,70.0,6.29
+Mohali,Sugarcane,2018,28.15,712.0,68.0,6.43
+Mohali,Sugarcane,2019,29.15,692.0,72.0,6.1
+Mohali,Sugarcane,2020,30.15,662.0,75.0,5.55
+Mohali,Sugarcane,2021,27.15,792.0,66.0,6.4
+Mohali,Sugarcane,2022,26.15,822.0,64.0,6.23
+Mohali,Sugarcane,2023,28.15,732.0,69.0,6.09
+Mohali,Sugarcane,2024,29.15,702.0,71.0,5.76
+Mohali,Sunflower,2015,25.15,812.0,60.0,2.15
+Mohali,Sunflower,2016,27.15,762.0,65.0,2.2
+Mohali,Sunflower,2017,26.15,832.0,70.0,2.29
+Mohali,Sunflower,2018,28.15,712.0,68.0,2.17
+Mohali,Sunflower,2019,29.15,692.0,72.0,2.12
+Mohali,Sunflower,2020,30.15,662.0,75.0,2.67
+Mohali,Sunflower,2021,27.15,792.0,66.0,2.46
+Mohali,Sunflower,2022,26.15,822.0,64.0,2.74
+Mohali,Sunflower,2023,28.15,732.0,69.0,2.68
+Mohali,Sunflower,2024,29.15,702.0,71.0,2.61
+Mohali,Wheat,2015,25.15,812.0,60.0,3.3
+Mohali,Wheat,2016,27.15,762.0,65.0,3.91
+Mohali,Wheat,2017,26.15,832.0,70.0,3.87
+Mohali,Wheat,2018,28.15,712.0,68.0,3.73
+Mohali,Wheat,2019,29.15,692.0,72.0,3.86
+Mohali,Wheat,2020,30.15,662.0,75.0,3.56
+Mohali,Wheat,2021,27.15,792.0,66.0,3.01
+Mohali,Wheat,2022,26.15,822.0,64.0,3.27
+Mohali,Wheat,2023,28.15,732.0,69.0,3.85
+Mohali,Wheat,2024,29.15,702.0,71.0,3.02
+Muktsar,Bajra,2015,25.3,788.0,60.0,2.5
+Muktsar,Bajra,2016,27.3,738.0,65.0,2.65
+Muktsar,Bajra,2017,26.3,808.0,70.0,2.13
+Muktsar,Bajra,2018,28.3,688.0,68.0,2.33
+Muktsar,Bajra,2019,29.3,668.0,72.0,2.1
+Muktsar,Bajra,2020,30.3,638.0,75.0,2.1
+Muktsar,Bajra,2021,27.3,768.0,66.0,2.21
+Muktsar,Bajra,2022,26.3,798.0,64.0,2.18
+Muktsar,Bajra,2023,28.3,708.0,69.0,1.88
+Muktsar,Bajra,2024,29.3,678.0,71.0,2.24
+Muktsar,Cotton,2015,25.3,788.0,60.0,2.96
+Muktsar,Cotton,2016,27.3,738.0,65.0,3.17
+Muktsar,Cotton,2017,26.3,808.0,70.0,2.72
+Muktsar,Cotton,2018,28.3,688.0,68.0,2.65
+Muktsar,Cotton,2019,29.3,668.0,72.0,2.36
+Muktsar,Cotton,2020,30.3,638.0,75.0,3.12
+Muktsar,Cotton,2021,27.3,768.0,66.0,2.38
+Muktsar,Cotton,2022,26.3,798.0,64.0,3.29
+Muktsar,Cotton,2023,28.3,708.0,69.0,2.34
+Muktsar,Cotton,2024,29.3,678.0,71.0,2.49
+Muktsar,Gram,2015,25.3,788.0,60.0,1.47
+Muktsar,Gram,2016,27.3,738.0,65.0,1.82
+Muktsar,Gram,2017,26.3,808.0,70.0,1.52
+Muktsar,Gram,2018,28.3,688.0,68.0,2.07
+Muktsar,Gram,2019,29.3,668.0,72.0,2.03
+Muktsar,Gram,2020,30.3,638.0,75.0,1.33
+Muktsar,Gram,2021,27.3,768.0,66.0,1.34
+Muktsar,Gram,2022,26.3,798.0,64.0,2.24
+Muktsar,Gram,2023,28.3,708.0,69.0,1.43
+Muktsar,Gram,2024,29.3,678.0,71.0,2.01
+Muktsar,Maize,2015,25.3,788.0,60.0,3.22
+Muktsar,Maize,2016,27.3,738.0,65.0,2.76
+Muktsar,Maize,2017,26.3,808.0,70.0,3.11
+Muktsar,Maize,2018,28.3,688.0,68.0,3.2
+Muktsar,Maize,2019,29.3,668.0,72.0,2.64
+Muktsar,Maize,2020,30.3,638.0,75.0,2.64
+Muktsar,Maize,2021,27.3,768.0,66.0,3.49
+Muktsar,Maize,2022,26.3,798.0,64.0,2.52
+Muktsar,Maize,2023,28.3,708.0,69.0,3.19
+Muktsar,Maize,2024,29.3,678.0,71.0,2.69
+Muktsar,Mustard,2015,25.3,788.0,60.0,2.13
+Muktsar,Mustard,2016,27.3,738.0,65.0,2.03
+Muktsar,Mustard,2017,26.3,808.0,70.0,1.99
+Muktsar,Mustard,2018,28.3,688.0,68.0,2.2
+Muktsar,Mustard,2019,29.3,668.0,72.0,1.54
+Muktsar,Mustard,2020,30.3,638.0,75.0,2.0
+Muktsar,Mustard,2021,27.3,768.0,66.0,2.31
+Muktsar,Mustard,2022,26.3,798.0,64.0,2.0
+Muktsar,Mustard,2023,28.3,708.0,69.0,2.11
+Muktsar,Mustard,2024,29.3,678.0,71.0,2.22
+Muktsar,Potato,2015,25.3,788.0,60.0,4.7
+Muktsar,Potato,2016,27.3,738.0,65.0,4.6
+Muktsar,Potato,2017,26.3,808.0,70.0,5.31
+Muktsar,Potato,2018,28.3,688.0,68.0,5.27
+Muktsar,Potato,2019,29.3,668.0,72.0,4.63
+Muktsar,Potato,2020,30.3,638.0,75.0,4.89
+Muktsar,Potato,2021,27.3,768.0,66.0,4.79
+Muktsar,Potato,2022,26.3,798.0,64.0,4.8
+Muktsar,Potato,2023,28.3,708.0,69.0,4.75
+Muktsar,Potato,2024,29.3,678.0,71.0,5.09
+Muktsar,Rice,2015,25.3,788.0,60.0,4.1
+Muktsar,Rice,2016,27.3,738.0,65.0,4.2
+Muktsar,Rice,2017,26.3,808.0,70.0,4.54
+Muktsar,Rice,2018,28.3,688.0,68.0,4.31
+Muktsar,Rice,2019,29.3,668.0,72.0,4.77
+Muktsar,Rice,2020,30.3,638.0,75.0,4.39
+Muktsar,Rice,2021,27.3,768.0,66.0,4.38
+Muktsar,Rice,2022,26.3,798.0,64.0,4.28
+Muktsar,Rice,2023,28.3,708.0,69.0,4.73
+Muktsar,Rice,2024,29.3,678.0,71.0,4.26
+Muktsar,Sugarcane,2015,25.3,788.0,60.0,6.17
+Muktsar,Sugarcane,2016,27.3,738.0,65.0,6.2
+Muktsar,Sugarcane,2017,26.3,808.0,70.0,6.09
+Muktsar,Sugarcane,2018,28.3,688.0,68.0,5.72
+Muktsar,Sugarcane,2019,29.3,668.0,72.0,5.81
+Muktsar,Sugarcane,2020,30.3,638.0,75.0,6.16
+Muktsar,Sugarcane,2021,27.3,768.0,66.0,5.66
+Muktsar,Sugarcane,2022,26.3,798.0,64.0,5.81
+Muktsar,Sugarcane,2023,28.3,708.0,69.0,6.15
+Muktsar,Sugarcane,2024,29.3,678.0,71.0,5.7
+Muktsar,Sunflower,2015,25.3,788.0,60.0,2.23
+Muktsar,Sunflower,2016,27.3,738.0,65.0,2.39
+Muktsar,Sunflower,2017,26.3,808.0,70.0,2.11
+Muktsar,Sunflower,2018,28.3,688.0,68.0,2.41
+Muktsar,Sunflower,2019,29.3,668.0,72.0,2.26
+Muktsar,Sunflower,2020,30.3,638.0,75.0,1.96
+Muktsar,Sunflower,2021,27.3,768.0,66.0,2.53
+Muktsar,Sunflower,2022,26.3,798.0,64.0,2.34
+Muktsar,Sunflower,2023,28.3,708.0,69.0,2.19
+Muktsar,Sunflower,2024,29.3,678.0,71.0,2.49
+Muktsar,Wheat,2015,25.3,788.0,60.0,3.2
+Muktsar,Wheat,2016,27.3,738.0,65.0,3.87
+Muktsar,Wheat,2017,26.3,808.0,70.0,3.48
+Muktsar,Wheat,2018,28.3,688.0,68.0,3.7
+Muktsar,Wheat,2019,29.3,668.0,72.0,3.97
+Muktsar,Wheat,2020,30.3,638.0,75.0,3.83
+Muktsar,Wheat,2021,27.3,768.0,66.0,3.68
+Muktsar,Wheat,2022,26.3,798.0,64.0,3.46
+Muktsar,Wheat,2023,28.3,708.0,69.0,3.67
+Muktsar,Wheat,2024,29.3,678.0,71.0,3.95
+Pathankot,Bajra,2015,24.7,792.0,60.0,2.17
+Pathankot,Bajra,2016,26.7,742.0,65.0,2.61
+Pathankot,Bajra,2017,25.7,812.0,70.0,1.73
+Pathankot,Bajra,2018,27.7,692.0,68.0,2.26
+Pathankot,Bajra,2019,28.7,672.0,72.0,1.75
+Pathankot,Bajra,2020,29.7,642.0,75.0,1.99
+Pathankot,Bajra,2021,26.7,772.0,66.0,2.01
+Pathankot,Bajra,2022,25.7,802.0,64.0,2.32
+Pathankot,Bajra,2023,27.7,712.0,69.0,2.67
+Pathankot,Bajra,2024,28.7,682.0,71.0,2.34
+Pathankot,Cotton,2015,24.7,792.0,60.0,2.31
+Pathankot,Cotton,2016,26.7,742.0,65.0,2.7
+Pathankot,Cotton,2017,25.7,812.0,70.0,3.1
+Pathankot,Cotton,2018,27.7,692.0,68.0,2.83
+Pathankot,Cotton,2019,28.7,672.0,72.0,3.04
+Pathankot,Cotton,2020,29.7,642.0,75.0,2.5
+Pathankot,Cotton,2021,26.7,772.0,66.0,3.01
+Pathankot,Cotton,2022,25.7,802.0,64.0,3.29
+Pathankot,Cotton,2023,27.7,712.0,69.0,2.65
+Pathankot,Cotton,2024,28.7,682.0,71.0,3.1
+Pathankot,Gram,2015,24.7,792.0,60.0,2.02
+Pathankot,Gram,2016,26.7,742.0,65.0,2.06
+Pathankot,Gram,2017,25.7,812.0,70.0,1.49
+Pathankot,Gram,2018,27.7,692.0,68.0,1.77
+Pathankot,Gram,2019,28.7,672.0,72.0,2.1
+Pathankot,Gram,2020,29.7,642.0,75.0,2.24
+Pathankot,Gram,2021,26.7,772.0,66.0,2.29
+Pathankot,Gram,2022,25.7,802.0,64.0,2.01
+Pathankot,Gram,2023,27.7,712.0,69.0,1.62
+Pathankot,Gram,2024,28.7,682.0,71.0,1.48
+Pathankot,Maize,2015,24.7,792.0,60.0,2.87
+Pathankot,Maize,2016,26.7,742.0,65.0,3.22
+Pathankot,Maize,2017,25.7,812.0,70.0,2.86
+Pathankot,Maize,2018,27.7,692.0,68.0,2.78
+Pathankot,Maize,2019,28.7,672.0,72.0,3.42
+Pathankot,Maize,2020,29.7,642.0,75.0,2.89
+Pathankot,Maize,2021,26.7,772.0,66.0,2.9
+Pathankot,Maize,2022,25.7,802.0,64.0,3.14
+Pathankot,Maize,2023,27.7,712.0,69.0,3.4
+Pathankot,Maize,2024,28.7,682.0,71.0,2.84
+Pathankot,Mustard,2015,24.7,792.0,60.0,1.9
+Pathankot,Mustard,2016,26.7,742.0,65.0,1.97
+Pathankot,Mustard,2017,25.7,812.0,70.0,1.68
+Pathankot,Mustard,2018,27.7,692.0,68.0,2.3
+Pathankot,Mustard,2019,28.7,672.0,72.0,2.44
+Pathankot,Mustard,2020,29.7,642.0,75.0,2.26
+Pathankot,Mustard,2021,26.7,772.0,66.0,1.5
+Pathankot,Mustard,2022,25.7,802.0,64.0,1.97
+Pathankot,Mustard,2023,27.7,712.0,69.0,2.24
+Pathankot,Mustard,2024,28.7,682.0,71.0,2.06
+Pathankot,Potato,2015,24.7,792.0,60.0,5.44
+Pathankot,Potato,2016,26.7,742.0,65.0,5.27
+Pathankot,Potato,2017,25.7,812.0,70.0,5.41
+Pathankot,Potato,2018,27.7,692.0,68.0,4.9
+Pathankot,Potato,2019,28.7,672.0,72.0,5.21
+Pathankot,Potato,2020,29.7,642.0,75.0,4.61
+Pathankot,Potato,2021,26.7,772.0,66.0,4.84
+Pathankot,Potato,2022,25.7,802.0,64.0,4.64
+Pathankot,Potato,2023,27.7,712.0,69.0,4.59
+Pathankot,Potato,2024,28.7,682.0,71.0,5.1
+Pathankot,Rice,2015,24.7,792.0,60.0,4.5
+Pathankot,Rice,2016,26.7,742.0,65.0,4.72
+Pathankot,Rice,2017,25.7,812.0,70.0,4.83
+Pathankot,Rice,2018,27.7,692.0,68.0,4.4
+Pathankot,Rice,2019,28.7,672.0,72.0,4.46
+Pathankot,Rice,2020,29.7,642.0,75.0,4.11
+Pathankot,Rice,2021,26.7,772.0,66.0,4.65
+Pathankot,Rice,2022,25.7,802.0,64.0,4.13
+Pathankot,Rice,2023,27.7,712.0,69.0,4.53
+Pathankot,Rice,2024,28.7,682.0,71.0,4.1
+Pathankot,Sugarcane,2015,24.7,792.0,60.0,6.0
+Pathankot,Sugarcane,2016,26.7,742.0,65.0,6.43
+Pathankot,Sugarcane,2017,25.7,812.0,70.0,6.22
+Pathankot,Sugarcane,2018,27.7,692.0,68.0,5.74
+Pathankot,Sugarcane,2019,28.7,672.0,72.0,6.06
+Pathankot,Sugarcane,2020,29.7,642.0,75.0,6.38
+Pathankot,Sugarcane,2021,26.7,772.0,66.0,6.35
+Pathankot,Sugarcane,2022,25.7,802.0,64.0,6.29
+Pathankot,Sugarcane,2023,27.7,712.0,69.0,6.26
+Pathankot,Sugarcane,2024,28.7,682.0,71.0,6.05
+Pathankot,Sunflower,2015,24.7,792.0,60.0,2.39
+Pathankot,Sunflower,2016,26.7,742.0,65.0,2.52
+Pathankot,Sunflower,2017,25.7,812.0,70.0,1.87
+Pathankot,Sunflower,2018,27.7,692.0,68.0,2.29
+Pathankot,Sunflower,2019,28.7,672.0,72.0,1.98
+Pathankot,Sunflower,2020,29.7,642.0,75.0,1.81
+Pathankot,Sunflower,2021,26.7,772.0,66.0,2.06
+Pathankot,Sunflower,2022,25.7,802.0,64.0,2.66
+Pathankot,Sunflower,2023,27.7,712.0,69.0,2.57
+Pathankot,Sunflower,2024,28.7,682.0,71.0,2.25
+Pathankot,Wheat,2015,24.7,792.0,60.0,3.81
+Pathankot,Wheat,2016,26.7,742.0,65.0,3.76
+Pathankot,Wheat,2017,25.7,812.0,70.0,3.3
+Pathankot,Wheat,2018,27.7,692.0,68.0,3.15
+Pathankot,Wheat,2019,28.7,672.0,72.0,3.86
+Pathankot,Wheat,2020,29.7,642.0,75.0,3.08
+Pathankot,Wheat,2021,26.7,772.0,66.0,3.93
+Pathankot,Wheat,2022,25.7,802.0,64.0,3.09
+Pathankot,Wheat,2023,27.7,712.0,69.0,3.66
+Pathankot,Wheat,2024,28.7,682.0,71.0,3.33
+Patiala,Bajra,2015,24.85,796.0,60.0,1.86
+Patiala,Bajra,2016,26.85,746.0,65.0,2.57
+Patiala,Bajra,2017,25.85,816.0,70.0,2.25
+Patiala,Bajra,2018,27.85,696.0,68.0,2.45
+Patiala,Bajra,2019,28.85,676.0,72.0,2.47
+Patiala,Bajra,2020,29.85,646.0,75.0,2.08
+Patiala,Bajra,2021,26.85,776.0,66.0,2.23
+Patiala,Bajra,2022,25.85,806.0,64.0,2.61
+Patiala,Bajra,2023,27.85,716.0,69.0,2.44
+Patiala,Bajra,2024,28.85,686.0,71.0,2.53
+Patiala,Cotton,2015,24.85,796.0,60.0,2.35
+Patiala,Cotton,2016,26.85,746.0,65.0,2.63
+Patiala,Cotton,2017,25.85,816.0,70.0,2.46
+Patiala,Cotton,2018,27.85,696.0,68.0,3.11
+Patiala,Cotton,2019,28.85,676.0,72.0,2.86
+Patiala,Cotton,2020,29.85,646.0,75.0,3.29
+Patiala,Cotton,2021,26.85,776.0,66.0,3.08
+Patiala,Cotton,2022,25.85,806.0,64.0,3.01
+Patiala,Cotton,2023,27.85,716.0,69.0,2.79
+Patiala,Cotton,2024,28.85,686.0,71.0,2.3
+Patiala,Gram,2015,24.85,796.0,60.0,2.26
+Patiala,Gram,2016,26.85,746.0,65.0,1.42
+Patiala,Gram,2017,25.85,816.0,70.0,1.47
+Patiala,Gram,2018,27.85,696.0,68.0,1.79
+Patiala,Gram,2019,28.85,676.0,72.0,1.74
+Patiala,Gram,2020,29.85,646.0,75.0,1.67
+Patiala,Gram,2021,26.85,776.0,66.0,2.26
+Patiala,Gram,2022,25.85,806.0,64.0,1.69
+Patiala,Gram,2023,27.85,716.0,69.0,1.59
+Patiala,Gram,2024,28.85,686.0,71.0,2.27
+Patiala,Maize,2015,24.85,796.0,60.0,2.65
+Patiala,Maize,2016,26.85,746.0,65.0,3.34
+Patiala,Maize,2017,25.85,816.0,70.0,2.5
+Patiala,Maize,2018,27.85,696.0,68.0,2.53
+Patiala,Maize,2019,28.85,676.0,72.0,3.19
+Patiala,Maize,2020,29.85,646.0,75.0,2.63
+Patiala,Maize,2021,26.85,776.0,66.0,3.48
+Patiala,Maize,2022,25.85,806.0,64.0,3.32
+Patiala,Maize,2023,27.85,716.0,69.0,2.75
+Patiala,Maize,2024,28.85,686.0,71.0,3.32
+Patiala,Mustard,2015,24.85,796.0,60.0,2.21
+Patiala,Mustard,2016,26.85,746.0,65.0,1.67
+Patiala,Mustard,2017,25.85,816.0,70.0,2.32
+Patiala,Mustard,2018,27.85,696.0,68.0,1.84
+Patiala,Mustard,2019,28.85,676.0,72.0,2.36
+Patiala,Mustard,2020,29.85,646.0,75.0,1.65
+Patiala,Mustard,2021,26.85,776.0,66.0,2.06
+Patiala,Mustard,2022,25.85,806.0,64.0,2.35
+Patiala,Mustard,2023,27.85,716.0,69.0,1.64
+Patiala,Mustard,2024,28.85,686.0,71.0,1.65
+Patiala,Potato,2015,24.85,796.0,60.0,4.89
+Patiala,Potato,2016,26.85,746.0,65.0,5.31
+Patiala,Potato,2017,25.85,816.0,70.0,5.44
+Patiala,Potato,2018,27.85,696.0,68.0,4.66
+Patiala,Potato,2019,28.85,676.0,72.0,4.7
+Patiala,Potato,2020,29.85,646.0,75.0,5.16
+Patiala,Potato,2021,26.85,776.0,66.0,4.85
+Patiala,Potato,2022,25.85,806.0,64.0,4.97
+Patiala,Potato,2023,27.85,716.0,69.0,5.05
+Patiala,Potato,2024,28.85,686.0,71.0,5.46
+Patiala,Rice,2015,24.85,796.0,60.0,4.97
+Patiala,Rice,2016,26.85,746.0,65.0,4.01
+Patiala,Rice,2017,25.85,816.0,70.0,4.75
+Patiala,Rice,2018,27.85,696.0,68.0,4.68
+Patiala,Rice,2019,28.85,676.0,72.0,4.8
+Patiala,Rice,2020,29.85,646.0,75.0,4.38
+Patiala,Rice,2021,26.85,776.0,66.0,4.63
+Patiala,Rice,2022,25.85,806.0,64.0,4.29
+Patiala,Rice,2023,27.85,716.0,69.0,4.0
+Patiala,Rice,2024,28.85,686.0,71.0,4.29
+Patiala,Sugarcane,2015,24.85,796.0,60.0,5.74
+Patiala,Sugarcane,2016,26.85,746.0,65.0,5.53
+Patiala,Sugarcane,2017,25.85,816.0,70.0,6.09
+Patiala,Sugarcane,2018,27.85,696.0,68.0,5.96
+Patiala,Sugarcane,2019,28.85,676.0,72.0,6.22
+Patiala,Sugarcane,2020,29.85,646.0,75.0,6.07
+Patiala,Sugarcane,2021,26.85,776.0,66.0,5.69
+Patiala,Sugarcane,2022,25.85,806.0,64.0,5.87
+Patiala,Sugarcane,2023,27.85,716.0,69.0,6.4
+Patiala,Sugarcane,2024,28.85,686.0,71.0,6.41
+Patiala,Sunflower,2015,24.85,796.0,60.0,2.59
+Patiala,Sunflower,2016,26.85,746.0,65.0,2.13
+Patiala,Sunflower,2017,25.85,816.0,70.0,2.53
+Patiala,Sunflower,2018,27.85,696.0,68.0,2.1
+Patiala,Sunflower,2019,28.85,676.0,72.0,2.06
+Patiala,Sunflower,2020,29.85,646.0,75.0,2.38
+Patiala,Sunflower,2021,26.85,776.0,66.0,2.57
+Patiala,Sunflower,2022,25.85,806.0,64.0,1.94
+Patiala,Sunflower,2023,27.85,716.0,69.0,2.19
+Patiala,Sunflower,2024,28.85,686.0,71.0,2.18
+Patiala,Wheat,2015,24.85,796.0,60.0,3.07
+Patiala,Wheat,2016,26.85,746.0,65.0,3.12
+Patiala,Wheat,2017,25.85,816.0,70.0,3.21
+Patiala,Wheat,2018,27.85,696.0,68.0,3.81
+Patiala,Wheat,2019,28.85,676.0,72.0,3.51
+Patiala,Wheat,2020,29.85,646.0,75.0,3.66
+Patiala,Wheat,2021,26.85,776.0,66.0,3.9
+Patiala,Wheat,2022,25.85,806.0,64.0,3.47
+Patiala,Wheat,2023,27.85,716.0,69.0,3.91
+Patiala,Wheat,2024,28.85,686.0,71.0,3.49
+Rupnagar,Bajra,2015,25.0,800.0,60.0,2.03
+Rupnagar,Bajra,2016,27.0,750.0,65.0,2.47
+Rupnagar,Bajra,2017,26.0,820.0,70.0,1.93
+Rupnagar,Bajra,2018,28.0,700.0,68.0,2.15
+Rupnagar,Bajra,2019,29.0,680.0,72.0,1.73
+Rupnagar,Bajra,2020,30.0,650.0,75.0,2.69
+Rupnagar,Bajra,2021,27.0,780.0,66.0,2.61
+Rupnagar,Bajra,2022,26.0,810.0,64.0,2.1
+Rupnagar,Bajra,2023,28.0,720.0,69.0,1.81
+Rupnagar,Bajra,2024,29.0,690.0,71.0,2.49
+Rupnagar,Cotton,2015,25.0,800.0,60.0,3.1
+Rupnagar,Cotton,2016,27.0,750.0,65.0,2.64
+Rupnagar,Cotton,2017,26.0,820.0,70.0,2.99
+Rupnagar,Cotton,2018,28.0,700.0,68.0,2.74
+Rupnagar,Cotton,2019,29.0,680.0,72.0,2.46
+Rupnagar,Cotton,2020,30.0,650.0,75.0,3.01
+Rupnagar,Cotton,2021,27.0,780.0,66.0,2.88
+Rupnagar,Cotton,2022,26.0,810.0,64.0,3.2
+Rupnagar,Cotton,2023,28.0,720.0,69.0,3.11
+Rupnagar,Cotton,2024,29.0,690.0,71.0,3.12
+Rupnagar,Gram,2015,25.0,800.0,60.0,1.37
+Rupnagar,Gram,2016,27.0,750.0,65.0,1.51
+Rupnagar,Gram,2017,26.0,820.0,70.0,1.54
+Rupnagar,Gram,2018,28.0,700.0,68.0,2.27
+Rupnagar,Gram,2019,29.0,680.0,72.0,2.25
+Rupnagar,Gram,2020,30.0,650.0,75.0,2.08
+Rupnagar,Gram,2021,27.0,780.0,66.0,1.33
+Rupnagar,Gram,2022,26.0,810.0,64.0,1.91
+Rupnagar,Gram,2023,28.0,720.0,69.0,1.63
+Rupnagar,Gram,2024,29.0,690.0,71.0,2.11
+Rupnagar,Maize,2015,25.0,800.0,60.0,2.54
+Rupnagar,Maize,2016,27.0,750.0,65.0,3.14
+Rupnagar,Maize,2017,26.0,820.0,70.0,3.11
+Rupnagar,Maize,2018,28.0,700.0,68.0,2.74
+Rupnagar,Maize,2019,29.0,680.0,72.0,3.21
+Rupnagar,Maize,2020,30.0,650.0,75.0,3.01
+Rupnagar,Maize,2021,27.0,780.0,66.0,2.51
+Rupnagar,Maize,2022,26.0,810.0,64.0,3.34
+Rupnagar,Maize,2023,28.0,720.0,69.0,3.0
+Rupnagar,Maize,2024,29.0,690.0,71.0,2.94
+Rupnagar,Mustard,2015,25.0,800.0,60.0,2.42
+Rupnagar,Mustard,2016,27.0,750.0,65.0,2.23
+Rupnagar,Mustard,2017,26.0,820.0,70.0,1.96
+Rupnagar,Mustard,2018,28.0,700.0,68.0,2.2
+Rupnagar,Mustard,2019,29.0,680.0,72.0,2.48
+Rupnagar,Mustard,2020,30.0,650.0,75.0,2.08
+Rupnagar,Mustard,2021,27.0,780.0,66.0,2.17
+Rupnagar,Mustard,2022,26.0,810.0,64.0,2.33
+Rupnagar,Mustard,2023,28.0,720.0,69.0,1.65
+Rupnagar,Mustard,2024,29.0,690.0,71.0,1.66
+Rupnagar,Potato,2015,25.0,800.0,60.0,5.2
+Rupnagar,Potato,2016,27.0,750.0,65.0,5.36
+Rupnagar,Potato,2017,26.0,820.0,70.0,4.89
+Rupnagar,Potato,2018,28.0,700.0,68.0,5.26
+Rupnagar,Potato,2019,29.0,680.0,72.0,5.08
+Rupnagar,Potato,2020,30.0,650.0,75.0,4.84
+Rupnagar,Potato,2021,27.0,780.0,66.0,5.0
+Rupnagar,Potato,2022,26.0,810.0,64.0,4.69
+Rupnagar,Potato,2023,28.0,720.0,69.0,5.14
+Rupnagar,Potato,2024,29.0,690.0,71.0,4.59
+Rupnagar,Rice,2015,25.0,800.0,60.0,4.82
+Rupnagar,Rice,2016,27.0,750.0,65.0,4.39
+Rupnagar,Rice,2017,26.0,820.0,70.0,4.12
+Rupnagar,Rice,2018,28.0,700.0,68.0,4.83
+Rupnagar,Rice,2019,29.0,680.0,72.0,4.5
+Rupnagar,Rice,2020,30.0,650.0,75.0,4.85
+Rupnagar,Rice,2021,27.0,780.0,66.0,4.62
+Rupnagar,Rice,2022,26.0,810.0,64.0,4.45
+Rupnagar,Rice,2023,28.0,720.0,69.0,4.58
+Rupnagar,Rice,2024,29.0,690.0,71.0,4.13
+Rupnagar,Sugarcane,2015,25.0,800.0,60.0,5.66
+Rupnagar,Sugarcane,2016,27.0,750.0,65.0,5.68
+Rupnagar,Sugarcane,2017,26.0,820.0,70.0,6.35
+Rupnagar,Sugarcane,2018,28.0,700.0,68.0,6.48
+Rupnagar,Sugarcane,2019,29.0,680.0,72.0,6.35
+Rupnagar,Sugarcane,2020,30.0,650.0,75.0,5.73
+Rupnagar,Sugarcane,2021,27.0,780.0,66.0,5.85
+Rupnagar,Sugarcane,2022,26.0,810.0,64.0,6.43
+Rupnagar,Sugarcane,2023,28.0,720.0,69.0,6.08
+Rupnagar,Sugarcane,2024,29.0,690.0,71.0,5.84
+Rupnagar,Sunflower,2015,25.0,800.0,60.0,1.85
+Rupnagar,Sunflower,2016,27.0,750.0,65.0,2.77
+Rupnagar,Sunflower,2017,26.0,820.0,70.0,2.51
+Rupnagar,Sunflower,2018,28.0,700.0,68.0,2.42
+Rupnagar,Sunflower,2019,29.0,680.0,72.0,1.83
+Rupnagar,Sunflower,2020,30.0,650.0,75.0,2.22
+Rupnagar,Sunflower,2021,27.0,780.0,66.0,2.09
+Rupnagar,Sunflower,2022,26.0,810.0,64.0,2.27
+Rupnagar,Sunflower,2023,28.0,720.0,69.0,2.54
+Rupnagar,Sunflower,2024,29.0,690.0,71.0,2.72
+Rupnagar,Wheat,2015,25.0,800.0,60.0,3.44
+Rupnagar,Wheat,2016,27.0,750.0,65.0,3.15
+Rupnagar,Wheat,2017,26.0,820.0,70.0,3.59
+Rupnagar,Wheat,2018,28.0,700.0,68.0,3.94
+Rupnagar,Wheat,2019,29.0,680.0,72.0,3.04
+Rupnagar,Wheat,2020,30.0,650.0,75.0,3.57
+Rupnagar,Wheat,2021,27.0,780.0,66.0,3.87
+Rupnagar,Wheat,2022,26.0,810.0,64.0,3.87
+Rupnagar,Wheat,2023,28.0,720.0,69.0,3.48
+Rupnagar,Wheat,2024,29.0,690.0,71.0,3.72
+Sangrur,Bajra,2015,25.15,804.0,60.0,1.91
+Sangrur,Bajra,2016,27.15,754.0,65.0,2.14
+Sangrur,Bajra,2017,26.15,824.0,70.0,1.77
+Sangrur,Bajra,2018,28.15,704.0,68.0,2.19
+Sangrur,Bajra,2019,29.15,684.0,72.0,2.59
+Sangrur,Bajra,2020,30.15,654.0,75.0,2.29
+Sangrur,Bajra,2021,27.15,784.0,66.0,2.18
+Sangrur,Bajra,2022,26.15,814.0,64.0,2.42
+Sangrur,Bajra,2023,28.15,724.0,69.0,2.02
+Sangrur,Bajra,2024,29.15,694.0,71.0,2.4
+Sangrur,Cotton,2015,25.15,804.0,60.0,2.35
+Sangrur,Cotton,2016,27.15,754.0,65.0,2.95
+Sangrur,Cotton,2017,26.15,824.0,70.0,2.93
+Sangrur,Cotton,2018,28.15,704.0,68.0,2.79
+Sangrur,Cotton,2019,29.15,684.0,72.0,2.47
+Sangrur,Cotton,2020,30.15,654.0,75.0,2.92
+Sangrur,Cotton,2021,27.15,784.0,66.0,2.46
+Sangrur,Cotton,2022,26.15,814.0,64.0,3.22
+Sangrur,Cotton,2023,28.15,724.0,69.0,2.66
+Sangrur,Cotton,2024,29.15,694.0,71.0,3.22
+Sangrur,Gram,2015,25.15,804.0,60.0,1.31
+Sangrur,Gram,2016,27.15,754.0,65.0,1.73
+Sangrur,Gram,2017,26.15,824.0,70.0,2.25
+Sangrur,Gram,2018,28.15,704.0,68.0,1.69
+Sangrur,Gram,2019,29.15,684.0,72.0,2.21
+Sangrur,Gram,2020,30.15,654.0,75.0,2.24
+Sangrur,Gram,2021,27.15,784.0,66.0,1.35
+Sangrur,Gram,2022,26.15,814.0,64.0,1.44
+Sangrur,Gram,2023,28.15,724.0,69.0,1.4
+Sangrur,Gram,2024,29.15,694.0,71.0,1.6
+Sangrur,Maize,2015,25.15,804.0,60.0,3.0
+Sangrur,Maize,2016,27.15,754.0,65.0,2.51
+Sangrur,Maize,2017,26.15,824.0,70.0,3.31
+Sangrur,Maize,2018,28.15,704.0,68.0,2.55
+Sangrur,Maize,2019,29.15,684.0,72.0,3.05
+Sangrur,Maize,2020,30.15,654.0,75.0,2.64
+Sangrur,Maize,2021,27.15,784.0,66.0,3.38
+Sangrur,Maize,2022,26.15,814.0,64.0,2.81
+Sangrur,Maize,2023,28.15,724.0,69.0,3.15
+Sangrur,Maize,2024,29.15,694.0,71.0,3.34
+Sangrur,Mustard,2015,25.15,804.0,60.0,2.39
+Sangrur,Mustard,2016,27.15,754.0,65.0,1.65
+Sangrur,Mustard,2017,26.15,824.0,70.0,2.41
+Sangrur,Mustard,2018,28.15,704.0,68.0,2.0
+Sangrur,Mustard,2019,29.15,684.0,72.0,1.56
+Sangrur,Mustard,2020,30.15,654.0,75.0,1.87
+Sangrur,Mustard,2021,27.15,784.0,66.0,1.8
+Sangrur,Mustard,2022,26.15,814.0,64.0,2.12
+Sangrur,Mustard,2023,28.15,724.0,69.0,2.14
+Sangrur,Mustard,2024,29.15,694.0,71.0,2.17
+Sangrur,Potato,2015,25.15,804.0,60.0,4.5
+Sangrur,Potato,2016,27.15,754.0,65.0,4.75
+Sangrur,Potato,2017,26.15,824.0,70.0,4.74
+Sangrur,Potato,2018,28.15,704.0,68.0,5.18
+Sangrur,Potato,2019,29.15,684.0,72.0,4.77
+Sangrur,Potato,2020,30.15,654.0,75.0,4.99
+Sangrur,Potato,2021,27.15,784.0,66.0,5.48
+Sangrur,Potato,2022,26.15,814.0,64.0,5.09
+Sangrur,Potato,2023,28.15,724.0,69.0,4.67
+Sangrur,Potato,2024,29.15,694.0,71.0,5.39
+Sangrur,Rice,2015,25.15,804.0,60.0,4.32
+Sangrur,Rice,2016,27.15,754.0,65.0,4.75
+Sangrur,Rice,2017,26.15,824.0,70.0,4.64
+Sangrur,Rice,2018,28.15,704.0,68.0,4.47
+Sangrur,Rice,2019,29.15,684.0,72.0,4.46
+Sangrur,Rice,2020,30.15,654.0,75.0,4.67
+Sangrur,Rice,2021,27.15,784.0,66.0,4.06
+Sangrur,Rice,2022,26.15,814.0,64.0,4.8
+Sangrur,Rice,2023,28.15,724.0,69.0,4.27
+Sangrur,Rice,2024,29.15,694.0,71.0,4.28
+Sangrur,Sugarcane,2015,25.15,804.0,60.0,6.32
+Sangrur,Sugarcane,2016,27.15,754.0,65.0,6.02
+Sangrur,Sugarcane,2017,26.15,824.0,70.0,6.03
+Sangrur,Sugarcane,2018,28.15,704.0,68.0,5.51
+Sangrur,Sugarcane,2019,29.15,684.0,72.0,5.73
+Sangrur,Sugarcane,2020,30.15,654.0,75.0,6.19
+Sangrur,Sugarcane,2021,27.15,784.0,66.0,5.91
+Sangrur,Sugarcane,2022,26.15,814.0,64.0,5.62
+Sangrur,Sugarcane,2023,28.15,724.0,69.0,5.51
+Sangrur,Sugarcane,2024,29.15,694.0,71.0,5.66
+Sangrur,Sunflower,2015,25.15,804.0,60.0,2.2
+Sangrur,Sunflower,2016,27.15,754.0,65.0,2.76
+Sangrur,Sunflower,2017,26.15,824.0,70.0,2.31
+Sangrur,Sunflower,2018,28.15,704.0,68.0,2.59
+Sangrur,Sunflower,2019,29.15,684.0,72.0,2.49
+Sangrur,Sunflower,2020,30.15,654.0,75.0,2.48
+Sangrur,Sunflower,2021,27.15,784.0,66.0,1.85
+Sangrur,Sunflower,2022,26.15,814.0,64.0,2.78
+Sangrur,Sunflower,2023,28.15,724.0,69.0,1.95
+Sangrur,Sunflower,2024,29.15,694.0,71.0,2.45
+Sangrur,Wheat,2015,25.15,804.0,60.0,3.31
+Sangrur,Wheat,2016,27.15,754.0,65.0,3.06
+Sangrur,Wheat,2017,26.15,824.0,70.0,3.32
+Sangrur,Wheat,2018,28.15,704.0,68.0,3.78
+Sangrur,Wheat,2019,29.15,684.0,72.0,3.84
+Sangrur,Wheat,2020,30.15,654.0,75.0,3.71
+Sangrur,Wheat,2021,27.15,784.0,66.0,3.14
+Sangrur,Wheat,2022,26.15,814.0,64.0,3.97
+Sangrur,Wheat,2023,28.15,724.0,69.0,3.99
+Sangrur,Wheat,2024,29.15,694.0,71.0,3.08
+Tarn Taran,Bajra,2015,25.3,808.0,60.0,2.58
+Tarn Taran,Bajra,2016,27.3,758.0,65.0,1.85
+Tarn Taran,Bajra,2017,26.3,828.0,70.0,2.23
+Tarn Taran,Bajra,2018,28.3,708.0,68.0,1.72
+Tarn Taran,Bajra,2019,29.3,688.0,72.0,2.43
+Tarn Taran,Bajra,2020,30.3,658.0,75.0,1.81
+Tarn Taran,Bajra,2021,27.3,788.0,66.0,2.47
+Tarn Taran,Bajra,2022,26.3,818.0,64.0,2.54
+Tarn Taran,Bajra,2023,28.3,728.0,69.0,2.48
+Tarn Taran,Bajra,2024,29.3,698.0,71.0,2.45
+Tarn Taran,Cotton,2015,25.3,808.0,60.0,3.23
+Tarn Taran,Cotton,2016,27.3,758.0,65.0,2.6
+Tarn Taran,Cotton,2017,26.3,828.0,70.0,3.22
+Tarn Taran,Cotton,2018,28.3,708.0,68.0,2.96
+Tarn Taran,Cotton,2019,29.3,688.0,72.0,2.68
+Tarn Taran,Cotton,2020,30.3,658.0,75.0,3.08
+Tarn Taran,Cotton,2021,27.3,788.0,66.0,2.78
+Tarn Taran,Cotton,2022,26.3,818.0,64.0,3.25
+Tarn Taran,Cotton,2023,28.3,728.0,69.0,3.21
+Tarn Taran,Cotton,2024,29.3,698.0,71.0,2.72
+Tarn Taran,Gram,2015,25.3,808.0,60.0,1.88
+Tarn Taran,Gram,2016,27.3,758.0,65.0,1.56
+Tarn Taran,Gram,2017,26.3,828.0,70.0,1.44
+Tarn Taran,Gram,2018,28.3,708.0,68.0,1.34
+Tarn Taran,Gram,2019,29.3,688.0,72.0,1.32
+Tarn Taran,Gram,2020,30.3,658.0,75.0,1.69
+Tarn Taran,Gram,2021,27.3,788.0,66.0,2.1
+Tarn Taran,Gram,2022,26.3,818.0,64.0,1.88
+Tarn Taran,Gram,2023,28.3,728.0,69.0,2.07
+Tarn Taran,Gram,2024,29.3,698.0,71.0,1.48
+Tarn Taran,Maize,2015,25.3,808.0,60.0,3.32
+Tarn Taran,Maize,2016,27.3,758.0,65.0,3.38
+Tarn Taran,Maize,2017,26.3,828.0,70.0,3.38
+Tarn Taran,Maize,2018,28.3,708.0,68.0,2.53
+Tarn Taran,Maize,2019,29.3,688.0,72.0,2.55
+Tarn Taran,Maize,2020,30.3,658.0,75.0,3.06
+Tarn Taran,Maize,2021,27.3,788.0,66.0,2.87
+Tarn Taran,Maize,2022,26.3,818.0,64.0,2.58
+Tarn Taran,Maize,2023,28.3,728.0,69.0,2.86
+Tarn Taran,Maize,2024,29.3,698.0,71.0,2.72
+Tarn Taran,Mustard,2015,25.3,808.0,60.0,2.05
+Tarn Taran,Mustard,2016,27.3,758.0,65.0,1.85
+Tarn Taran,Mustard,2017,26.3,828.0,70.0,2.0
+Tarn Taran,Mustard,2018,28.3,708.0,68.0,2.06
+Tarn Taran,Mustard,2019,29.3,688.0,72.0,2.07
+Tarn Taran,Mustard,2020,30.3,658.0,75.0,2.3
+Tarn Taran,Mustard,2021,27.3,788.0,66.0,1.89
+Tarn Taran,Mustard,2022,26.3,818.0,64.0,1.6
+Tarn Taran,Mustard,2023,28.3,728.0,69.0,1.62
+Tarn Taran,Mustard,2024,29.3,698.0,71.0,1.88
+Tarn Taran,Potato,2015,25.3,808.0,60.0,5.41
+Tarn Taran,Potato,2016,27.3,758.0,65.0,5.29
+Tarn Taran,Potato,2017,26.3,828.0,70.0,5.44
+Tarn Taran,Potato,2018,28.3,708.0,68.0,5.11
+Tarn Taran,Potato,2019,29.3,688.0,72.0,4.57
+Tarn Taran,Potato,2020,30.3,658.0,75.0,4.68
+Tarn Taran,Potato,2021,27.3,788.0,66.0,4.7
+Tarn Taran,Potato,2022,26.3,818.0,64.0,4.8
+Tarn Taran,Potato,2023,28.3,728.0,69.0,5.42
+Tarn Taran,Potato,2024,29.3,698.0,71.0,4.89
+Tarn Taran,Rice,2015,25.3,808.0,60.0,4.83
+Tarn Taran,Rice,2016,27.3,758.0,65.0,4.3
+Tarn Taran,Rice,2017,26.3,828.0,70.0,4.8
+Tarn Taran,Rice,2018,28.3,708.0,68.0,4.16
+Tarn Taran,Rice,2019,29.3,688.0,72.0,4.51
+Tarn Taran,Rice,2020,30.3,658.0,75.0,4.37
+Tarn Taran,Rice,2021,27.3,788.0,66.0,4.24
+Tarn Taran,Rice,2022,26.3,818.0,64.0,4.12
+Tarn Taran,Rice,2023,28.3,728.0,69.0,4.77
+Tarn Taran,Rice,2024,29.3,698.0,71.0,4.43
+Tarn Taran,Sugarcane,2015,25.3,808.0,60.0,5.51
+Tarn Taran,Sugarcane,2016,27.3,758.0,65.0,6.12
+Tarn Taran,Sugarcane,2017,26.3,828.0,70.0,5.88
+Tarn Taran,Sugarcane,2018,28.3,708.0,68.0,5.66
+Tarn Taran,Sugarcane,2019,29.3,688.0,72.0,5.65
+Tarn Taran,Sugarcane,2020,30.3,658.0,75.0,5.67
+Tarn Taran,Sugarcane,2021,27.3,788.0,66.0,5.84
+Tarn Taran,Sugarcane,2022,26.3,818.0,64.0,5.9
+Tarn Taran,Sugarcane,2023,28.3,728.0,69.0,5.58
+Tarn Taran,Sugarcane,2024,29.3,698.0,71.0,5.78
+Tarn Taran,Sunflower,2015,25.3,808.0,60.0,2.76
+Tarn Taran,Sunflower,2016,27.3,758.0,65.0,1.81
+Tarn Taran,Sunflower,2017,26.3,828.0,70.0,2.48
+Tarn Taran,Sunflower,2018,28.3,708.0,68.0,2.52
+Tarn Taran,Sunflower,2019,29.3,688.0,72.0,2.71
+Tarn Taran,Sunflower,2020,30.3,658.0,75.0,2.77
+Tarn Taran,Sunflower,2021,27.3,788.0,66.0,2.44
+Tarn Taran,Sunflower,2022,26.3,818.0,64.0,2.22
+Tarn Taran,Sunflower,2023,28.3,728.0,69.0,2.2
+Tarn Taran,Sunflower,2024,29.3,698.0,71.0,1.8
+Tarn Taran,Wheat,2015,25.3,808.0,60.0,3.02
+Tarn Taran,Wheat,2016,27.3,758.0,65.0,3.48
+Tarn Taran,Wheat,2017,26.3,828.0,70.0,3.86
+Tarn Taran,Wheat,2018,28.3,708.0,68.0,3.17
+Tarn Taran,Wheat,2019,29.3,688.0,72.0,3.63
+Tarn Taran,Wheat,2020,30.3,658.0,75.0,3.55
+Tarn Taran,Wheat,2021,27.3,788.0,66.0,3.69
+Tarn Taran,Wheat,2022,26.3,818.0,64.0,3.23
+Tarn Taran,Wheat,2023,28.3,728.0,69.0,3.55
+Tarn Taran,Wheat,2024,29.3,698.0,71.0,3.42
