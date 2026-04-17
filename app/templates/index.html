@@ -162,6 +162,44 @@ background:linear-gradient(90deg,#2e8b57,#3cb371);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
+
+./* HEADER RIGHT ALIGN */
+.filters {
+  display: flex;
+  align-items: center;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* FIX DROPDOWNS */
+.filters select {
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* AI BUTTON */
+.chat-btn-header {
+  background: linear-gradient(90deg,#2e8b57,#3cb371);
+  color: white;
+  padding: 7px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  transition: 0.3s;
+}
+
+.chat-btn-header:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
 </style>
 
 </head>
@@ -177,8 +215,9 @@ background:linear-gradient(90deg,#2e8b57,#3cb371);
 <span>Correlation Analysis Dashboard · Punjab Region</span>
 </div>
 </div>
-
 <div class="filters">
+
+<div class="filter-group">
 <select id="crop">
 {% for c in crops %}
 <option>{{c}}</option>
@@ -190,6 +229,14 @@ background:linear-gradient(90deg,#2e8b57,#3cb371);
 <option>{{d}}</option>
 {% endfor %}
 </select>
+
+<button onclick="openChatbot()" class="chat-btn-header">
+  🌱 Ask AI
+</button>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -445,7 +492,16 @@ window.onload = loadDashboard;
 document.getElementById("crop").onchange = loadDashboard;
 document.getElementById("district").onchange = loadDashboard;
 
+
+function openChatbot() {
+    window.open("https://crop-ai-assistant.zapier.app/", "_blank");
+}
+
 </script>
 
+
+
+
+</button>
 </body>
 </html>
