@@ -18,7 +18,7 @@
   if (window.Chart) {
     Chart.defaults.font.family = "'DM Sans', sans-serif";
     Chart.defaults.font.size = 10;
-    Chart.defaults.color = '#819078';
+    Chart.defaults.color = chartPalette().text;
     Chart.defaults.animation = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? false : { duration: 450 };
   }
 
@@ -30,25 +30,84 @@
     element.classList.toggle('error', error);
   }
 
+  function setRecordsLoading(loading) {
+    document.querySelectorAll('[data-records]').forEach(element => {
+      element.setAttribute('aria-busy', String(loading));
+    });
+  }
+
+  async function withSkeletonMinimum(request) {
+    const [result] = await Promise.allSettled([
+      request,
+      new Promise(resolve => setTimeout(resolve, 600)),
+    ]);
+    if (result.status === 'rejected') throw result.reason;
+    return result.value;
+  }
+
+  function chartPalette() {
+    const styles = getComputedStyle(document.documentElement);
+    const color = (name, fallback) => styles.getPropertyValue(`--chart-${name}`).trim() || fallback;
+    return {
+      text: color('text', '#819078'), grid: color('grid', '#edf0e7'),
+      primary: color('primary', '#537b4d'), secondary: color('secondary', '#ba9654'),
+      fill: color('fill', '#dce8cf70'), point: color('point', '#fff'),
+      scatter: color('scatter', '#759251'), bar: color('bar', '#386646'),
+      barSoft: color('bar-soft', '#aebd83'), tooltip: color('tooltip', '#264c36'),
+      tooltipText: color('tooltip-text', '#fff'),
+    };
+  }
+
+  function themeDatasets(id, datasets, colors) {
+    return datasets.map((dataset, index) => {
+      if (id === 'predictionChart') return { ...dataset, backgroundColor: [colors.barSoft, colors.bar] };
+      if (id === 'rainChart') return { ...dataset, backgroundColor: colors.scatter };
+      const color = index ? colors.secondary : colors.primary;
+      return { ...dataset, borderColor: color, backgroundColor: dataset.fill ? colors.fill : color,
+        pointBackgroundColor: colors.point };
+    });
+  }
+
+  window.addEventListener('themechange', () => {
+    if (!window.Chart) return;
+    const colors = chartPalette();
+    Chart.defaults.color = colors.text;
+    charts.forEach((chart, id) => {
+      chart.data.datasets = themeDatasets(id, chart.data.datasets, colors);
+      chart.options.color = colors.text;
+      chart.options.plugins.legend.labels.color = colors.text;
+      Object.assign(chart.options.plugins.tooltip, {
+        backgroundColor: colors.tooltip, titleColor: colors.tooltipText, bodyColor: colors.tooltipText,
+      });
+      for (const axis of ['x', 'y']) {
+        chart.options.scales[axis].ticks.color = colors.text;
+        chart.options.scales[axis].title.color = colors.text;
+        chart.options.scales[axis].grid.color = colors.grid;
+      }
+      chart.update('none');
+    });
+  });
+
   function draw(id, type, labels, datasets, axisTitles = {}) {
     if (!byId(id) || !window.Chart) return;
     if (charts.has(id)) charts.get(id).destroy();
+    const colors = chartPalette();
     const chart = new Chart(byId(id), {
       type,
-      data: { labels, datasets },
+      data: { labels, datasets: themeDatasets(id, datasets, colors) },
       options: {
-        responsive: true, maintainAspectRatio: false,
+        responsive: true, maintainAspectRatio: false, color: colors.text,
         interaction: { mode: type === 'scatter' ? 'nearest' : 'index', intersect: false },
         plugins: {
-          legend: { display: id === 'historyChart', position: 'bottom', labels: { usePointStyle: true, boxWidth: 7, padding: 22 } },
-          tooltip: { backgroundColor: '#264c36', padding: 12, cornerRadius: 8 },
+          legend: { display: id === 'historyChart', position: 'bottom', labels: { color: colors.text, usePointStyle: true, boxWidth: 7, padding: 22 } },
+          tooltip: { backgroundColor: colors.tooltip, titleColor: colors.tooltipText, bodyColor: colors.tooltipText, padding: 12, cornerRadius: 8 },
         },
         scales: {
-          x: { grid: { display: false }, border: { display: false }, ticks: { maxTicksLimit: 8 },
-            title: { display: Boolean(axisTitles.x), text: axisTitles.x } },
-          y: { grid: { color: '#edf0e7' }, border: { display: false },
-            beginAtZero: type === 'bar', ticks: { maxTicksLimit: 5 },
-            title: { display: Boolean(axisTitles.y), text: axisTitles.y } },
+          x: { grid: { display: false, color: colors.grid }, border: { display: false }, ticks: { color: colors.text, maxTicksLimit: 8 },
+            title: { display: Boolean(axisTitles.x), text: axisTitles.x, color: colors.text } },
+          y: { grid: { color: colors.grid }, border: { display: false },
+            beginAtZero: type === 'bar', ticks: { color: colors.text, maxTicksLimit: 5 },
+            title: { display: Boolean(axisTitles.y), text: axisTitles.y, color: colors.text } },
         },
       },
     });
@@ -151,6 +210,7 @@
 
   async function loadData() {
     const version = ++loadVersion;
+    setRecordsLoading(true);
     updateNavigation();
     byId('filterContext').textContent = 'Loading historical records…';
     notice('dataStatus', '');
@@ -163,8 +223,8 @@
         throw new Error('Choose a start year that is earlier than or equal to the end year.');
       }
       const compare = byId('compareDistrict')?.value;
-      const data = await Promise.all([records(crop(), district()),
-        compare && compare !== district() ? records(crop(), compare) : Promise.resolve([])]);
+      const data = await withSkeletonMinimum(Promise.all([records(crop(), district()),
+        compare && compare !== district() ? records(crop(), compare) : Promise.resolve([])]));
       if (version !== loadVersion) return;
       allRows = data[0]; rows = inPeriod(allRows); comparison = inPeriod(data[1]);
       byId('filterContext').textContent = `${rows.length} records · ${rows.length ? `${rows[0].Year}–${rows.at(-1).Year}` : 'No matching years'}`;
@@ -186,6 +246,8 @@
       if (version !== loadVersion) return;
       byId('filterContext').textContent = 'Historical records unavailable';
       notice('dataStatus', `${error.message} Change a filter to try again.`, true);
+    } finally {
+      if (version === loadVersion) setRecordsLoading(false);
     }
   }
 
@@ -226,12 +288,17 @@
     byId('predictBtn').disabled = true;
     byId('predictBtn').textContent = 'Calculating estimate…';
     byId('resultPanel').setAttribute('aria-busy', 'true');
+    byId('comparisonPanel').setAttribute('aria-busy', 'true');
+    byId('resultBadge').textContent = 'Calculating…';
     notice('predictionStatus', '');
     try {
-      const response = await fetch('/predict', { method: 'POST', body: payload });
-      const data = await response.json();
+      const data = await withSkeletonMinimum(fetch('/predict', { method: 'POST', body: payload })
+        .then(async response => {
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || 'Prediction failed. Please try again.');
+          return result;
+        }));
       if (version !== predictionVersion) return;
-      if (!response.ok) throw new Error(data.error || 'Prediction failed. Please try again.');
       byId('predictionEmpty').hidden = true; byId('predictionResult').hidden = false;
       byId('comparisonPanel').hidden = false; hasPrediction = true;
       byId('resultBadge').textContent = 'Estimate ready';
@@ -257,6 +324,7 @@
       byId('predictBtn').disabled = false;
       byId('predictBtn').textContent = 'Predict yield ↗';
       byId('resultPanel').setAttribute('aria-busy', 'false');
+      byId('comparisonPanel').setAttribute('aria-busy', 'false');
     }
   }
 
@@ -289,11 +357,14 @@
     byId('predictionForm').addEventListener('submit', predict);
     byId('useAverages').addEventListener('click', fillAverages);
     byId('resetInputs').addEventListener('click', () => { byId('predictionForm').reset(); markStale(); });
-    fetch('/model_info').then(async response => {
+    withSkeletonMinimum(fetch('/model_info').then(async response => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
+      return data;
+    })).then(data => {
       metrics = data; renderMetrics();
-    }).catch(error => { byId('modelMetrics').textContent = error.message || 'Model evaluation could not be loaded.'; });
+    }).catch(error => { byId('modelMetrics').textContent = error.message || 'Model evaluation could not be loaded.'; })
+      .finally(() => { byId('modelMetrics').setAttribute('aria-busy', 'false'); });
   }
   if (page === 'history') {
     byId('compareDistrict').addEventListener('change', loadData);

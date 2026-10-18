@@ -1,0 +1,42 @@
+:root{color-scheme:light;--chart-text:#819078;--chart-grid:#edf0e7;--chart-primary:#537b4d;--chart-secondary:#ba9654;--chart-fill:#dce8cf70;--chart-point:#fff;--chart-scatter:#759251;--chart-bar:#386646;--chart-bar-soft:#aebd83;--chart-tooltip:#264c36;--chart-tooltip-text:#fff}
+:root[data-theme=dark]{color-scheme:dark;--bg:#111b17;--paper:#19261f;--ink:#e0e9db;--muted:#a3b09f;--green:#accd8b;--border:#324137;--lime:#d8e9a6;--soft:#26382b;--chart-text:#b6c4ae;--chart-grid:#324137;--chart-primary:#b0d48d;--chart-secondary:#e6be79;--chart-fill:#90b56e25;--chart-point:#19261f;--chart-scatter:#b0d48d;--chart-bar:#accd8b;--chart-bar-soft:#647e53;--chart-tooltip:#e0e9db;--chart-tooltip-text:#19261f}
+.topbar-actions{display:flex;align-items:center;gap:12px}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:32px;min-height:32px;padding:6px;border:1px solid var(--border);border-radius:7px;background:var(--paper);color:var(--ink);font-size:10px;font-weight:600;transition:background .18s,border-color .18s}
+#themeLabel{display:none}
+.theme-toggle:hover{background:var(--soft);border-color:var(--green)}
+.theme-icon-dark{display:none}
+:root[data-theme=dark] .theme-icon-light{display:none}
+:root[data-theme=dark] .theme-icon-dark{display:block}
+:root[data-theme=dark] :is(.sidebar,.filter-bar,.stat-card,.panel,.button-outline,.skip-link:focus){background:var(--paper)}
+:root[data-theme=dark] .topbar{background:var(--paper)}
+:root[data-theme=dark] :is(.nav-item,.nav-label,label,.range-labels,.stat-card small,.page-footer){color:var(--muted)}
+:root[data-theme=dark] :is(.sidebar-note .eyebrow,.page-heading .eyebrow,.panel-heading .eyebrow){color:var(--green)}
+:root[data-theme=dark] .weather-label label{color:var(--ink)}
+:root[data-theme=dark] .slash{color:var(--muted)}
+:root[data-theme=dark] :is(.nav-item:hover,.nav-item.active){background:var(--soft);color:var(--green)}
+:root[data-theme=dark] .button-outline{border-color:var(--border)}
+:root[data-theme=dark] .button-outline:hover{background:var(--soft)}
+:root[data-theme=dark] .button-primary{background:var(--lime);color:#172719}
+:root[data-theme=dark] .button-primary:hover{background:#c9dda0}
+:root[data-theme=dark] :is(.stat-icon,.pill,.info-icon){background:#30452b;color:var(--green)}
+:root[data-theme=dark] .insight-banner{background:var(--soft);border-color:var(--border)}
+:root[data-theme=dark] .insight-banner p{color:var(--muted)}
+:root[data-theme=dark] .overview-hero{background:#1b3526}
+:root[data-theme=dark] .result-hero{background:linear-gradient(120deg,#213d2b,#2b4933)}
+:root[data-theme=dark] .notice{background:#352f1d;border-color:#66582f;color:#ead59c}
+:root[data-theme=dark] .notice.error{background:#39251f;border-color:#784638;color:#f2b19b}
+:root[data-theme=dark] input[type=range]{accent-color:var(--green)}
+:root[data-theme=dark] .segmented button.selected{background:var(--paper)}
+:root[data-theme=dark] th{background:var(--soft);color:var(--ink)}
+:root[data-theme=dark] tbody tr:hover{background:#233327}
+:root[data-theme=dark] :is(.select-trigger:hover,.themed-select.is-open .select-trigger,.select-menu){border-color:#617954}
+:root[data-theme=dark] .select-menu{box-shadow:0 8px 24px #0005}
+:root[data-theme=dark] .select-option[aria-selected=true]{background:#31472d;color:var(--green)}
+:root[data-theme=dark] :is(.skeleton,.stats-grid[aria-busy=true] .stat-card strong,.insight-banner[aria-busy=true] h3,.insight-banner[aria-busy=true] p,#summaryPeriod[aria-busy=true],.weather-panel[aria-busy=true] [id$=Observed],#comparisonPanel[aria-busy=true] .scenario-weather strong){color:transparent;background-image:linear-gradient(100deg,#293b2a 25%,#43583c 45%,#293b2a 65%)}
+:root[data-theme=dark] #resultPanel .prediction-skeleton .skeleton{background-image:linear-gradient(100deg,#ffffff15 25%,#ffffff40 45%,#ffffff15 65%)}
+:root[data-theme=dark] .skeleton-plot{background:repeating-linear-gradient(to top,transparent,transparent calc(25% - 1px),var(--border) calc(25% - 1px),var(--border) 25%)}
+:root[data-theme=dark] .skeleton-plot::after{background-image:linear-gradient(100deg,transparent 25%,#ffffff20 45%,transparent 65%)}
+:root[data-theme=dark] .skeleton-chart-line{stroke:#526b46}
+:root[data-theme=dark] .skeleton-chart-mark{fill:#526b46}
+@media(max-width:650px){.topbar-actions{gap:7px}}
+@media(prefers-reduced-motion:reduce){.theme-toggle{transition:none}}

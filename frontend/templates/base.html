@@ -3,9 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
   <title>{% block title %}Overview{% endblock %} · Fieldwise</title>
+  <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
   <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
   <script src="{{ url_for('static', filename='vendor/chart.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/dropdowns.js') }}" defer></script>
@@ -24,7 +27,7 @@
   <div class="sidebar-footer"><span class="status-dot"></span> Historical data workspace</div>
 </aside>
 <div class="workspace">
-  <header class="topbar"><span>Workspace <span class="slash">/</span> <strong>{{ active|replace('predictor', 'Yield predictor')|replace('overview', 'Overview')|replace('history', 'Historical explorer') }}</strong></span><span class="region-tag">Punjab region <span aria-hidden="true">↗</span></span></header>
+  <header class="topbar"><span>Workspace <span class="slash">/</span> <strong>{{ active|replace('predictor', 'Yield predictor')|replace('overview', 'Overview')|replace('history', 'Historical explorer') }}</strong></span><div class="topbar-actions"><button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false"><svg class="theme-icon-light" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z"/></svg><span id="themeLabel">Light mode</span></button><span class="region-tag">Punjab region <span aria-hidden="true">↗</span></span></div></header>
   <main id="main">
     <div class="page-heading"><div><span class="eyebrow">GROW WITH UNDERSTANDING</span><h1>{% block heading %}{% endblock %}</h1><p>{% block description %}{% endblock %}</p></div>{% block heading_action %}{% endblock %}</div>
     <section class="filter-bar" aria-label="Dataset filters">

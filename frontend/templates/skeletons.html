@@ -1,0 +1,17 @@
+{% macro chart(kind='line') %}
+<div class="chart-skeleton loading-skeleton" aria-hidden="true">
+  <div class="skeleton-axis"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
+  <div class="skeleton-plot">
+    <svg viewBox="0 0 400 160" preserveAspectRatio="none">
+      {% if kind == 'scatter' %}
+      <g class="skeleton-chart-mark"><circle cx="45" cy="120" r="7"/><circle cx="95" cy="95" r="7"/><circle cx="135" cy="110" r="7"/><circle cx="180" cy="62" r="7"/><circle cx="230" cy="85" r="7"/><circle cx="275" cy="40" r="7"/><circle cx="320" cy="60" r="7"/><circle cx="365" cy="25" r="7"/></g>
+      {% elif kind == 'bar' %}
+      <g class="skeleton-chart-mark"><rect x="85" y="55" width="65" height="105" rx="6"/><rect x="250" y="25" width="65" height="135" rx="6"/></g>
+      {% else %}
+      <path class="skeleton-chart-line" d="M0 130 55 105 110 115 165 65 220 80 275 35 335 55 400 20"/>
+      {% endif %}
+    </svg>
+  </div>
+  <div class="skeleton-ticks"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
+</div>
+{% endmacro %}

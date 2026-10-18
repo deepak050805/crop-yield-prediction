@@ -39,4 +39,39 @@
 @media(max-width:900px){.sidebar{position:static;width:auto;padding:15px 22px;border-right:0;border-bottom:1px solid var(--border);display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:14px}.brand{padding:0;font-size:19px}.brand img{width:32px;height:32px}.brand small{font-size:7px}.nav-label,.sidebar-note,.sidebar-footer{display:none}.sidebar nav{display:flex;gap:4px}.nav-item{font-size:11px;padding:9px;margin:0;gap:6px}.nav-item>span{font-size:17px;width:15px}.workspace{margin-left:0}.topbar{height:51px}.predictor-grid{grid-template-columns:1fr 1.15fr}.hero-copy{width:55%}.filter-context{max-width:none}.page-heading .button{font-size:10px}.page-heading h1{font-size:28px}}
 @media(max-width:650px){.sidebar{padding:14px 16px;flex-direction:column;align-items:stretch;gap:14px}.brand{font-size:21px}.brand small{font-size:7px}.sidebar nav{justify-content:space-between}.nav-item{justify-content:center;padding:9px 8px;flex:1;font-size:10px}.nav-item>span{display:none}.topbar{padding:0 18px;font-size:10px}.region-tag{font-size:9px;padding:5px 7px}.region-tag span{margin-left:6px}main{padding:24px 17px 0}.page-heading{align-items:flex-start;flex-direction:column;gap:15px}.page-heading h1{font-size:27px}.page-heading p{font-size:11px}.page-heading .eyebrow{font-size:8px}.filter-bar{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;padding:15px}.filter-bar label+label{border-left:0;padding-left:0}.filter-bar select{width:100%;font-size:12px;padding:6px 0}.filter-context{grid-column:1/-1;margin:0;padding-top:10px;border-top:1px solid var(--border);font-size:10px}.overview-hero{padding:25px;min-height:350px;margin-bottom:24px}.hero-copy{width:100%}.hero-copy h2{font-size:31px}.hero-copy p{max-width:235px}.field-art{width:60%;height:55%;opacity:.6}.hero-caption{right:16px;font-size:6px}.stats-grid{grid-template-columns:1fr 1fr;gap:12px}.stat-card{padding:16px}.stat-card>div{font-size:10px}.stat-card strong{font-size:27px}.section-heading h2{font-size:14px}.section-heading>span{font-size:9px}.charts-grid,.predictor-grid{grid-template-columns:1fr}.chart-wrap{height:225px}.comparison-chart{height:150px}.history-chart{height:280px}.panel{padding:20px}.insight-banner{flex-wrap:wrap;padding:18px;gap:12px}.insight-banner>div{flex:1}.text-link{margin-left:47px}.page-footer{font-size:8px;flex-direction:column;gap:5px}.table-footer{flex-direction:column}.history-controls{gap:16px;margin-bottom:20px}.history-controls label,.history-controls select{width:100%}.history-toolbar h2{font-size:14px}.segmented button{padding:6px 11px}.info-strip{padding:10px 0}.weather-control{margin:27px 0}}
 @media(prefers-reduced-motion:no-preference){.panel,.stat-card,.overview-hero,.result-hero{animation:arrive .4s ease both}@keyframes arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.loading-skeleton,.table-skeleton{display:none}
+[aria-busy=true] .loading-skeleton{display:block}
+.skeleton,.stats-grid[aria-busy=true] .stat-card strong,.insight-banner[aria-busy=true] h3,.insight-banner[aria-busy=true] p,#summaryPeriod[aria-busy=true],.weather-panel[aria-busy=true] [id$=Observed],#comparisonPanel[aria-busy=true] .scenario-weather strong{color:transparent;background:linear-gradient(100deg,#e3e9d8 25%,#f9fbf4 45%,#e3e9d8 65%);background-size:220% 100%;border-radius:5px;animation:skeleton-shimmer 1.1s linear infinite;user-select:none}
+.skeleton{display:block}
+.stats-grid[aria-busy=true] .stat-card strong{min-width:75px}
+.insight-banner[aria-busy=true] h3,.insight-banner[aria-busy=true] p{min-height:16px}
+.weather-panel[aria-busy=true] [id$=Observed]{display:block;width:min(220px,100%);min-height:12px}
+.chart-wrap[aria-busy=true]>canvas,[aria-busy=true]>.chart-wrap>canvas{visibility:hidden}
+.chart-skeleton{position:absolute;inset:12px 0 0;pointer-events:none}
+[aria-busy=true] .chart-skeleton{display:grid;grid-template-columns:25px minmax(0,1fr);grid-template-rows:minmax(0,1fr) 12px;gap:12px}
+.skeleton-axis{display:flex;flex-direction:column;justify-content:space-between;padding:0 0 8px}
+.skeleton-axis .skeleton{height:8px;width:20px}
+.skeleton-plot{position:relative;min-height:0;border-bottom:1px solid var(--border);background:repeating-linear-gradient(to top,transparent,transparent calc(25% - 1px),#edf0e7 calc(25% - 1px),#edf0e7 25%)}
+.skeleton-plot svg{position:absolute;inset:10px 0 0;width:100%;height:calc(100% - 10px);overflow:visible}
+.skeleton-plot::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 25%,#ffffffb3 45%,transparent 65%);background-size:220% 100%;animation:skeleton-shimmer 1.1s linear infinite;pointer-events:none}
+.skeleton-chart-line{fill:none;stroke:#dce5ce;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;animation:skeleton-pulse 1.6s ease-in-out infinite}
+.skeleton-chart-mark{fill:#dce5ce;animation:skeleton-pulse 1.6s ease-in-out infinite}
+.skeleton-ticks{grid-column:2;display:flex;justify-content:space-between}
+.skeleton-ticks .skeleton{height:8px;width:28px}
+.history-panel[aria-busy=true] #historyRows{display:none}
+.history-panel[aria-busy=true] .table-skeleton{display:table-row-group}
+.history-panel[aria-busy=false] .table-skeleton{display:none}
+.table-skeleton .skeleton{height:14px;min-width:35px}
+.table-skeleton td:nth-child(2) .skeleton{min-width:80px}
+.table-skeleton td{padding-top:16px;padding-bottom:16px}
+#resultPanel[aria-busy=true] #predictionEmpty,#resultPanel[aria-busy=true] #predictionResult{visibility:hidden}
+.prediction-skeleton{position:absolute;top:85px;left:28px;right:28px;pointer-events:none}
+.skeleton-line{height:12px;max-width:100%;width:80%;margin:12px 0}
+.skeleton-line:last-child{width:60%}
+.skeleton-value{height:52px;width:160px;max-width:100%;margin:18px 0}
+.prediction-skeleton .skeleton{background-image:linear-gradient(100deg,#ffffff15 25%,#ffffff40 45%,#ffffff15 65%)}
+.model-skeleton .skeleton-value{width:100%;height:35px;margin:0}
+#comparisonPanel[aria-busy=true] .scenario-weather strong{display:inline-block;min-width:65px}
+@keyframes skeleton-shimmer{from{background-position:100% 0}to{background-position:-100% 0}}
+@keyframes skeleton-pulse{0%,100%{opacity:1}50%{opacity:.45}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.skeleton-plot::after{display:none}}

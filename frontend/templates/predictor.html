@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% import "skeletons.html" as skeletons %}
 {% block title %}Yield predictor{% endblock %}
 {% block heading %}Explore your next harvest.{% endblock %}
 {% block description %}Set the weather conditions. Understand the possibilities.{% endblock %}
 {% block content %}
 <div class="predictor-grid">
-  <section class="panel weather-panel">
+  <section class="panel weather-panel" data-records aria-busy="true">
     <div class="panel-heading"><div><span class="eyebrow">01 / YOUR INPUTS</span><h2>Weather conditions</h2></div><span class="pill">Scenario builder</span></div>
     <p class="muted">Choose a scenario or start with the selected location’s historical averages.</p>
     <button class="button button-soft full-width" id="useAverages" type="button">↙ Use historical averages</button>
@@ -26,15 +27,16 @@
       <span class="eyebrow">02 / YOUR ESTIMATE</span><span class="result-badge" id="resultBadge">Ready to explore</span>
       <div id="predictionEmpty"><h2>What could your<br>harvest look like?</h2><p>Set your inputs and select Predict yield to explore a model estimate.</p><div class="empty-sprout" aria-hidden="true">♧</div></div>
       <div id="predictionResult" hidden><p id="predictionContext"></p><div class="yield-number"><span id="predictedYield">—</span><span>t/ha</span></div><p>Estimated yield under your selected conditions</p><div class="result-divider"></div><span id="yieldGap"></span></div>
+      <div class="prediction-skeleton loading-skeleton" aria-hidden="true"><span class="skeleton skeleton-line"></span><span class="skeleton skeleton-value"></span><span class="skeleton skeleton-line"></span><span class="skeleton skeleton-line"></span></div>
     </section>
     <div class="notice" id="predictionStatus" role="status" hidden></div>
-    <section class="panel" id="comparisonPanel" hidden>
+    <section class="panel" id="comparisonPanel" aria-busy="false" hidden>
       <div class="panel-heading"><div><span class="eyebrow">03 / COMPARE POSSIBILITIES</span><h2>Best tested scenario</h2></div></div>
-      <div class="chart-wrap comparison-chart"><canvas id="predictionChart" role="img" aria-label="Selected yield and best tested yield comparison"></canvas></div>
+      <div class="chart-wrap comparison-chart">{{ skeletons.chart('bar') }}<canvas id="predictionChart" role="img" aria-label="Selected yield and best tested yield comparison"></canvas></div>
       <div class="scenario-weather"><div><span>Rainfall</span><strong id="bestRain">—</strong></div><div><span>Temperature</span><strong id="bestTemp">—</strong></div><div><span>Humidity</span><strong id="bestHum">—</strong></div></div>
       <p class="footnote">Compares your inputs with two nearby scenarios bounded by the crop’s historical weather range. This is a model comparison, not a guaranteed optimum or farming recommendation.</p>
     </section>
-    <details class="panel model-details" id="modelDetails"><summary>How reliable is this estimate? <span aria-hidden="true">+</span></summary><div id="modelMetrics" class="model-metrics"><p>Loading model evaluation…</p></div></details>
+    <details class="panel model-details" id="modelDetails"><summary>How reliable is this estimate? <span aria-hidden="true">+</span></summary><div id="modelMetrics" class="model-metrics" aria-busy="true"><span class="sr-only">Loading model evaluation…</span><div class="model-skeleton loading-skeleton" aria-hidden="true"><span class="skeleton skeleton-line"></span><div class="metric-grid">{% for metric in range(3) %}<span class="skeleton skeleton-value"></span>{% endfor %}</div><span class="skeleton skeleton-line"></span><span class="skeleton skeleton-line"></span></div></div></details>
   </div>
 </div>
 {% endblock %}
