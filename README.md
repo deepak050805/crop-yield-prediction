@@ -95,6 +95,23 @@ Open **[http://localhost:10000](http://localhost:10000)**.
 
 The local server uses port `10000` by default. Set the `PORT` environment variable before starting the app to choose another port.
 
+### Development with Live Reload
+
+With Node.js 18+ and the Python dependencies installed, run:
+
+```bash
+npm install
+npm run dev
+```
+
+Open **[http://localhost:5173](http://localhost:5173)** (or the local URL printed
+in the terminal if that port is occupied). The command uses the
+project's `.venv` Python when available and starts Flask on local port `5001`.
+BrowserSync automatically refreshes changed HTML and JavaScript and injects
+CSS updates when you save. Keep this command running while editing; press
+`Ctrl+C` to stop both servers. Restart `npm run dev` after changing Python code
+or retraining the model. Docker is not required for this development workflow.
+
 ## Run with Docker
 
 Start Docker with Linux containers enabled, then run these commands from the repository root:
