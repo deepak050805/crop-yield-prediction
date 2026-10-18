@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/dev.cjs"
+    "dev": "node frontend/scripts/dev.cjs"
   },
   "engines": {
     "node": ">=18"

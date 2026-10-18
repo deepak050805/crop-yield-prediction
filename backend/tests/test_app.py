@@ -2,7 +2,7 @@ import json
 import math
 import unittest
 
-from app.app import BASE_DIR, app, crops, df, model, prepare_input
+from backend.app import BASE_DIR, app, crops, df, model, prepare_input
 
 
 class DashboardTests(unittest.TestCase):
@@ -12,8 +12,9 @@ class DashboardTests(unittest.TestCase):
                             temperature="27.5", humidity="67")
 
     def test_pages_and_assets(self):
-        for path in ["/", "/predictor", "/history", "/static/dashboard.js",
-                     "/static/dashboard.css", "/static/favicon.svg"]:
+        for path in ["/", "/predictor", "/history", "/static/js/dashboard.js",
+                     "/static/js/dropdowns.js", "/static/css/dashboard.css",
+                     "/static/vendor/chart.js", "/static/images/favicon.svg"]:
             with self.subTest(path=path):
                 with self.client.get(path) as response:
                     self.assertEqual(response.status_code, 200)

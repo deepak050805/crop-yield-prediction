@@ -1,17 +1,17 @@
-const { spawn } = require('node:child_process');
+const { spawn, spawnSync } = require('node:child_process');
 const { existsSync } = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
 const browserSync = require('browser-sync').create();
 
-const root = path.resolve(__dirname, '..');
+const root = path.resolve(__dirname, '..', '..');
 const venvPython = path.join(root, '.venv', process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python');
 const python = process.env.PYTHON || (existsSync(venvPython) ? venvPython : 'python');
 const backendPort = 5001;
 let stopping = false;
 
 const backend = spawn(python, [
-  '-m', 'flask', '--app', 'app.app', 'run', '--debug', '--no-debugger',
+  '-m', 'flask', '--app', 'backend.app', 'run', '--debug', '--no-debugger',
   '--no-reload', '--host', '127.0.0.1', '--port', String(backendPort),
 ], {
   cwd: root, stdio: 'inherit', windowsHide: true,
@@ -22,12 +22,16 @@ function stop(code = 0) {
   if (stopping) return;
   stopping = true;
   browserSync.exit();
-  if (backend.exitCode === null) backend.kill();
+  if (backend.exitCode === null && backend.pid) {
+    if (process.platform === 'win32') {
+      spawnSync('taskkill', ['/pid', String(backend.pid), '/t', '/f'], { stdio: 'ignore', windowsHide: true });
+    } else backend.kill();
+  }
   process.exitCode = code;
 }
 
 backend.on('error', error => {
-  console.error(`Could not start Python: ${error.message}. Create .venv and install requirements.txt first.`);
+  console.error(`Could not start Python: ${error.message}. Create .venv and install backend/requirements.txt first.`);
   stop(1);
 });
 backend.on('exit', code => { if (!stopping) stop(code || 1); });
@@ -59,7 +63,7 @@ async function start() {
     proxy: `http://127.0.0.1:${backendPort}`,
     listen: '127.0.0.1', port: 5173, open: false, ui: false, online: false,
     notify: false,
-    files: ['app/templates/**/*.html', 'app/static/**/*'],
+    files: ['frontend/templates/**/*.html', 'frontend/static/**/*'],
     reloadDebounce: 200,
   }, error => { if (error) { console.error(error.message); stop(1); } });
 }

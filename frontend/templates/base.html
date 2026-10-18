@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}Overview{% endblock %} · Fieldwise</title>
-  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
-  <script src="{{ url_for('static', filename='chart.js') }}" defer></script>
-  <script src="{{ url_for('static', filename='dashboard.js') }}" defer></script>
-  <script src="{{ url_for('static', filename='dropdowns.js') }}" defer></script>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/favicon.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <script src="{{ url_for('static', filename='vendor/chart.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/dropdowns.js') }}" defer></script>
 </head>
 <body data-page="{{ active }}">
 <a class="skip-link" href="#main">Skip to content</a>
 <aside class="sidebar">
-  <a class="brand" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='favicon.svg') }}" width="37" height="37" alt=""><span>Fieldwise<small>CROP INTELLIGENCE</small></span></a>
+  <a class="brand" href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='images/favicon.svg') }}" width="37" height="37" alt=""><span>Fieldwise<small>CROP INTELLIGENCE</small></span></a>
   <span class="nav-label">WORKSPACE</span>
   <nav aria-label="Main navigation">
     <a data-nav href="{{ url_for('home') }}" class="nav-item {% if active == 'overview' %}active{% endif %}" {% if active == 'overview' %}aria-current="page"{% endif %}><span aria-hidden="true">▦</span> Overview</a>

@@ -7,8 +7,10 @@ from pathlib import Path
 import pandas as pd
 from flask import Flask, jsonify, render_template, request
 
-app = Flask(__name__)
-BASE_DIR = Path(__file__).resolve().parents[1]
+BASE_DIR = Path(__file__).resolve().parent
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
+app = Flask(__name__, template_folder=str(FRONTEND_DIR / "templates"),
+            static_folder=str(FRONTEND_DIR / "static"), static_url_path="/static")
 df = pd.read_csv(BASE_DIR / "data" / "real_final_dataset.csv")
 districts = sorted(df["District"].unique().tolist())
 crops = sorted(df["Crop"].unique().tolist())
@@ -59,7 +61,7 @@ def get_data():
 def model_info():
     metrics_path = BASE_DIR / "models" / "model_metrics.json"
     if not metrics_path.exists():
-        return jsonify(error="Model evaluation is not available. Run python src/model.py."), 503
+        return jsonify(error="Model evaluation is not available. Run python backend/ml/train.py."), 503
     return jsonify(json.loads(metrics_path.read_text(encoding="utf-8")))
 
 

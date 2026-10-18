@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="app/static/logo.png" alt="Crop Yield Prediction logo" width="88">
+<img src="frontend/static/images/logo.png" alt="Crop Yield Prediction logo" width="88">
 
 # Crop Yield Prediction & Weather Analysis
 
@@ -80,7 +80,7 @@ source .venv/bin/activate
 ### 3. Install dependencies
 
 ```bash
-python -m pip install -r requirements.txt "scikit-learn==1.8.0"
+python -m pip install -r backend/requirements.txt "scikit-learn==1.8.0"
 ```
 
 The bundled model was serialized with scikit-learn 1.8.0. The explicit version above matches that model; the Docker build uses the same version.
@@ -88,7 +88,7 @@ The bundled model was serialized with scikit-learn 1.8.0. The explicit version a
 ### 4. Start the application
 
 ```bash
-python app/app.py
+python backend/app.py
 ```
 
 Open **[http://localhost:10000](http://localhost:10000)**.
@@ -204,7 +204,7 @@ The two alternative scenarios are clipped to the crop's observed weather ranges.
 
 ## Dataset
 
-The application reads [`data/real_final_dataset.csv`](data/real_final_dataset.csv).
+The application reads [`backend/data/real_final_dataset.csv`](backend/data/real_final_dataset.csv).
 
 | Property | Coverage |
 | --- | --- |
@@ -220,19 +220,19 @@ Temperature is displayed in degrees Celsius, rainfall in millimetres, humidity a
 
 ## Model Training
 
-The training script in [`src/model.py`](src/model.py):
+The training script in [`backend/ml/train.py`](backend/ml/train.py):
 
 1. Removes missing and duplicate records and converts weather and yield columns to numeric values.
 2. Reserves the latest two complete years (2023–2024) for final evaluation.
 3. Evaluates 11 configurations of Ridge, Random Forest, and Extra Trees using expanding training windows and whole-year validation on 2020, 2021, and 2022. No training fold includes its validation year or future years.
 4. Fits scaling and categorical encoding inside each fold's pipeline, and selects by mean absolute error (MAE), preferring simpler candidates within one standard error of the best result.
 5. Reports train and holdout MAE, RMSE, and R², plus per-crop holdout scores and a historical crop-average baseline.
-6. Refits the selected pipeline on all records for serving and saves it alongside `models/model_metrics.json`.
+6. Refits the selected pipeline on all records for serving and saves it alongside `backend/models/model_metrics.json`.
 
 To retrain from the repository root:
 
 ```bash
-python src/model.py
+python backend/ml/train.py
 ```
 
 Retraining replaces the bundled model and evaluation report. Restart the application afterward to load the new model; rebuild the image when using Docker.
@@ -251,12 +251,12 @@ The selected model is **Ridge regression**. Scores below use training years 2015
 
 The model's MAE improvement over the baseline is marginal. Overall R² largely reflects differences between crop types; several per-crop R² scores are negative. These results do not establish strong weather-driven prediction within a crop. More informative, verified observations are needed before claiming farm-level accuracy. A small training-to-test error gap does not guarantee freedom from overfitting on other data.
 
-See the full [evaluation report](models/model_metrics.json) for per-crop scores, candidate results, and limitations. Regression R² is not a percentage accuracy score.
+See the full [evaluation report](backend/models/model_metrics.json) for per-crop scores, candidate results, and limitations. Regression R² is not a percentage accuracy score.
 
 ### Verification
 
 ```bash
-python -m unittest discover -s tests -v
+python -m unittest discover -s backend/tests -v
 ```
 
 The API checks cover the three pages, filtering, inference across all crops, input validation, scenario bounds, and evaluation-report consistency.
@@ -316,35 +316,39 @@ Invalid inputs return an `error` field with HTTP status `400`. Unexpected predic
 
 ```text
 crop-yield-prediction/
-├── app/
+├── frontend/
+│   ├── scripts/
+│   │   └── dev.cjs               # Local Flask proxy and browser live reload
+│   ├── templates/
+│   │   ├── base.html             # Shared navigation and filters
+│   │   ├── index.html            # Overview
+│   │   ├── predictor.html        # Yield predictor
+│   │   └── history.html          # Historical explorer
+│   └── static/
+│       ├── css/dashboard.css     # Responsive agriculture theme
+│       ├── js/
+│       │   ├── dashboard.js      # Filters, charts, predictions, and CSV export
+│       │   └── dropdowns.js      # Themed dropdown controls
+│       ├── images/               # Logo, favicon, and plot assets
+│       └── vendor/chart.js       # Bundled Chart.js library
+├── backend/
+│   ├── __init__.py
 │   ├── app.py                    # Flask routes and prediction logic
-│   ├── static/
-│   │   ├── chart.js              # Bundled Chart.js library
-│   │   ├── dashboard.css         # Responsive agriculture theme
-│   │   ├── dashboard.js          # Filters, charts, predictions, and CSV export
-│   │   ├── favicon.svg           # Seedling favicon
-│   │   ├── logo.png              # Application logo
-│   │   └── yield_plot.png        # Existing plot asset
-│   └── templates/
-│       ├── base.html             # Shared navigation and filters
-│       ├── index.html            # Overview
-│       ├── predictor.html        # Yield predictor
-│       └── history.html          # Historical explorer
-├── data/
-│   └── real_final_dataset.csv    # Historical crop and weather records
-├── models/
-│   ├── yield_model.pkl           # Bundled trained pipeline
-│   └── model_metrics.json        # Temporal evaluation report
-├── src/
-│   └── model.py                  # Model training and evaluation
-├── tests/
-│   └── test_app.py               # API and model integration checks
+│   ├── requirements.txt          # Python dependencies
+│   ├── ml/train.py               # Model training and evaluation
+│   ├── data/
+│   │   └── real_final_dataset.csv
+│   ├── models/
+│   │   ├── yield_model.pkl       # Bundled trained pipeline
+│   │   └── model_metrics.json    # Temporal evaluation report
+│   └── tests/test_app.py         # API and model integration checks
 ├── .env.example
 ├── .dockerignore
 ├── compose.yaml
 ├── Dockerfile
 ├── procfile                      # Gunicorn process command
-├── requirements.txt
+├── package.json                  # Root npm commands and development dependencies
+├── package-lock.json
 └── README.md
 ```
 
