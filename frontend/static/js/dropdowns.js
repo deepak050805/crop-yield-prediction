@@ -2,9 +2,8 @@
   'use strict';
   let opened = null;
 
-  document.querySelectorAll('.filter-bar select, .history-controls select').forEach(select => {
-    const wrapper = document.createElement('span');
-    wrapper.className = 'themed-select';
+  document.querySelectorAll('.themed-select > select').forEach(select => {
+    const wrapper = select.parentElement;
     const trigger = document.createElement('button');
     trigger.type = 'button';
     trigger.className = 'select-trigger';
@@ -151,7 +150,6 @@
     select.addEventListener('change', sync);
     select.form?.addEventListener('reset', () => setTimeout(sync, 0));
     wrapper.append(trigger, menu);
-    select.after(wrapper);
     sync();
     select.hidden = true;
     if (label) label.htmlFor = trigger.id;

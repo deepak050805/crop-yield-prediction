@@ -1,4 +1,3 @@
-{% import "skeletons.html" as skeletons %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,14 +11,24 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/skeletons.css') }}">
   <script src="{{ url_for('static', filename='js/loading.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='js/dropdowns.js') }}" defer></script>
   <script src="{{ url_for('static', filename='vendor/chart.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
-  <script src="{{ url_for('static', filename='js/dropdowns.js') }}" defer></script>
 </head>
 <body data-page="{{ active }}">
 <a class="skip-link" href="#main">Skip to content</a>
 <aside class="sidebar">
-  <a class="brand" href="{{ url_for('home') }}">{{ skeletons.image(url_for('static', filename='images/favicon.svg'), 37, 37) }}<span>Fieldwise<small>CROP INTELLIGENCE</small></span></a>
+  <a class="brand" href="{{ url_for('home') }}">
+    <svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="37" height="37" aria-hidden="true" focusable="false">
+      <rect width="64" height="64" rx="16" fill="#14532d"/>
+      <circle cx="48" cy="16" r="6" fill="#fbbf24"/>
+      <path d="M32 49V31" fill="none" stroke="#f0fdf4" stroke-width="5" stroke-linecap="round"/>
+      <path d="M32 37C19 37 13 29 14 18c12 0 20 6 18 19Z" fill="#86efac"/>
+      <path d="M32 32c0-11 7-17 18-17 1 11-6 19-18 19Z" fill="#dcfce7"/>
+      <path d="M21 49h22" fill="none" stroke="#f0fdf4" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+    <span>Fieldwise<small>CROP INTELLIGENCE</small></span>
+  </a>
   <span class="nav-label">WORKSPACE</span>
   <nav aria-label="Main navigation">
     <a data-nav href="{{ url_for('home') }}" class="nav-item {% if active == 'overview' %}active{% endif %}" {% if active == 'overview' %}aria-current="page"{% endif %}><span aria-hidden="true">▦</span> Overview</a>
@@ -34,11 +43,11 @@
   <main id="main">
     <div class="page-heading"><div><span class="eyebrow">GROW WITH UNDERSTANDING</span><h1>{% block heading %}{% endblock %}</h1><p>{% block description %}{% endblock %}</p></div>{% block heading_action %}{% endblock %}</div>
     <section class="filter-bar" aria-label="Dataset filters">
-      <label>Crop<select id="crop">{% for crop in crops %}<option {% if crop == 'Wheat' %}selected{% endif %}>{{ crop }}</option>{% endfor %}</select></label>
-      <label>District<select id="district">{% for district in districts %}<option>{{ district }}</option>{% endfor %}</select></label>
+      <label>Crop<span class="themed-select"><select id="crop">{% for crop in crops %}<option {% if crop == 'Wheat' %}selected{% endif %}>{{ crop }}</option>{% endfor %}</select></span></label>
+      <label>District<span class="themed-select"><select id="district">{% for district in districts %}<option>{{ district }}</option>{% endfor %}</select></span></label>
       {% if active != 'predictor' %}
-      <label>From year<select id="fromYear">{% for year in range(first_year, last_year + 1) %}<option>{{ year }}</option>{% endfor %}</select></label>
-      <label>To year<select id="toYear">{% for year in range(first_year, last_year + 1) %}<option {% if year == last_year %}selected{% endif %}>{{ year }}</option>{% endfor %}</select></label>
+      <label>From year<span class="themed-select"><select id="fromYear">{% for year in range(first_year, last_year + 1) %}<option>{{ year }}</option>{% endfor %}</select></span></label>
+      <label>To year<span class="themed-select"><select id="toYear">{% for year in range(first_year, last_year + 1) %}<option {% if year == last_year %}selected{% endif %}>{{ year }}</option>{% endfor %}</select></span></label>
       {% endif %}
       <div class="filter-context"><span class="status-dot"></span><span id="filterContext" aria-live="polite">Loading historical records…</span></div>
     </section>

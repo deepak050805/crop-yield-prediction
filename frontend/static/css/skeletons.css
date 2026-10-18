@@ -69,6 +69,5 @@
 .image-frame[data-state=error] .image-fallback{display:grid;position:absolute;inset:0;place-items:center;background:var(--soft);color:var(--green)}
 @keyframes skeleton-sweep{to{transform:translateX(100%)}}
 @media(max-width:1150px){.stat-value-slot{font-size:25px}}
-@media(max-width:900px){.brand .image-frame{width:32px;height:32px}}
 @media(max-width:650px){.stat-value-slot{font-size:27px}.insight-description{min-height:9em}.insight-description .skeleton-line:nth-child(n+4){display:block}.insight-description .skeleton-line:nth-child(3){width:100%;margin-bottom:.5em}.prediction-body,.prediction-body [data-content]{min-block-size:270px}.summary-slot{flex-basis:135px;width:135px;font-size:9px}}
 @media(prefers-reduced-motion:reduce){.skeleton-surface::after,.history-panel[data-state=loading] .table-scroll::after{animation:none;display:none}}

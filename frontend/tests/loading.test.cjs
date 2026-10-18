@@ -14,7 +14,8 @@ const rendered = spawnSync(python, ['-c', [
   'client = app.test_client()',
   "pages = {p: client.get(p).get_data(as_text=True) for p in ['/', '/history', '/predictor']}",
   "records = client.post('/get_data', json={'crop':'Wheat','district':'Amritsar'}).get_json()",
-  "print(json.dumps({'pages':pages,'records':records,'metrics':client.get('/model_info').get_json()}))",
+  "image = str(app.jinja_env.get_template('skeletons.html').module.image('/test-image.svg', 37, 37))",
+  "print(json.dumps({'pages':pages,'records':records,'metrics':client.get('/model_info').get_json(),'image':image}))",
 ].join('\n')], { cwd: root, encoding: 'utf8' });
 assert.equal(rendered.status, 0, `Install backend/requirements.txt before running UI tests.\n${rendered.stderr}`);
 const fixtures = JSON.parse(rendered.stdout);
@@ -24,7 +25,7 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const styles = ['dashboard', 'theme', 'skeletons'].map(name => read(`frontend/static/css/${name}.css`)).join('\n');
 const flush = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
 
-function setup(t, page = '/', { chartAvailable = true, cachedImage = false } = {}) {
+function setup(t, page = '/', { chartAvailable = true, testImage = false, cachedImage = false } = {}) {
   const dom = new JSDOM(fixtures.pages[page], { url: `http://localhost${page}`, runScripts: 'outside-only' });
   t.after(() => dom.window.close());
   const window = dom.window, document = window.document, requests = [], instances = new Map();
@@ -44,6 +45,7 @@ function setup(t, page = '/', { chartAvailable = true, cachedImage = false } = {
     requests.push({ url, options, fail: message => reject(new Error(message)),
       respond: (data, status = 200) => resolve({ ok: status < 400, json: async () => data }) });
   });
+  if (testImage) document.body.insertAdjacentHTML('beforeend', fixtures.image);
   const image = document.querySelector('[data-image] img');
   if (cachedImage) {
     Object.defineProperty(image, 'complete', { value: true });
@@ -182,13 +184,13 @@ test('prediction skeletons handle success, errors, cancellation, and late respon
 });
 
 test('cached images skip placeholders; image errors preserve dimensions and expose fallback', t => {
-  const cached = setup(t, '/', { cachedImage: true });
+  const cached = setup(t, '/', { testImage: true, cachedImage: true });
   const cachedFrame = cached.document.querySelector('[data-image]');
   assert.equal(cachedFrame.dataset.state, 'success');
   cached.document.querySelector('.stat-card').append(cachedFrame);
   cached.change('crop', 'Rice');
   assert.equal(cachedFrame.querySelector('.loading-skeleton').hidden, true, 'A loading parent must not restart a cached image placeholder');
-  const c = setup(t), frame = c.document.querySelector('[data-image]'), image = frame.querySelector('img');
+  const c = setup(t, '/', { testImage: true }), frame = c.document.querySelector('[data-image]'), image = frame.querySelector('img');
   const before = [c.window.getComputedStyle(frame).width, c.window.getComputedStyle(frame).height];
   assert.equal(image.getAttribute('width'), '37');
   assert.equal(image.getAttribute('height'), '37');

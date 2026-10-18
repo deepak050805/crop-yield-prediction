@@ -29,7 +29,7 @@
 :root[data-theme=dark] .segmented button.selected{background:var(--paper)}
 :root[data-theme=dark] th{background:var(--soft);color:var(--ink)}
 :root[data-theme=dark] tbody tr:hover{background:#233327}
-:root[data-theme=dark] :is(.select-trigger:hover,.themed-select.is-open .select-trigger,.select-menu){border-color:#617954}
+:root[data-theme=dark] :is(.select-trigger:hover,.themed-select>select:hover,.themed-select.is-open .select-trigger,.select-menu){border-color:#617954}
 :root[data-theme=dark] .select-menu{box-shadow:0 8px 24px #0005}
 :root[data-theme=dark] .select-option[aria-selected=true]{background:#31472d;color:var(--green)}
 @media(max-width:650px){.topbar-actions{gap:7px}}
