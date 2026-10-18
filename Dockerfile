@@ -1,7 +1,8 @@
 FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    GUNICORN_CMD_ARGS="--bind=0.0.0.0:10000 --workers=2 --access-logfile=-"
 
 WORKDIR /app
 
@@ -19,4 +20,4 @@ USER appuser
 
 EXPOSE 10000
 
-CMD ["gunicorn", "app.app:app", "--bind", "0.0.0.0:10000", "--workers", "2", "--access-logfile", "-"]
+CMD ["gunicorn", "app.app:app"]
