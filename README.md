@@ -106,7 +106,29 @@ cp .env.example .env
 
 On Windows PowerShell, use `Copy-Item .env.example .env` instead.
 The `.env` file is excluded from Git and the Docker image; pass it at runtime
-with `--env-file`.
+with `--env-file` when using `docker run`. Docker Compose reads it through
+the service's `env_file` setting.
+
+### Docker Compose
+
+```bash
+docker compose up --build -d
+```
+
+Open **[http://localhost:10000](http://localhost:10000)**.
+
+View logs or stop the service:
+
+```bash
+docker compose logs -f web
+docker compose down
+```
+
+After editing `.env`, run `docker compose up -d` to recreate the service
+with the updated environment. If you change the bind port, update the
+container port in `compose.yaml` to match.
+
+### Docker CLI
 
 ```bash
 docker build -t crop-yield-prediction .
