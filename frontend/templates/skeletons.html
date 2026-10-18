@@ -1,5 +1,25 @@
+{% macro text(lines=1, width='100%', shimmer=true) %}
+<span class="skeleton-text loading-skeleton{% if shimmer %} skeleton-surface{% endif %}" style="--skeleton-width:{{ width }}" aria-hidden="true">{% for line in range(lines) %}<span class="skeleton skeleton-line"></span>{% endfor %}</span>
+{% endmacro %}
+
+{% macro card() %}
+<span class="skeleton-card" aria-hidden="true"><span class="skeleton skeleton-card-value"></span><span class="skeleton skeleton-card-label"></span></span>
+{% endmacro %}
+
+{% macro list_item(lines=2) %}
+<div class="skeleton-list-item" aria-hidden="true">{{ text(lines, shimmer=false) }}</div>
+{% endmacro %}
+
+{% macro image(src, width, height, alt='') %}
+<span class="image-frame" data-image data-state="loading" aria-busy="true" style="--image-width:{{ width }}px;--image-height:{{ height }}px"><span class="skeleton skeleton-image loading-skeleton skeleton-surface" aria-hidden="true"></span><img src="{{ src }}" width="{{ width }}" height="{{ height }}" alt="{{ alt }}"><span class="image-fallback" {% if alt %}role="img" aria-label="{{ alt }}"{% else %}aria-hidden="true"{% endif %}>◈</span></span>
+{% endmacro %}
+
+{% macro table_rows(rows=10, columns=7) %}
+<tbody class="table-skeleton loading-skeleton" aria-hidden="true">{% for row in range(rows) %}<tr>{% for cell in range(columns) %}<td><span class="skeleton"></span></td>{% endfor %}</tr>{% endfor %}</tbody>
+{% endmacro %}
+
 {% macro chart(kind='line') %}
-<div class="chart-skeleton loading-skeleton" aria-hidden="true">
+<div class="chart-skeleton loading-skeleton skeleton-surface" aria-hidden="true">
   <div class="skeleton-axis"><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span><span class="skeleton"></span></div>
   <div class="skeleton-plot">
     <svg viewBox="0 0 400 160" preserveAspectRatio="none">

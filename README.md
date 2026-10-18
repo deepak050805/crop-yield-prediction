@@ -261,6 +261,33 @@ python -m unittest discover -s backend/tests -v
 
 The API checks cover the three pages, filtering, inference across all crops, input validation, scenario bounds, and evaluation-report consistency.
 
+For loading UI regression checks, install the development dependencies and run:
+
+```bash
+npm install
+npm run test:ui
+```
+
+These checks render the actual Flask templates, so the Python environment and
+`backend/requirements.txt` must also be installed. They cover immediate and
+pending responses, empty/error states, cancellation, independent comparisons,
+image fallbacks, theme tokens, reserved layout dimensions, and reduced motion.
+
+### Loading Components
+
+Reusable Jinja macros in [`frontend/templates/skeletons.html`](frontend/templates/skeletons.html)
+provide text, metric cards, images, list items, table rows, and chart placeholders.
+Their shared styles live in [`frontend/static/css/skeletons.css`](frontend/static/css/skeletons.css).
+Regions use `data-state` (`idle`, `loading`, `success`, `empty`, or `error`) and
+`aria-busy`; the shared `FieldwiseLoading.setState(element, state)` helper keeps
+both attributes in sync. Skeleton markup is decorative and hidden from assistive
+technology. Table and report viewports, image dimensions, and value slots reserve
+space while content loads.
+
+There is no artificial display delay. Fast or cached responses may complete
+before a skeleton becomes visibly noticeable. Shimmer runs only on active
+loading surfaces and is disabled for `prefers-reduced-motion`.
+
 ## API Reference
 
 | Method | Endpoint | Description |
@@ -323,14 +350,18 @@ crop-yield-prediction/
 │   │   ├── base.html             # Shared navigation and filters
 │   │   ├── index.html            # Overview
 │   │   ├── predictor.html        # Yield predictor
-│   │   └── history.html          # Historical explorer
-│   └── static/
-│       ├── css/dashboard.css     # Responsive agriculture theme
-│       ├── js/
-│       │   ├── dashboard.js      # Filters, charts, predictions, and CSV export
-│       │   └── dropdowns.js      # Themed dropdown controls
-│       ├── images/               # Logo, favicon, and plot assets
-│       └── vendor/chart.js       # Bundled Chart.js library
+│   │   ├── history.html          # Historical explorer
+│   │   └── skeletons.html        # Shared loading components
+│   ├── static/
+│   │   ├── css/                  # Dashboard, theme, and skeleton styles
+│   │   ├── js/
+│   │   │   ├── dashboard.js      # Filters, charts, predictions, and CSV export
+│   │   │   ├── dropdowns.js      # Themed dropdown controls
+│   │   │   ├── loading.js        # Shared request/image loading states
+│   │   │   └── theme.js          # Persistent theme selection
+│   │   ├── images/               # Logo, favicon, and plot assets
+│   │   └── vendor/chart.js       # Bundled Chart.js library
+│   └── tests/loading.test.cjs    # Loading-state and layout regression checks
 ├── backend/
 │   ├── __init__.py
 │   ├── app.py                    # Flask routes and prediction logic

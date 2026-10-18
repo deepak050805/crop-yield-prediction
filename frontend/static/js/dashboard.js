@@ -3,11 +3,15 @@
   const byId = id => document.getElementById(id);
   const page = document.body.dataset.page;
   const charts = new Map();
+  const { setState } = window.FieldwiseLoading;
   const fields = ['rainfall', 'temperature', 'humidity'];
   const units = { Yield: 't/ha', Rainfall: 'mm', Temperature: '°C', Humidity: '%' };
   const columns = { rainfall: 'Rainfall', temperature: 'Temperature', humidity: 'Humidity' };
   let rows = [], comparison = [], allRows = [], metrics = null;
   let loadVersion = 0, predictionVersion = 0, hasPrediction = false, firstLoad = true;
+  let recordsController = null, predictionController = null, modelController = null;
+  let modelSkeleton = null;
+  let metricsCrop = null;
   const crop = () => byId('crop').value;
   const district = () => byId('district').value;
   const format = (number, digits = 1) => Number(number).toLocaleString(undefined, {
@@ -30,19 +34,11 @@
     element.classList.toggle('error', error);
   }
 
-  function setRecordsLoading(loading) {
+  function setRecordsState(state) {
     document.querySelectorAll('[data-records]').forEach(element => {
-      element.setAttribute('aria-busy', String(loading));
+      setState(element, state);
     });
-  }
-
-  async function withSkeletonMinimum(request) {
-    const [result] = await Promise.allSettled([
-      request,
-      new Promise(resolve => setTimeout(resolve, 600)),
-    ]);
-    if (result.status === 'rejected') throw result.reason;
-    return result.value;
+    if (page === 'history') setState(byId('historyChartView'), state);
   }
 
   function chartPalette() {
@@ -89,10 +85,10 @@
   });
 
   function draw(id, type, labels, datasets, axisTitles = {}) {
-    if (!byId(id) || !window.Chart) return;
-    if (charts.has(id)) charts.get(id).destroy();
+    if (!byId(id)) return;
+    if (!window.Chart) { setState(byId(id).parentElement, 'error'); return; }
     const colors = chartPalette();
-    const chart = new Chart(byId(id), {
+    const config = {
       type,
       data: { labels, datasets: themeDatasets(id, datasets, colors) },
       options: {
@@ -110,8 +106,14 @@
             title: { display: Boolean(axisTitles.y), text: axisTitles.y, color: colors.text } },
         },
       },
-    });
-    charts.set(id, chart);
+    };
+    if (charts.has(id)) {
+      const chart = charts.get(id);
+      chart.data = config.data;
+      chart.options = config.options;
+      chart.update();
+    } else charts.set(id, new Chart(byId(id), config));
+    setState(byId(id).parentElement, 'success');
   }
 
   function line(label, values, color = '#537b4d', fill = false) {
@@ -120,13 +122,15 @@
       pointBackgroundColor: '#fff', pointBorderWidth: 2 };
   }
 
-  async function records(selectedCrop, selectedDistrict) {
+  async function records(selectedCrop, selectedDistrict, signal) {
     const response = await fetch('/get_data', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ crop: selectedCrop, district: selectedDistrict }),
+      signal,
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || 'Historical data could not be loaded.');
+    if (!Array.isArray(data)) throw new Error('Historical data has an unexpected format.');
     return data;
   }
 
@@ -153,7 +157,11 @@
 
   function markStale() {
     predictionVersion += 1;
-    if (!hasPrediction && !byId('predictBtn')?.disabled) return;
+    const wasPredicting = Boolean(predictionController);
+    predictionController?.abort();
+    predictionController = null;
+    if (wasPredicting) finishPrediction();
+    if (!hasPrediction && !wasPredicting) return;
     byId('resultBadge').textContent = 'Inputs changed';
     notice('predictionStatus', 'Your inputs have changed. Select Predict yield to update this estimate.');
   }
@@ -164,10 +172,12 @@
       byId(id).textContent = rows.length ? format(mean(rows, key), digits) : '—';
     }
     byId('summaryPeriod').textContent = rows.length ? `${rows[0].Year}–${rows.at(-1).Year} · ${rows.length} records` : 'No matching records';
-    draw('yieldChart', 'line', rows.map(row => row.Year), [line('Yield (t/ha)', rows.map(row => row.Yield), '#537b4d', true)]);
-    draw('rainChart', 'scatter', [], [{ label: 'Rainfall vs yield',
+    if (rows.length) {
+      draw('yieldChart', 'line', rows.map(row => row.Year), [line('Yield (t/ha)', rows.map(row => row.Yield), '#537b4d', true)]);
+      draw('rainChart', 'scatter', [], [{ label: 'Rainfall vs yield',
       data: rows.map(row => ({ x: row.Rainfall, y: row.Yield })), backgroundColor: '#759251', pointRadius: 5, pointHoverRadius: 7 }],
       { x: 'Rainfall (mm)', y: 'Yield (t/ha)' });
+    }
     byId('insightTitle').textContent = `${crop()} in ${district()}`;
     if (!rows.length) {
       byId('overviewInsight').textContent = 'Choose another year range to explore historical performance.';
@@ -177,13 +187,14 @@
     byId('overviewInsight').textContent = `Highest recorded yield in this selection: ${format(best.Yield, 2)} t/ha in ${best.Year}. Average across ${rows.length} seasons: ${format(mean(rows, 'Yield'), 2)} t/ha.`;
   }
 
-  function renderHistory() {
+  function renderHistory(updateTable = true) {
     const measure = byId('historyMeasure').value;
     const datasets = [line(district(), rows.map(row => ({ x: row.Year, y: row[measure] })))];
     if (comparison.length) datasets.push(line(byId('compareDistrict').value, comparison.map(row => ({ x: row.Year, y: row[measure] })), '#ba9654'));
     const years = [...new Set([...rows, ...comparison].map(row => row.Year))].sort((a, b) => a - b);
-    draw('historyChart', 'line', years, datasets, { y: `${measure} (${units[measure]})` });
+    if (years.length) draw('historyChart', 'line', years, datasets, { y: `${measure} (${units[measure]})` });
     byId('historyTitle').textContent = `${measure} through the years`;
+    if (!updateTable) return;
     const displayRows = [...rows, ...comparison].sort((a, b) => a.Year - b.Year || a.District.localeCompare(b.District));
     byId('historyRows').replaceChildren(...displayRows.map(row => {
       const tr = document.createElement('tr');
@@ -210,25 +221,37 @@
 
   async function loadData() {
     const version = ++loadVersion;
-    setRecordsLoading(true);
+    recordsController?.abort();
+    recordsController = new AbortController();
+    const { signal } = recordsController;
     updateNavigation();
-    byId('filterContext').textContent = 'Loading historical records…';
     notice('dataStatus', '');
     rows = []; comparison = []; allRows = [];
-    if (page === 'overview') renderOverview();
-    if (page === 'history') renderHistory();
+    if (byId('comparisonStatus')) byId('comparisonStatus').textContent = '';
+    if (byId('downloadCsv')) byId('downloadCsv').disabled = true;
     if (byId('useAverages')) byId('useAverages').disabled = true;
+    if (page === 'predictor') renderMetrics();
     try {
       if (byId('fromYear') && Number(byId('fromYear').value) > Number(byId('toYear').value)) {
         throw new Error('Choose a start year that is earlier than or equal to the end year.');
       }
+      setRecordsState('loading');
+      if (page === 'history') {
+        const selectedYears = Number(byId('toYear').value) - Number(byId('fromYear').value) + 1;
+        const comparing = byId('compareDistrict').value && byId('compareDistrict').value !== district();
+        const count = Math.min(10, selectedYears * (comparing ? 2 : 1));
+        document.querySelectorAll('.table-skeleton tr').forEach((row, index) => { row.hidden = index >= count; });
+      }
+      byId('filterContext').textContent = 'Loading historical records…';
+      if (byId('recordCount')) byId('recordCount').textContent = 'Loading records…';
       const compare = byId('compareDistrict')?.value;
-      const data = await withSkeletonMinimum(Promise.all([records(crop(), district()),
-        compare && compare !== district() ? records(crop(), compare) : Promise.resolve([])]));
-      if (version !== loadVersion) return;
-      allRows = data[0]; rows = inPeriod(allRows); comparison = inPeriod(data[1]);
+      if (compare && compare !== district()) loadComparison(version, crop(), compare, signal);
+      const data = await records(crop(), district(), signal);
+      if (version !== loadVersion || signal.aborted) return;
+      allRows = data; rows = inPeriod(allRows);
+      setRecordsState(rows.length || comparison.length ? 'success' : 'empty');
       byId('filterContext').textContent = `${rows.length} records · ${rows.length ? `${rows[0].Year}–${rows.at(-1).Year}` : 'No matching years'}`;
-      if (!rows.length) notice('dataStatus', 'No historical records match your selection. Try a different crop, district, or year range.');
+      if (!rows.length) notice('dataStatus', 'No primary district records match your selection. Try a different crop, district, or year range.');
       if (!window.Chart) notice('dataStatus', 'Charts could not load. Refresh the page or use the historical data table.', true);
       if (page === 'overview') renderOverview();
       if (page === 'history') renderHistory();
@@ -237,23 +260,50 @@
         for (const field of fields) {
           const values = allRows.map(row => row[columns[field]]);
           byId(`${field}Observed`).textContent = values.length
-            ? `Local historical range: ${format(Math.min(...values))}–${format(Math.max(...values))} ${units[columns[field]]}` : '';
+            ? `Local historical range: ${format(Math.min(...values))}–${format(Math.max(...values))} ${units[columns[field]]}` : 'No historical range available';
         }
         if (firstLoad) { fillAverages(); firstLoad = false; }
-        renderMetrics();
       }
     } catch (error) {
-      if (version !== loadVersion) return;
+      if (version !== loadVersion || signal.aborted) return;
+      recordsController.abort();
+      setRecordsState('error');
+      if (byId('comparisonStatus')) byId('comparisonStatus').textContent = '';
       byId('filterContext').textContent = 'Historical records unavailable';
       notice('dataStatus', `${error.message} Change a filter to try again.`, true);
-    } finally {
-      if (version === loadVersion) setRecordsLoading(false);
+      if (page === 'overview') {
+        renderOverview();
+        byId('summaryPeriod').textContent = 'Records unavailable';
+        byId('overviewInsight').textContent = 'Historical insights could not be loaded. Change a filter to try again.';
+      }
+      if (page === 'history') { byId('historyRows').replaceChildren(); byId('recordCount').textContent = 'Records unavailable'; }
+      if (page === 'predictor') fields.forEach(field => { byId(`${field}Observed`).textContent = 'Historical range unavailable'; });
+    }
+  }
+
+  async function loadComparison(version, selectedCrop, selectedDistrict, signal) {
+    byId('comparisonStatus').textContent = `Loading ${selectedDistrict} comparison…`;
+    try {
+      const data = await records(selectedCrop, selectedDistrict, signal);
+      if (version !== loadVersion || signal.aborted) return;
+      comparison = inPeriod(data);
+      byId('comparisonStatus').textContent = comparison.length
+        ? `Comparing with ${selectedDistrict}` : `No matching records for ${selectedDistrict}.`;
+      const state = document.querySelector('[data-records]').dataset.state;
+      if (state === 'success' || state === 'empty') {
+        setRecordsState(rows.length || comparison.length ? 'success' : 'empty');
+        renderHistory();
+      }
+    } catch (error) {
+      if (version !== loadVersion || signal.aborted) return;
+      byId('comparisonStatus').textContent = `${selectedDistrict} comparison unavailable. Primary district records load independently.`;
     }
   }
 
   function renderMetrics() {
     if (!metrics || page !== 'predictor') return;
     const container = byId('modelMetrics');
+    if (metricsCrop === crop() && container.dataset.state === 'success') return;
     container.replaceChildren();
     const description = document.createElement('p');
     description.textContent = `${metrics.model} · Evaluation on unseen years ${metrics.holdout_years.join(' and ')}. MAE is average absolute error; lower is better.`;
@@ -276,29 +326,85 @@
         : `Held-out MAE improvement over the crop-average baseline: ${format(metrics.baseline_holdout.mae - metrics.holdout.mae, 4)} t/ha. A small improvement does not establish strong weather-driven predictive value.`,
       'Dataset provenance is undocumented. Estimates outside historical weather ranges are less reliable.',
     ]) { const p = document.createElement('p'); p.textContent = message; container.append(p); }
+    metricsCrop = crop();
+  }
+
+  async function loadModelInfo() {
+    modelController?.abort();
+    const controller = new AbortController();
+    modelController = controller;
+    const container = byId('modelMetrics');
+    if (!modelSkeleton) modelSkeleton = container.querySelector('.model-skeleton').cloneNode(true);
+    container.replaceChildren(modelSkeleton.cloneNode(true));
+    setState(container, 'loading');
+    try {
+      const response = await fetch('/model_info', { signal: controller.signal });
+      const data = await response.json();
+      if (controller.signal.aborted) return;
+      if (!response.ok) throw new Error(data.error || 'Model evaluation could not be loaded.');
+      if (!data?.holdout || !data.per_crop) {
+        showModelMessage('empty', 'No model evaluation has been published yet.');
+        return;
+      }
+      metrics = data;
+      renderMetrics();
+      setState(container, 'success');
+    } catch (error) {
+      if (controller.signal.aborted) return;
+      metrics = null;
+      showModelMessage('error', error.message || 'Model evaluation could not be loaded.');
+    } finally {
+      if (modelController === controller) modelController = null;
+    }
+  }
+
+  function showModelMessage(state, message) {
+    const container = byId('modelMetrics');
+    const content = document.createElement('div');
+    content.className = 'model-message';
+    const text = document.createElement('p');
+    text.textContent = message;
+    const retry = document.createElement('button');
+    retry.type = 'button'; retry.className = 'button button-soft'; retry.textContent = 'Retry evaluation';
+    retry.addEventListener('click', loadModelInfo);
+    content.append(text, retry);
+    container.replaceChildren(content);
+    setState(container, state);
+  }
+
+  function finishPrediction(state = hasPrediction ? 'success' : 'idle') {
+    byId('predictBtn').disabled = false;
+    byId('predictBtn').textContent = 'Predict yield ↗';
+    setState(byId('resultPanel'), state);
+    setState(byId('comparisonPanel'), state);
+    setState(byId('predictionChart').parentElement, state === 'success' && !window.Chart ? 'error' : state);
+    if (state === 'idle') byId('comparisonPanel').hidden = true;
   }
 
   async function predict(event) {
     event.preventDefault();
     const form = byId('predictionForm');
-    if (!form.reportValidity()) return;
+    if (!form.reportValidity() || predictionController) return;
     const version = ++predictionVersion;
+    const controller = new AbortController();
+    predictionController = controller;
+    let state = 'error';
     const payload = new URLSearchParams(new FormData(form));
     payload.set('crop', crop()); payload.set('district', district());
     byId('predictBtn').disabled = true;
     byId('predictBtn').textContent = 'Calculating estimate…';
-    byId('resultPanel').setAttribute('aria-busy', 'true');
-    byId('comparisonPanel').setAttribute('aria-busy', 'true');
+    setState(byId('resultPanel'), 'loading');
+    setState(byId('comparisonPanel'), 'loading');
+    setState(byId('predictionChart').parentElement, 'loading');
+    byId('comparisonPanel').hidden = false;
     byId('resultBadge').textContent = 'Calculating…';
     notice('predictionStatus', '');
     try {
-      const data = await withSkeletonMinimum(fetch('/predict', { method: 'POST', body: payload })
-        .then(async response => {
-          const result = await response.json();
-          if (!response.ok) throw new Error(result.error || 'Prediction failed. Please try again.');
-          return result;
-        }));
-      if (version !== predictionVersion) return;
+      const response = await fetch('/predict', { method: 'POST', body: payload, signal: controller.signal });
+      const data = await response.json();
+      if (version !== predictionVersion || controller.signal.aborted) return;
+      if (!response.ok) throw new Error(data.error || 'Prediction failed. Please try again.');
+      if (![data.predicted, data.optimal, data.gap].every(Number.isFinite)) throw new Error('Prediction returned an invalid estimate. Please try again.');
       byId('predictionEmpty').hidden = true; byId('predictionResult').hidden = false;
       byId('comparisonPanel').hidden = false; hasPrediction = true;
       byId('resultBadge').textContent = 'Estimate ready';
@@ -314,17 +420,18 @@
         label: 'Yield (t/ha)', data: [data.predicted, data.optimal], backgroundColor: ['#aebd83', '#386646'],
         borderRadius: 6, maxBarThickness: 65,
       }], { y: 'Yield (t/ha)' });
-      notice('predictionStatus', data.warnings.join('\n'));
+      notice('predictionStatus', data.warnings?.join('\n') || '');
+      state = 'success';
     } catch (error) {
-      if (version === predictionVersion) {
-        byId('resultBadge').textContent = hasPrediction ? 'Previous estimate' : 'Try again';
+      if (version === predictionVersion && !controller.signal.aborted) {
+        byId('resultBadge').textContent = 'Try again';
         notice('predictionStatus', error.message, true);
       }
     } finally {
-      byId('predictBtn').disabled = false;
-      byId('predictBtn').textContent = 'Predict yield ↗';
-      byId('resultPanel').setAttribute('aria-busy', 'false');
-      byId('comparisonPanel').setAttribute('aria-busy', 'false');
+      if (version === predictionVersion) {
+        predictionController = null;
+        finishPrediction(state);
+      }
     }
   }
 
@@ -357,18 +464,11 @@
     byId('predictionForm').addEventListener('submit', predict);
     byId('useAverages').addEventListener('click', fillAverages);
     byId('resetInputs').addEventListener('click', () => { byId('predictionForm').reset(); markStale(); });
-    withSkeletonMinimum(fetch('/model_info').then(async response => {
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error);
-      return data;
-    })).then(data => {
-      metrics = data; renderMetrics();
-    }).catch(error => { byId('modelMetrics').textContent = error.message || 'Model evaluation could not be loaded.'; })
-      .finally(() => { byId('modelMetrics').setAttribute('aria-busy', 'false'); });
+    loadModelInfo();
   }
   if (page === 'history') {
     byId('compareDistrict').addEventListener('change', loadData);
-    byId('historyMeasure').addEventListener('change', renderHistory);
+    byId('historyMeasure').addEventListener('change', () => renderHistory(false));
     for (const view of ['chart', 'table']) {
       byId(`${view}View`).addEventListener('click', () => {
         byId('historyChartView').hidden = view !== 'chart';
@@ -382,5 +482,15 @@
     }
     byId('downloadCsv').addEventListener('click', exportCsv);
   }
+  window.addEventListener('pagehide', () => {
+    recordsController?.abort(); predictionController?.abort(); modelController?.abort();
+  });
+  window.addEventListener('pageshow', event => {
+    if (event.persisted) {
+      if (predictionController) markStale();
+      loadData();
+      if (page === 'predictor' && !metrics) loadModelInfo();
+    }
+  });
   loadData();
 })();

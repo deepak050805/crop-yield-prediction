@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "node frontend/scripts/dev.cjs"
+    "dev": "node frontend/scripts/dev.cjs",
+    "test:ui": "node --test frontend/tests/loading.test.cjs"
   },
   "engines": {
     "node": ">=18"
   },
   "devDependencies": {
-    "browser-sync": "^3.0.4"
+    "browser-sync": "^3.0.4",
+    "jsdom": "^26.1.0"
   }
 }
