@@ -15,6 +15,7 @@ RUN useradd --create-home appuser
 COPY app/ ./app/
 COPY data/real_final_dataset.csv ./data/real_final_dataset.csv
 COPY models/yield_model.pkl ./models/yield_model.pkl
+COPY models/model_metrics.json ./models/model_metrics.json
 
 USER appuser
 

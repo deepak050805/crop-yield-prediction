@@ -1,126 +1,116 @@
-from flask import Flask, render_template, request, jsonify
-import pandas as pd
-import pickle
+import json
+import math
 import os
+import pickle
+from pathlib import Path
+
+import pandas as pd
+from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
-
-# ✅ BASE PATH
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-data_path = os.path.join(BASE_DIR, "data", "real_final_dataset.csv")
-model_path = os.path.join(BASE_DIR, "models", "yield_model.pkl")
-
-# ✅ LOAD DATA
-df = pd.read_csv(data_path)
-
+BASE_DIR = Path(__file__).resolve().parents[1]
+df = pd.read_csv(BASE_DIR / "data" / "real_final_dataset.csv")
 districts = sorted(df["District"].unique().tolist())
 crops = sorted(df["Crop"].unique().tolist())
-
-# ✅ LOAD MODEL
-model = pickle.load(open(model_path, "rb"))
-
-# ✅ GET MODEL COLUMNS (VERY IMPORTANT)
-model_columns = model.feature_names_in_
+with (BASE_DIR / "models" / "yield_model.pkl").open("rb") as stream:
+    model = pickle.load(stream)
 
 
-# 🔥 PREPARE INPUT FUNCTION (MOST IMPORTANT PART)
 def prepare_input(temp, rainfall, humidity, crop, district):
-    input_dict = {col: 0 for col in model_columns}
-
-    input_dict["Temperature"] = temp
-    input_dict["Rainfall"] = rainfall
-    input_dict["Humidity"] = humidity
-
-    crop_col = f"Crop_{crop}"
-    district_col = f"District_{district}"
-
-    if crop_col in input_dict:
-        input_dict[crop_col] = 1
-
-    if district_col in input_dict:
-        input_dict[district_col] = 1
-
-    return pd.DataFrame([input_dict])
+    return pd.DataFrame([{
+        "Temperature": temp, "Rainfall": rainfall, "Humidity": humidity,
+        "Crop": crop, "District": district,
+    }])
 
 
-# ✅ HOME
-@app.route("/")
+def page(template, active):
+    return render_template(template, active=active, districts=districts, crops=crops,
+                           first_year=int(df["Year"].min()), last_year=int(df["Year"].max()))
+
+
+@app.get("/")
 def home():
-    return render_template("index.html", districts=districts, crops=crops)
+    return page("index.html", "overview")
 
 
-# ✅ GET DATA FOR CHARTS
-@app.route("/get_data", methods=["POST"])
+@app.get("/predictor")
+def predictor():
+    return page("predictor.html", "predictor")
+
+
+@app.get("/history")
+def history():
+    return page("history.html", "history")
+
+
+@app.post("/get_data")
 def get_data():
-    data = request.get_json()
-
-    district = data["district"]
-    crop = data["crop"]
-
-    filtered = df[
-        (df["District"] == district) &
-        (df["Crop"] == crop)
-    ]
-
-    return jsonify(filtered.to_dict(orient="records"))
+    data = request.get_json(silent=True) or {}
+    if not isinstance(data, dict):
+        return jsonify(error="Send a JSON object with crop and district."), 400
+    district, crop = data.get("district"), data.get("crop")
+    if district not in districts or crop not in crops:
+        return jsonify(error="Choose a valid crop and district."), 400
+    filtered = df[(df["District"] == district) & (df["Crop"] == crop)]
+    return jsonify(filtered.sort_values("Year").to_dict(orient="records"))
 
 
-# ✅ PREDICT
-@app.route("/predict", methods=["POST"])
+@app.get("/model_info")
+def model_info():
+    metrics_path = BASE_DIR / "models" / "model_metrics.json"
+    if not metrics_path.exists():
+        return jsonify(error="Model evaluation is not available. Run python src/model.py."), 503
+    return jsonify(json.loads(metrics_path.read_text(encoding="utf-8")))
+
+
+@app.post("/predict")
 def predict():
     try:
-        rainfall = float(request.form.get("rainfall", 0))
-        temp = float(request.form.get("temperature", 0))
-        humidity = float(request.form.get("humidity", 0))
+        crop, district = request.form.get("crop"), request.form.get("district")
+        if crop not in crops or district not in districts:
+            return jsonify(error="Choose a valid crop and district."), 400
+        rainfall = float(request.form["rainfall"])
+        temp = float(request.form["temperature"])
+        humidity = float(request.form["humidity"])
+        if not all(math.isfinite(value) for value in [rainfall, temp, humidity]):
+            return jsonify(error="Weather inputs must be finite numbers."), 400
+        if not 0 <= rainfall <= 2000 or not -20 <= temp <= 60 or not 0 <= humidity <= 100:
+            return jsonify(error="Use rainfall from 0 to 2000 mm, temperature from -20 to 60 C, and humidity from 0 to 100%."), 400
 
-        crop = request.form.get("crop")
-        district = request.form.get("district")
+        observed = df[df["Crop"] == crop]
+        bounds = {column: (float(observed[column].min()), float(observed[column].max()))
+                  for column in ["Rainfall", "Temperature", "Humidity"]}
+        warnings = []
+        for column, value in [("Rainfall", rainfall), ("Temperature", temp), ("Humidity", humidity)]:
+            low, high = bounds[column]
+            if not low <= value <= high:
+                warnings.append(f"{column} is outside this crop's historical range ({low:g}-{high:g}); the estimate is less reliable.")
 
-        # 🔥 USE PREPARE FUNCTION
-        input_data = prepare_input(temp, rainfall, humidity, crop, district)
-
-        predicted = float(model.predict(input_data)[0])
-
-        # 🔥 TRY NEARBY CONDITIONS
-        options = [
-            (rainfall + 100, temp + 2, humidity + 5),
-            (rainfall - 100, temp - 2, humidity - 5)
-        ]
-
-        best_yield = predicted
-        best_rain, best_temp, best_hum = rainfall, temp, humidity
-
-        for r, t, h in options:
-            temp_input = prepare_input(t, r, h, crop, district)
-
-            y = float(model.predict(temp_input)[0])
-
-            if y > best_yield:
-                best_yield = y
-                best_rain = r
-                best_temp = t
-                best_hum = h
-
-        gap = best_yield - predicted
-
-        return jsonify({
-            "predicted": round(predicted, 2),
-            "optimal": round(best_yield, 2),
-            "gap": round(gap, 2),
-            "best_rain": round(best_rain, 1),
-            "best_temp": round(best_temp, 1),
-            "best_hum": round(best_hum, 1),
-            "crop": crop,
-            "district": district
-        })
-
-    except Exception as e:
-        print("❌ ERROR:", e)
-        return jsonify({"error": str(e)}), 500
+        options = [(rainfall, temp, humidity)]
+        for direction in [1, -1]:
+            values = []
+            for column, value, step in [("Rainfall", rainfall, 100),
+                                        ("Temperature", temp, 2), ("Humidity", humidity, 5)]:
+                low, high = bounds[column]
+                values.append(min(high, max(low, value + direction * step)))
+            options.append(tuple(values))
+        inputs = pd.concat([prepare_input(t, r, h, crop, district) for r, t, h in options], ignore_index=True)
+        yields = model.predict(inputs)
+        best = int(yields.argmax())
+        best_rain, best_temp, best_hum = options[best]
+        predicted, best_yield = float(yields[0]), float(yields[best])
+        return jsonify(
+            predicted=round(predicted, 3), optimal=round(best_yield, 3),
+            gap=round(best_yield - predicted, 3), best_rain=round(best_rain, 1),
+            best_temp=round(best_temp, 1), best_hum=round(best_hum, 1),
+            crop=crop, district=district, warnings=warnings,
+        )
+    except (ValueError, KeyError, TypeError):
+        return jsonify(error="Provide valid rainfall, temperature, and humidity values."), 400
+    except Exception:
+        app.logger.exception("Prediction failed")
+        return jsonify(error="Prediction could not be completed. Please try again."), 500
 
 
-# ✅ RUN
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)), debug=False)

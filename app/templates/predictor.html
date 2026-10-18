@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Yield predictor{% endblock %}
+{% block heading %}Explore your next harvest.{% endblock %}
+{% block description %}Set the weather conditions. Understand the possibilities.{% endblock %}
+{% block content %}
+<div class="predictor-grid">
+  <section class="panel weather-panel">
+    <div class="panel-heading"><div><span class="eyebrow">01 / YOUR INPUTS</span><h2>Weather conditions</h2></div><span class="pill">Scenario builder</span></div>
+    <p class="muted">Choose a scenario or start with the selected location’s historical averages.</p>
+    <button class="button button-soft full-width" id="useAverages" type="button">↙ Use historical averages</button>
+    <form id="predictionForm">
+      {% for id, label, unit, minimum, maximum, step, value in [('rainfall', 'Rainfall', 'mm', 0, 2000, 1, 735), ('temperature', 'Temperature', '°C', -20, 60, 0.1, 27.5), ('humidity', 'Humidity', '%', 0, 100, 0.1, 67)] %}
+      <div class="weather-control">
+        <div class="weather-label"><label for="{{ id }}Number">{{ label }}</label><div class="number-unit"><input id="{{ id }}Number" name="{{ id }}" type="number" min="{{ minimum }}" max="{{ maximum }}" step="{{ step }}" value="{{ value }}" required><span>{{ unit }}</span></div></div>
+        <input aria-label="{{ label }} slider" id="{{ id }}Range" type="range" min="{{ minimum }}" max="{{ maximum }}" step="{{ step }}" value="{{ value }}">
+        <div class="range-labels"><span>{{ minimum }} {{ unit }}</span><span>{{ maximum }} {{ unit }}</span></div>
+        <small id="{{ id }}Observed" class="muted"></small>
+      </div>
+      {% endfor %}
+      <button class="button button-primary full-width" id="predictBtn" type="submit">Predict yield <span aria-hidden="true">↗</span></button>
+      <button class="text-button full-width" id="resetInputs" type="button">Reset inputs</button>
+    </form>
+  </section>
+  <div class="result-column">
+    <section class="result-hero" aria-live="polite" aria-busy="false" id="resultPanel">
+      <span class="eyebrow">02 / YOUR ESTIMATE</span><span class="result-badge" id="resultBadge">Ready to explore</span>
+      <div id="predictionEmpty"><h2>What could your<br>harvest look like?</h2><p>Set your inputs and select Predict yield to explore a model estimate.</p><div class="empty-sprout" aria-hidden="true">♧</div></div>
+      <div id="predictionResult" hidden><p id="predictionContext"></p><div class="yield-number"><span id="predictedYield">—</span><span>t/ha</span></div><p>Estimated yield under your selected conditions</p><div class="result-divider"></div><span id="yieldGap"></span></div>
+    </section>
+    <div class="notice" id="predictionStatus" role="status" hidden></div>
+    <section class="panel" id="comparisonPanel" hidden>
+      <div class="panel-heading"><div><span class="eyebrow">03 / COMPARE POSSIBILITIES</span><h2>Best tested scenario</h2></div></div>
+      <div class="chart-wrap comparison-chart"><canvas id="predictionChart" role="img" aria-label="Selected yield and best tested yield comparison"></canvas></div>
+      <div class="scenario-weather"><div><span>Rainfall</span><strong id="bestRain">—</strong></div><div><span>Temperature</span><strong id="bestTemp">—</strong></div><div><span>Humidity</span><strong id="bestHum">—</strong></div></div>
+      <p class="footnote">Compares your inputs with two nearby scenarios bounded by the crop’s historical weather range. This is a model comparison, not a guaranteed optimum or farming recommendation.</p>
+    </section>
+    <details class="panel model-details" id="modelDetails"><summary>How reliable is this estimate? <span aria-hidden="true">+</span></summary><div id="modelMetrics" class="model-metrics"><p>Loading model evaluation…</p></div></details>
+  </div>
+</div>
+{% endblock %}

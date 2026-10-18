@@ -1,0 +1,195 @@
+{
+  "model": "Ridge",
+  "sklearn_version": "1.8.0",
+  "features": [
+    "Temperature",
+    "Rainfall",
+    "Humidity",
+    "Crop",
+    "District"
+  ],
+  "dataset_sha256": "40cf51de10fc840499ded1a64cc2a8f4ad19179fdfacac28d5598a692c219966",
+  "records": 2000,
+  "development_years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022
+  ],
+  "holdout_years": [
+    2023,
+    2024
+  ],
+  "validation_years": [
+    2020,
+    2021,
+    2022
+  ],
+  "selection": "Lowest temporal validation MAE, preferring simpler candidates within one standard error.",
+  "cv_mae": 0.251,
+  "baseline_cv_mae": 0.2515,
+  "train": {
+    "mae": 0.2491,
+    "rmse": 0.289,
+    "r2": 0.9558
+  },
+  "holdout": {
+    "mae": 0.2417,
+    "rmse": 0.2812,
+    "r2": 0.9566
+  },
+  "baseline_holdout": {
+    "mae": 0.2425,
+    "rmse": 0.28,
+    "r2": 0.957
+  },
+  "per_crop": {
+    "Bajra": {
+      "mae": 0.2532,
+      "rmse": 0.2954,
+      "r2": -0.0898
+    },
+    "Cotton": {
+      "mae": 0.2415,
+      "rmse": 0.2828,
+      "r2": 0.0119
+    },
+    "Gram": {
+      "mae": 0.2191,
+      "rmse": 0.26,
+      "r2": -0.0242
+    },
+    "Maize": {
+      "mae": 0.2533,
+      "rmse": 0.2861,
+      "r2": 0.0173
+    },
+    "Mustard": {
+      "mae": 0.2684,
+      "rmse": 0.2975,
+      "r2": -0.0976
+    },
+    "Potato": {
+      "mae": 0.2358,
+      "rmse": 0.2843,
+      "r2": -0.0045
+    },
+    "Rice": {
+      "mae": 0.2445,
+      "rmse": 0.2826,
+      "r2": -0.0633
+    },
+    "Sugarcane": {
+      "mae": 0.2217,
+      "rmse": 0.2595,
+      "r2": -0.0744
+    },
+    "Sunflower": {
+      "mae": 0.2278,
+      "rmse": 0.2567,
+      "r2": 0.0422
+    },
+    "Wheat": {
+      "mae": 0.252,
+      "rmse": 0.3024,
+      "r2": -0.0331
+    }
+  },
+  "candidates": [
+    {
+      "model": "Ridge",
+      "parameters": {
+        "alpha": 1.0
+      },
+      "cv_mae": 0.251
+    },
+    {
+      "model": "Ridge",
+      "parameters": {
+        "alpha": 10.0
+      },
+      "cv_mae": 0.2524
+    },
+    {
+      "model": "Ridge",
+      "parameters": {
+        "alpha": 100.0
+      },
+      "cv_mae": 0.5507
+    },
+    {
+      "model": "RandomForestRegressor",
+      "parameters": {
+        "max_depth": 4,
+        "min_samples_leaf": 5
+      },
+      "cv_mae": 0.351
+    },
+    {
+      "model": "RandomForestRegressor",
+      "parameters": {
+        "max_depth": 4,
+        "min_samples_leaf": 15
+      },
+      "cv_mae": 0.3501
+    },
+    {
+      "model": "RandomForestRegressor",
+      "parameters": {
+        "max_depth": 8,
+        "min_samples_leaf": 5
+      },
+      "cv_mae": 0.2583
+    },
+    {
+      "model": "RandomForestRegressor",
+      "parameters": {
+        "max_depth": 8,
+        "min_samples_leaf": 15
+      },
+      "cv_mae": 0.2551
+    },
+    {
+      "model": "ExtraTreesRegressor",
+      "parameters": {
+        "max_depth": 4,
+        "min_samples_leaf": 5
+      },
+      "cv_mae": 0.3516
+    },
+    {
+      "model": "ExtraTreesRegressor",
+      "parameters": {
+        "max_depth": 4,
+        "min_samples_leaf": 15
+      },
+      "cv_mae": 0.3497
+    },
+    {
+      "model": "ExtraTreesRegressor",
+      "parameters": {
+        "max_depth": 8,
+        "min_samples_leaf": 5
+      },
+      "cv_mae": 0.2585
+    },
+    {
+      "model": "ExtraTreesRegressor",
+      "parameters": {
+        "max_depth": 8,
+        "min_samples_leaf": 15
+      },
+      "cv_mae": 0.2541
+    }
+  ],
+  "limitations": [
+    "Metrics evaluate the model fitted on development years, before final refitting on all records.",
+    "Overall R2 includes differences between crops; inspect per-crop errors and the crop-mean baseline.",
+    "Dataset provenance is undocumented. These scores do not establish real-world farm accuracy.",
+    "Weather comparisons are observational scenarios, not causal agronomic recommendations."
+  ]
+}

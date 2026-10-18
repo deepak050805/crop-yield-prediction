@@ -8,7 +8,7 @@ Explore historical crop performance, estimate yield, and compare nearby weather 
 
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-Web_App-000000?logo=flask&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-Random_Forest-F7931E?logo=scikitlearn&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-Validated_Regression-F7931E?logo=scikitlearn&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Supported-2496ED?logo=docker&logoColor=white)
 
 [Features](#features) · [Quick Start](#quick-start) · [Docker](#run-with-docker) · [Dataset](#dataset) · [API](#api-reference)
@@ -19,16 +19,18 @@ Explore historical crop performance, estimate yield, and compare nearby weather 
 
 A Flask application that brings historical agricultural data and machine learning predictions into a single dashboard. Select a crop and district to explore yield trends, adjust weather inputs, and compare the predicted yield with alternative conditions.
 
-The project includes a trained Random Forest model and a CSV dataset, so retraining is optional when getting started.
+The Fieldwise workspace includes three pages: **Overview**, **Yield Predictor**, and **Historical Explorer**. A trained regression pipeline and a CSV dataset are bundled, so retraining is optional when getting started.
 
 ## Features
 
 - **District and crop filters** — explore 20 Punjab districts and 10 crop types.
 - **Historical summaries** — view average yield, rainfall, temperature, and humidity for the selected crop and district.
 - **Interactive charts** — inspect annual yield trends and rainfall–yield relationships with Chart.js.
+- **Historical explorer** — filter years, compare districts, switch between chart and table views, and export filtered records to CSV.
 - **Yield prediction** — adjust rainfall, temperature, and humidity to estimate yield in tonnes per hectare.
 - **Weather scenario comparison** — compare the selected conditions with two nearby scenarios and display the best predicted result.
 - **Prediction insights** — view the yield gap, suggested weather values, and a predicted-versus-best-scenario chart.
+- **Transparent evaluation** — inspect held-out error, per-crop results, and a crop-average baseline from the predictor.
 - **Docker support** — run the application with Gunicorn in a container.
 
 ## Tech Stack
@@ -37,7 +39,7 @@ The project includes a trained Random Forest model and a CSV dataset, so retrain
 | --- | --- |
 | Web backend | Python, Flask |
 | Data processing | pandas, NumPy |
-| Machine learning | scikit-learn, Random Forest Regressor |
+| Machine learning | scikit-learn pipelines; Ridge, Random Forest, and Extra Trees model selection |
 | Frontend | HTML, CSS, JavaScript, Chart.js |
 | Model storage | Python pickle |
 | Container runtime | Docker, Gunicorn |
@@ -48,7 +50,7 @@ The project includes a trained Random Forest model and a CSV dataset, so retrain
 
 - Python 3.12, matching the Docker runtime
 - Git and pip
-- Internet access to install dependencies; the dashboard also loads Google Fonts and a chart plugin from external services
+- Internet access to install dependencies; the dashboard loads Google Fonts with local font fallbacks
 
 ### 1. Clone the repository
 
@@ -157,16 +159,19 @@ docker stop crop-yield-prediction
 
 ## Using the Dashboard
 
-1. Choose a **crop** and **district** from the header dropdowns.
-2. Review the summary cards, annual yield chart, and rainfall scatter plot.
-3. Adjust the weather sliders in the **Yield Predictor** panel.
-4. Select **Predict Yield** to view the prediction, scenario comparison, and yield gap.
+1. Choose a **crop**, **district**, and year range on **Overview** to inspect historical averages and charts.
+2. Open **Yield Predictor**, adjust the sliders or numeric inputs, or select **Use historical averages**.
+3. Select **Predict yield** to view the estimate and best tested scenario. Changed inputs mark the previous result as needing an update.
+4. Expand **How reliable is this estimate?** to review evaluation results and limitations.
+5. Open **Historical Explorer** to compare districts, inspect the data table, or export CSV records.
 
 | Input | Dashboard range | Unit |
 | --- | --- | --- |
-| Rainfall | 300–1,000 | mm |
-| Temperature | 15–40 | °C |
-| Humidity | 40–90 | % |
+| Rainfall | 0–2,000 | mm |
+| Temperature | −20–60 | °C |
+| Humidity | 0–100 | % |
+
+These control ranges allow scenario exploration; they are not validated growing ranges. The predictor displays local observed ranges and warns when submitted inputs fall outside the crop's historical coverage.
 
 ### How the Weather Comparison Works
 
@@ -178,7 +183,7 @@ For each prediction, the backend evaluates three sets of conditions:
 | Higher values | Input + 100 mm | Input + 2 °C | Input + 5 percentage points |
 | Lower values | Input − 100 mm | Input − 2 °C | Input − 5 percentage points |
 
-The highest prediction becomes the result labeled **optimal** in the dashboard. This is the best of these three scenarios, rather than an exhaustive search for ideal growing conditions. Nearby scenarios can extend beyond the slider ranges.
+The two alternative scenarios are clipped to the crop's observed weather ranges. The highest prediction becomes the **Best tested scenario**; the API retains the `optimal` field for this value. This is a comparison of three observational model estimates, not an exhaustive optimum or a causal farming recommendation.
 
 ## Dataset
 
@@ -201,10 +206,11 @@ Temperature is displayed in degrees Celsius, rainfall in millimetres, humidity a
 The training script in [`src/model.py`](src/model.py):
 
 1. Removes missing and duplicate records and converts weather and yield columns to numeric values.
-2. Encodes crop and district using one-hot encoding with the first category dropped.
-3. Splits the data into 80% training and 20% test sets with `random_state=42`.
-4. Tunes a `RandomForestRegressor` with `GridSearchCV`, two-fold cross-validation, and R² scoring.
-5. Prints the test-set R² score and saves the selected model to `models/yield_model.pkl`.
+2. Reserves the latest two complete years (2023–2024) for final evaluation.
+3. Evaluates 11 configurations of Ridge, Random Forest, and Extra Trees using expanding training windows and whole-year validation on 2020, 2021, and 2022. No training fold includes its validation year or future years.
+4. Fits scaling and categorical encoding inside each fold's pipeline, and selects by mean absolute error (MAE), preferring simpler candidates within one standard error of the best result.
+5. Reports train and holdout MAE, RMSE, and R², plus per-crop holdout scores and a historical crop-average baseline.
+6. Refits the selected pipeline on all records for serving and saves it alongside `models/model_metrics.json`.
 
 To retrain from the repository root:
 
@@ -212,15 +218,40 @@ To retrain from the repository root:
 python src/model.py
 ```
 
-Retraining replaces the bundled model file. Restart the application afterward to load the new model.
+Retraining replaces the bundled model and evaluation report. Restart the application afterward to load the new model; rebuild the image when using Docker.
 
-The training script retains `Year` as an input feature. The current prediction form does not supply a year, and the backend initializes unspecified model features to zero. Prediction quality should be evaluated with this behavior in mind. No measured accuracy score is published in this README.
+Training and serving both use temperature, rainfall, humidity, crop, and district. `Year` defines evaluation splits and is not a prediction feature.
+
+### Current Evaluation
+
+The selected model is **Ridge regression**. Scores below use training years 2015–2022 and untouched evaluation years 2023–2024, before the serving pipeline is refitted on all records.
+
+| Metric | Training | Held-out years | Crop-average baseline, held-out years |
+| --- | --- | --- | --- |
+| MAE (t/ha) | 0.2491 | 0.2417 | 0.2425 |
+| RMSE (t/ha) | 0.2890 | 0.2812 | 0.2800 |
+| R² | 0.9558 | 0.9566 | 0.9570 |
+
+The model's MAE improvement over the baseline is marginal. Overall R² largely reflects differences between crop types; several per-crop R² scores are negative. These results do not establish strong weather-driven prediction within a crop. More informative, verified observations are needed before claiming farm-level accuracy. A small training-to-test error gap does not guarantee freedom from overfitting on other data.
+
+See the full [evaluation report](models/model_metrics.json) for per-crop scores, candidate results, and limitations. Regression R² is not a percentage accuracy score.
+
+### Verification
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+The API checks cover the three pages, filtering, inference across all crops, input validation, scenario bounds, and evaluation-report consistency.
 
 ## API Reference
 
 | Method | Endpoint | Description |
 | --- | --- | --- |
 | `GET` | `/` | Render the dashboard with crop and district options |
+| `GET` | `/predictor` | Render the weather scenario builder and prediction results |
+| `GET` | `/history` | Render the historical chart, table, and export workspace |
+| `GET` | `/model_info` | Return the saved evaluation report |
 | `POST` | `/get_data` | Return historical rows for a crop and district |
 | `POST` | `/predict` | Return predicted yield and the best nearby weather scenario |
 
@@ -235,7 +266,7 @@ Send JSON to `/get_data`:
 }
 ```
 
-The response is an array of matching dataset records. A combination with no matching records returns an empty array.
+The response is an array of matching dataset records sorted by year. Invalid crop or district values return HTTP `400`; valid combinations without records return an empty array.
 
 ### Yield prediction
 
@@ -260,8 +291,9 @@ A successful JSON response contains:
 | `best_temp` | Temperature for the best scenario, in °C |
 | `best_hum` | Humidity for the best scenario, in % |
 | `crop`, `district` | Submitted crop and district |
+| `warnings` | Messages for inputs outside the crop's historical weather coverage |
 
-Prediction exceptions return an `error` field with HTTP status `500`.
+Invalid inputs return an `error` field with HTTP status `400`. Unexpected prediction failures return HTTP `500`.
 
 ## Project Structure
 
@@ -271,17 +303,28 @@ crop-yield-prediction/
 │   ├── app.py                    # Flask routes and prediction logic
 │   ├── static/
 │   │   ├── chart.js              # Bundled Chart.js library
+│   │   ├── dashboard.css         # Responsive agriculture theme
+│   │   ├── dashboard.js          # Filters, charts, predictions, and CSV export
+│   │   ├── favicon.svg           # Seedling favicon
 │   │   ├── logo.png              # Application logo
 │   │   └── yield_plot.png        # Existing plot asset
 │   └── templates/
-│       └── index.html            # Dashboard, styles, and client-side logic
+│       ├── base.html             # Shared navigation and filters
+│       ├── index.html            # Overview
+│       ├── predictor.html        # Yield predictor
+│       └── history.html          # Historical explorer
 ├── data/
 │   └── real_final_dataset.csv    # Historical crop and weather records
 ├── models/
-│   └── yield_model.pkl           # Bundled trained model
+│   ├── yield_model.pkl           # Bundled trained pipeline
+│   └── model_metrics.json        # Temporal evaluation report
 ├── src/
 │   └── model.py                  # Model training and evaluation
+├── tests/
+│   └── test_app.py               # API and model integration checks
+├── .env.example
 ├── .dockerignore
+├── compose.yaml
 ├── Dockerfile
 ├── procfile                      # Gunicorn process command
 ├── requirements.txt
