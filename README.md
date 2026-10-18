@@ -172,6 +172,24 @@ python app/app.py
 http://127.0.0.1:10000
 ```
 
+### Run with Docker
+
+With Docker running in Linux container mode, run these commands from the project root:
+
+```bash
+docker build -t crop-yield-prediction .
+docker run --rm -p 10000:10000 --name crop-yield-prediction crop-yield-prediction
+```
+
+Open http://localhost:10000. The image includes the dataset and trained model
+and runs the Flask app with two Gunicorn workers as a non-root user.
+
+To stop the container from another terminal:
+
+```bash
+docker stop crop-yield-prediction
+```
+
 ---
 
 ## 🔥 Future Enhancements
