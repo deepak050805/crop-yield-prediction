@@ -29,7 +29,6 @@ The project includes a trained Random Forest model and a CSV dataset, so retrain
 - **Yield prediction** — adjust rainfall, temperature, and humidity to estimate yield in tonnes per hectare.
 - **Weather scenario comparison** — compare the selected conditions with two nearby scenarios and display the best predicted result.
 - **Prediction insights** — view the yield gap, suggested weather values, and a predicted-versus-best-scenario chart.
-- **Ask AI shortcut** — open an external crop assistant from the dashboard.
 - **Docker support** — run the application with Gunicorn in a container.
 
 ## Tech Stack

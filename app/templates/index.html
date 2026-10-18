@@ -210,25 +210,6 @@ background:linear-gradient(90deg,#2e8b57,#3cb371);
   border: 1px solid #ccc;
 }
 
-/* AI BUTTON */
-.chat-btn-header {
-  background: linear-gradient(90deg,#2e8b57,#3cb371);
-  color: white;
-  padding: 7px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  transition: 0.3s;
-}
-
-.chat-btn-header:hover {
-  transform: translateY(-1px);
-  opacity: 0.9;
-}
-
 
 
 
@@ -267,9 +248,6 @@ AI Powered
 {% endfor %}
 </select>
 
-<button onclick="openChatbot()" class="chat-btn-header">
-  🌱 Ask AI
-</button>
 </div>
 
 </div>
@@ -564,10 +542,6 @@ window.onload = loadDashboard;
 
 document.getElementById("crop").onchange = loadDashboard;
 document.getElementById("district").onchange = loadDashboard;
-
-function openChatbot() {
-    window.open("https://crop-ai-assistant.zapier.app/", "_blank");
-}
 
 </script>
 
