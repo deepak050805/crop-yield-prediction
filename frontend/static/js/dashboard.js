@@ -129,8 +129,7 @@
       body: JSON.stringify({ crop: selectedCrop, district: selectedDistrict }),
       signal,
     });
-    if (!Array.isArray(data)) throw new Error('Historical data has an unexpected format.');
-    return data;
+    return window.FieldwiseClient.validateRecords(data);
   }
 
   function inPeriod(data) {
