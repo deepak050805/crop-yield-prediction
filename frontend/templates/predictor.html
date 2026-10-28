@@ -8,13 +8,14 @@
   <section class="panel weather-panel" data-records data-state="loading" aria-busy="true">
     <div class="panel-heading"><div><span class="eyebrow">01 / YOUR INPUTS</span><h2>Weather conditions</h2></div><span class="pill">Scenario builder</span></div>
     <p class="muted">Choose a scenario or start with the selected location’s historical averages.</p>
+    <p class="footnote" id="predictionLimitations">Exploratory estimates only. Dataset provenance and units are unverified; t/ha and weather units follow existing interface assumptions. The rainfall aggregation period is unknown.</p>
     <button class="button button-soft full-width" id="useAverages" type="button">↙ Use historical averages</button>
     <form id="predictionForm">
       {% for id, label, unit, minimum, maximum, step, value in [('rainfall', 'Rainfall', 'mm', 0, 2000, 1, 735), ('temperature', 'Temperature', '°C', -20, 60, 0.1, 27.5), ('humidity', 'Humidity', '%', 0, 100, 0.1, 67)] %}
       <div class="weather-control">
-        <div class="weather-label"><label for="{{ id }}Number">{{ label }}</label><div class="number-unit"><input id="{{ id }}Number" name="{{ id }}" type="number" min="{{ minimum }}" max="{{ maximum }}" step="{{ step }}" value="{{ value }}" required><span>{{ unit }}</span></div></div>
-        <input aria-label="{{ label }} slider" id="{{ id }}Range" type="range" min="{{ minimum }}" max="{{ maximum }}" step="{{ step }}" value="{{ value }}">
-        <div class="range-labels"><span>{{ minimum }} {{ unit }}</span><span>{{ maximum }} {{ unit }}</span></div>
+        <div class="weather-label"><label for="{{ id }}Number">{{ label }}</label><div class="number-unit"><input id="{{ id }}Number" name="{{ id }}" type="number" min="{{ minimum }}" max="{{ maximum }}" step="{{ step }}" value="{{ value }}" aria-label="{{ label }} ({{ unit }})" aria-describedby="{{ id }}Bounds {{ id }}Observed" required><span aria-hidden="true">{{ unit }}</span></div></div>
+        <input aria-label="{{ label }} slider ({{ unit }})" aria-describedby="{{ id }}Bounds {{ id }}Observed" id="{{ id }}Range" type="range" min="{{ minimum }}" max="{{ maximum }}" step="{{ step }}" value="{{ value }}">
+        <div class="range-labels" id="{{ id }}Bounds"><span>{{ minimum }} {{ unit }}</span><span>{{ maximum }} {{ unit }}</span></div>
         <div class="observed-slot">{{ skeletons.text(width='85%') }}<small id="{{ id }}Observed" class="muted" data-content></small></div>
       </div>
       {% endfor %}
@@ -27,7 +28,7 @@
       <span class="eyebrow">02 / YOUR ESTIMATE</span><span class="result-badge" id="resultBadge">Ready to explore</span>
       <div class="prediction-body">
         <div id="predictionEmpty" data-content><h2>What could your<br>harvest look like?</h2><p>Set your inputs and select Predict yield to explore a model estimate.</p><div class="empty-sprout" aria-hidden="true">♧</div></div>
-        <div id="predictionResult" data-content hidden><p id="predictionContext"></p><div class="yield-number"><span id="predictedYield">—</span><span>t/ha</span></div><p>Estimated yield under your selected conditions</p><div class="result-divider"></div><span id="yieldGap"></span></div>
+        <div id="predictionResult" data-content hidden><p id="predictionContext"></p><div class="yield-number"><span id="predictedYield">—</span><span>t/ha</span></div><p>Estimated yield under your selected conditions</p><p id="selectedConditions"></p><div class="result-divider"></div><span id="yieldGap"></span></div>
         <div class="prediction-skeleton loading-skeleton skeleton-surface" aria-hidden="true"><div class="prediction-context-placeholder">{{ skeletons.text(width='55%', shimmer=false) }}</div><div class="prediction-value-placeholder"><span class="skeleton"></span></div>{{ skeletons.text(width='85%', shimmer=false) }}<div class="result-divider"></div>{{ skeletons.text(width='75%', shimmer=false) }}</div>
         <p class="content-state" data-error>We couldn’t calculate an estimate. Check the message below and try again.</p>
       </div>
@@ -36,7 +37,7 @@
     <section class="panel" id="comparisonPanel" data-state="idle" aria-busy="false" hidden>
       <div class="panel-heading"><div><span class="eyebrow">03 / COMPARE POSSIBILITIES</span><h2>Best tested scenario</h2></div></div>
       <div class="chart-wrap comparison-chart">{{ skeletons.chart('bar') }}<canvas id="predictionChart" data-chart-content role="img" aria-label="Selected yield and best tested yield comparison"></canvas><p class="content-state" data-error>Scenario comparison unavailable.</p></div>
-      <div class="scenario-weather">{% for id, label in [('bestRain', 'Rainfall'), ('bestTemp', 'Temperature'), ('bestHum', 'Humidity')] %}<div><span>{{ label }}</span><div class="scenario-value-slot">{{ skeletons.text(width='70%') }}<strong id="{{ id }}" data-content>—</strong></div></div>{% endfor %}</div>
+      <div class="scenario-weather">{% for id, label in [('bestRain', 'Rainfall'), ('bestTemp', 'Temperature'), ('bestHum', 'Humidity')] %}<div><span>{{ label }}</span><div class="scenario-value-slot">{{ skeletons.text(width='70%') }}<strong id="{{ id }}" data-content>—</strong></div><small id="{{ id }}Change" class="muted" data-content></small></div>{% endfor %}</div>
       <p class="footnote">Compares your inputs with two nearby scenarios bounded by the crop’s historical weather range. This is a model comparison, not a guaranteed optimum or farming recommendation.</p>
     </section>
     <details class="panel model-details" id="modelDetails"><summary>How reliable is this estimate? <span aria-hidden="true">+</span></summary><div id="modelMetrics" class="model-metrics" data-state="loading" aria-busy="true" tabindex="0" role="region" aria-label="Model evaluation details"><span class="sr-only">Loading model evaluation…</span><div class="model-skeleton loading-skeleton skeleton-surface" aria-hidden="true">{{ skeletons.list_item(3) }}<div class="metric-grid">{% for metric in range(3) %}{{ skeletons.card() }}{% endfor %}</div>{% for item in range(4) %}{{ skeletons.list_item(3) }}{% endfor %}</div></div></details>
