@@ -415,12 +415,18 @@
       byId('resultBadge').textContent = 'Estimate ready';
       byId('predictionContext').textContent = `${data.crop} · ${data.district}`;
       byId('predictedYield').textContent = format(data.predicted, 3);
+      byId('selectedConditions').textContent = `Tested inputs: ${format(Number(payload.get('rainfall')))} mm rainfall, ${format(Number(payload.get('temperature')))} °C, ${format(Number(payload.get('humidity')))}% humidity.`;
       byId('yieldGap').textContent = data.gap > 0
         ? `Best tested scenario: ${format(data.optimal, 3)} t/ha · ${format(data.gap, 3)} t/ha higher`
         : 'Your selected conditions gave the highest yield among the tested scenarios.';
       byId('bestRain').textContent = `${format(data.best_rain)} mm`;
       byId('bestTemp').textContent = `${format(data.best_temp)} °C`;
       byId('bestHum').textContent = `${format(data.best_hum)} %`;
+      for (const [id, key, field] of [['bestRain', 'best_rain', 'rainfall'], ['bestTemp', 'best_temp', 'temperature'], ['bestHum', 'best_hum', 'humidity']]) {
+        const delta = data[key] - Number(payload.get(field));
+        byId(`${id}Change`).textContent = Math.abs(delta) < 0.05 ? 'Same as your input'
+          : `${delta > 0 ? '+' : '−'}${format(Math.abs(delta))} ${units[columns[field]]} vs your input`;
+      }
       draw('predictionChart', 'bar', ['Your conditions', 'Best tested scenario'], [{
         label: 'Yield (t/ha)', data: [data.predicted, data.optimal], backgroundColor: ['#aebd83', '#386646'],
         borderRadius: 6, maxBarThickness: 65,
