@@ -19,9 +19,9 @@ import sklearn
 from sklearn.pipeline import Pipeline
 
 try:
-    from .schema import FEATURES, FEATURE_UNITS, NUMERIC_BOUNDS, SCHEMA_VERSION
+    from .schema import FEATURE_UNITS, FEATURES, NUMERIC_BOUNDS, SCHEMA_VERSION
 except ImportError:
-    from schema import FEATURES, FEATURE_UNITS, NUMERIC_BOUNDS, SCHEMA_VERSION
+    from schema import FEATURE_UNITS, FEATURES, NUMERIC_BOUNDS, SCHEMA_VERSION
 
 MANIFEST_NAME = "model_manifest.json"
 
@@ -69,10 +69,23 @@ def _replace(path: Path, content: bytes) -> None:
             temporary.unlink(missing_ok=True)
 
 
+def _validate_pipeline(model: Any) -> None:
+    if (
+        not isinstance(model, Pipeline)
+        or list(getattr(model, "feature_names_in_", [])) != FEATURES
+        or getattr(model, "n_features_in_", None) != len(FEATURES)
+    ):
+        raise ArtifactValidationError("Model does not implement the ordered feature schema.")
+
+
 def publish_bundle(
     model: Any, report: dict[str, Any], data_path: str | Path, models_dir: str | Path
 ) -> dict[str, Any]:
     """Publish a matched model/report/manifest release with reproducible metadata."""
+    # Reject incomplete training before replacing any part of a previous release.
+    _validate_pipeline(model)
+    if report.get("features") != FEATURES or report.get("sklearn_version") != sklearn.__version__:
+        raise ArtifactValidationError("Training report schema or runtime is incompatible.")
     models = Path(models_dir)
     models.mkdir(parents=True, exist_ok=True)
     model_bytes = pickle.dumps(model, protocol=5)
@@ -136,8 +149,7 @@ def load_model_bundle(
         ):
             raise ArtifactValidationError("Report metadata does not describe this artifact release.")
         model = pickle.loads(model_bytes)
-        if not isinstance(model, Pipeline) or list(getattr(model, "feature_names_in_", [])) != FEATURES:
-            raise ArtifactValidationError("Loaded model does not implement the ordered feature schema.")
+        _validate_pipeline(model)
         return model, report
     except ArtifactValidationError:
         raise
