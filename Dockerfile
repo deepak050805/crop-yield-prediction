@@ -25,4 +25,7 @@ USER appuser
 
 EXPOSE 10000
 
+HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
+    CMD ["python", "-c", "import http.client; connection = http.client.HTTPConnection('127.0.0.1', 10000, timeout=2); connection.request('GET', '/health/ready'); raise SystemExit(0 if connection.getresponse().status == 200 else 1)"]
+
 CMD ["gunicorn", "backend.app:app"]
