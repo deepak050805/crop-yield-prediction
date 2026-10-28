@@ -6,6 +6,8 @@ Rainfall is the dataset's reported period total (mm); its accumulation period
 is unknown. Temperature is degrees Celsius and humidity is percent.
 """
 
+import math
+
 import pandas as pd
 
 SCHEMA_VERSION = 1
@@ -18,6 +20,22 @@ NUMERIC_BOUNDS = {
     "Humidity": (0.0, 100.0),
 }
 FEATURE_UNITS = {"Temperature": "C", "Rainfall": "mm", "Humidity": "%"}
+
+
+def validate_numeric(feature, value):
+    """Parse a finite weather value and enforce the documented plausibility bound."""
+    if feature not in NUMERIC_BOUNDS:
+        raise ValueError(f"Unknown numeric feature: {feature}")
+    if isinstance(value, bool):
+        raise ValueError(f"{feature} must be a finite number.")
+    try:
+        number = float(value)
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ValueError(f"{feature} must be a finite number.") from exc
+    lower, upper = NUMERIC_BOUNDS[feature]
+    if not math.isfinite(number) or not lower <= number <= upper:
+        raise ValueError(f"{feature} must be between {lower:g} and {upper:g}.")
+    return number
 
 
 def prepare_input(temp, rainfall, humidity, crop, district):
