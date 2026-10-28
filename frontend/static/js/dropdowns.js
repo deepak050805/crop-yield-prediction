@@ -50,7 +50,7 @@
     const enabled = () => options.map((_, index) => index).filter(index => !select.options[index].disabled);
 
     function sync() {
-      value.textContent = select.selectedOptions[0]?.textContent || '';
+      value.textContent = select.options[select.selectedIndex]?.textContent || '';
       trigger.title = value.textContent;
       trigger.disabled = select.matches(':disabled');
       for (const attribute of ['aria-describedby', 'aria-invalid']) {
