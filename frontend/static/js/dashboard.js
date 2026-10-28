@@ -19,6 +19,7 @@
     minimumFractionDigits: digits, maximumFractionDigits: digits,
   });
   const mean = (data, key) => data.reduce((sum, row) => sum + Number(row[key]), 0) / data.length;
+  const scoreText = value => Number.isFinite(value) ? format(value, 3) : 'unavailable';
 
   if (window.Chart) {
     Chart.defaults.font.family = "'DM Sans', sans-serif";
@@ -317,7 +318,7 @@
     }
     container.append(grid);
     for (const message of [
-      `Overall R²: ${format(metrics.holdout.r2, 3)}; ${crop()} R²: ${perCrop ? format(perCrop.r2, 3) : 'unavailable'}. Overall R² includes differences between crop types. Negative per-crop R² means the estimate is weaker than that crop’s test-set mean.`,
+      `Overall R²: ${scoreText(metrics.holdout.r2)}; ${crop()} R²: ${scoreText(perCrop?.r2)}. Overall R² includes differences between crop types. Negative per-crop R² means the estimate is weaker than that crop’s test-set mean.`,
       'Evaluation was completed before refitting the serving model on all years. Historical error is not a confidence interval or a guarantee for a new scenario.',
       metrics.holdout.mae >= metrics.baseline_holdout.mae
         ? 'On the held-out years, this model did not outperform a simple historical crop-average baseline. More informative data is needed to establish weather-related predictive value.'
@@ -342,7 +343,7 @@
         showModelMessage('empty', 'No model evaluation has been published yet.');
         return;
       }
-      metrics = data;
+      metrics = window.FieldwiseClient.validateMetrics(data);
       renderMetrics();
       setState(container, 'success');
     } catch (error) {
