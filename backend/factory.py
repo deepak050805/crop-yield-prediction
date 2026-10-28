@@ -7,6 +7,7 @@ from flask import Flask
 
 from backend.config import FRONTEND_DIR, load_config
 from backend.data_store import DataStore
+from backend.http import register_http_errors
 from backend.prediction import PredictionService
 from backend.routes import register_routes
 
@@ -27,4 +28,5 @@ def create_app(config=None):
     app.extensions["fieldwise"] = {"store": store, "predictor": PredictionService(store, model)}
 
     register_routes(app)
+    register_http_errors(app)
     return app
