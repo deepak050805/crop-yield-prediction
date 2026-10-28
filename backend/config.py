@@ -27,4 +27,8 @@ def load_config(environ: Mapping[str, str] | None = None) -> dict[str, Any]:
         "METRICS_PATH": Path(env.get("FIELDWISE_METRICS_PATH", str(BASE_DIR / "models" / "model_metrics.json"))),
         "DEBUG": False,
         "TESTING": False,
+        # Requests contain five short scalar values; bound parsing work and memory.
+        "MAX_CONTENT_LENGTH": 16 * 1024,
+        "MAX_FORM_MEMORY_SIZE": 16 * 1024,
+        "MAX_FORM_PARTS": 16,
     }

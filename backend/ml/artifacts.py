@@ -24,6 +24,7 @@ except ImportError:
     from schema import FEATURE_UNITS, FEATURES, NUMERIC_BOUNDS, SCHEMA_VERSION
 
 MANIFEST_NAME = "model_manifest.json"
+TEXT_HASH_NORMALIZATION = "utf8-lf-v1"
 
 
 class ArtifactValidationError(ValueError):
@@ -32,6 +33,11 @@ class ArtifactValidationError(ValueError):
 
 def sha256(content: bytes) -> str:
     return hashlib.sha256(content).hexdigest()
+
+
+def text_sha256(content: bytes) -> str:
+    """Keep release verification stable across Git's Windows CRLF checkouts."""
+    return sha256(content.replace(b"\r\n", b"\n"))
 
 
 def feature_schema() -> dict[str, Any]:
@@ -90,7 +96,7 @@ def publish_bundle(
     models.mkdir(parents=True, exist_ok=True)
     model_bytes = pickle.dumps(model, protocol=5)
     model_hash = sha256(model_bytes)
-    dataset_hash = sha256(Path(data_path).read_bytes())
+    dataset_hash = text_sha256(Path(data_path).read_bytes())
     release_report = {
         **report, "model_version": model_hash[:16], "dataset_sha256": dataset_hash,
         "feature_schema": feature_schema(), "runtime_versions": runtime_versions(),
@@ -98,7 +104,8 @@ def publish_bundle(
     metrics_bytes = _json_bytes(release_report)
     manifest = {
         "format_version": 1, "model_version": model_hash[:16],
-        "model_sha256": model_hash, "metrics_sha256": sha256(metrics_bytes),
+        "model_sha256": model_hash, "metrics_sha256": text_sha256(metrics_bytes),
+        "text_hash_normalization": TEXT_HASH_NORMALIZATION,
         "dataset_sha256": dataset_hash, "feature_schema": feature_schema(),
         "runtime_versions": runtime_versions(),
     }
@@ -125,9 +132,11 @@ def load_model_bundle(
             raise ArtifactValidationError("Artifact metadata must contain JSON objects.")
         if manifest.get("format_version") != 1 or manifest.get("feature_schema") != feature_schema():
             raise ArtifactValidationError("Artifact feature schema or manifest version is incompatible.")
+        if manifest.get("text_hash_normalization") != TEXT_HASH_NORMALIZATION:
+            raise ArtifactValidationError("Artifact text hash normalization is incompatible.")
         expected_hashes = {
-            "model_sha256": sha256(model_bytes), "metrics_sha256": sha256(metrics_bytes),
-            "dataset_sha256": sha256(data_path.read_bytes()),
+            "model_sha256": sha256(model_bytes), "metrics_sha256": text_sha256(metrics_bytes),
+            "dataset_sha256": text_sha256(data_path.read_bytes()),
         }
         if any(manifest.get(key) != value for key, value in expected_hashes.items()):
             raise ArtifactValidationError("Artifact release hashes do not match the configured files.")
