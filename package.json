@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node frontend/scripts/dev.cjs",
-    "test:ui": "node --test frontend/tests/loading.test.cjs"
+    "test:ui": "node --test frontend/tests/*.test.cjs"
   },
   "engines": {
     "node": ">=18"

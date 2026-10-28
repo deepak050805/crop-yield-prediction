@@ -4,6 +4,7 @@
   const page = document.body.dataset.page;
   const charts = new Map();
   const { setState } = window.FieldwiseLoading;
+  const { requestJson } = window.FieldwiseClient;
   const fields = ['rainfall', 'temperature', 'humidity'];
   const units = { Yield: 't/ha', Rainfall: 'mm', Temperature: '°C', Humidity: '%' };
   const columns = { rainfall: 'Rainfall', temperature: 'Temperature', humidity: 'Humidity' };
@@ -123,13 +124,11 @@
   }
 
   async function records(selectedCrop, selectedDistrict, signal) {
-    const response = await fetch('/get_data', {
+    const data = await requestJson('/get_data', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ crop: selectedCrop, district: selectedDistrict }),
       signal,
     });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Historical data could not be loaded.');
     if (!Array.isArray(data)) throw new Error('Historical data has an unexpected format.');
     return data;
   }
@@ -338,10 +337,8 @@
     container.replaceChildren(modelSkeleton.cloneNode(true));
     setState(container, 'loading');
     try {
-      const response = await fetch('/model_info', { signal: controller.signal });
-      const data = await response.json();
+      const data = await requestJson('/model_info', { signal: controller.signal });
       if (controller.signal.aborted) return;
-      if (!response.ok) throw new Error(data.error || 'Model evaluation could not be loaded.');
       if (!data?.holdout || !data.per_crop) {
         showModelMessage('empty', 'No model evaluation has been published yet.');
         return;
@@ -400,10 +397,8 @@
     byId('resultBadge').textContent = 'Calculating…';
     notice('predictionStatus', '');
     try {
-      const response = await fetch('/predict', { method: 'POST', body: payload, signal: controller.signal });
-      const data = await response.json();
+      const data = await requestJson('/predict', { method: 'POST', body: payload, signal: controller.signal });
       if (version !== predictionVersion || controller.signal.aborted) return;
-      if (!response.ok) throw new Error(data.error || 'Prediction failed. Please try again.');
       if (![data.predicted, data.optimal, data.gap].every(Number.isFinite)) throw new Error('Prediction returned an invalid estimate. Please try again.');
       byId('predictionEmpty').hidden = true; byId('predictionResult').hidden = false;
       byId('comparisonPanel').hidden = false; hasPrediction = true;
