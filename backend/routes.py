@@ -11,6 +11,23 @@ from backend.validation import ValidationError, parse_prediction, parse_selectio
 def register_routes(app):
     store = app.extensions["fieldwise"]["store"]
 
+    @app.get("/health/live")
+    def health_live():
+        return jsonify(status="alive")
+
+    @app.get("/health/ready")
+    def health_ready():
+        resources = app.extensions.get("fieldwise", {})
+        predictor = resources.get("predictor")
+        loaded_store = resources.get("store")
+        ready = (
+            loaded_store is not None
+            and not loaded_store.frame.empty
+            and predictor is not None
+            and predictor.model is not None
+        )
+        return jsonify(status="ready" if ready else "not_ready"), 200 if ready else 503
+
     @app.errorhandler(ValidationError)
     def invalid_input(error):
         return jsonify(error=str(error), code="invalid_input", field=error.field), 400
