@@ -40,3 +40,15 @@ class DatasetValidationTests(unittest.TestCase):
         ]:
             with self.assertRaises(ValueError):
                 validate_dataset(frame)
+
+    def test_rejects_exact_duplicates_and_conflicting_observation_keys(self):
+        for second in [observation(), observation(Yield=9.0), observation(Year="2020")]:
+            with self.subTest(second=second):
+                with self.assertRaisesRegex(ValueError, "duplicate|conflicting"):
+                    validate_dataset(pd.DataFrame([observation(), second]))
+
+    def test_distinct_district_or_crop_is_a_separate_observation(self):
+        frame = pd.DataFrame([
+            observation(), observation(District="Ludhiana"), observation(Crop="Rice"),
+        ])
+        self.assertEqual(len(validate_dataset(frame)), 3)

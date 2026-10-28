@@ -11,6 +11,7 @@ except ImportError:  # Direct training script execution.
     from schema import CATEGORICAL, FEATURES, NUMERIC, NUMERIC_BOUNDS
 
 DATA_COLUMNS = ["District", "Crop", "Year", *NUMERIC, "Yield"]
+OBSERVATION_KEY = ["District", "Crop", "Year"]
 
 
 def validate_dataset(frame):
@@ -47,6 +48,10 @@ def validate_dataset(frame):
     if data["Yield"].lt(0).any():
         raise ValueError("Yield must be nonnegative; its source unit is undocumented.")
     data["Year"] = data["Year"].astype(int)
+    if data.duplicated().any():
+        raise ValueError("Dataset contains duplicate observation rows; resolve them at the source.")
+    if data.duplicated(OBSERVATION_KEY).any():
+        raise ValueError("Dataset contains conflicting District/Crop/Year observation keys.")
     return data.sort_values("Year", kind="stable").reset_index(drop=True)
 
 
