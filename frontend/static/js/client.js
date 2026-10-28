@@ -39,6 +39,19 @@
     return [...data].sort((a, b) => a.Year - b.Year);
   }
 
+  function validateMetrics(data) {
+    const score = value => value && Number.isFinite(value.mae) && value.mae >= 0 &&
+      (value.r2 === null || Number.isFinite(value.r2));
+    if (!data || typeof data.model !== 'string' || !data.model.trim() ||
+      !Array.isArray(data.holdout_years) || !data.holdout_years.length ||
+      !data.holdout_years.every(Number.isInteger) || !score(data.holdout) ||
+      !score(data.baseline_holdout) || !data.per_crop || Array.isArray(data.per_crop) ||
+      typeof data.per_crop !== 'object' || !Object.values(data.per_crop).every(score)) {
+      throw new Error('Model evaluation has an unexpected format. Please try again.');
+    }
+    return data;
+  }
+
   async function requestJson(url, options = {}, { timeoutMs = 20000, fetch = root.fetch.bind(root) } = {}) {
     const controller = new AbortController();
     const cancel = () => controller.abort();
@@ -64,7 +77,7 @@
     }
   }
 
-  const api = { csvCell, historicalCsv, requestJson, validatePrediction, validateRecords };
+  const api = { csvCell, historicalCsv, requestJson, validatePrediction, validateRecords, validateMetrics };
   if (typeof module === 'object' && module.exports) module.exports = api;
   else root.FieldwiseClient = api;
 })(typeof window === 'object' ? window : globalThis);
