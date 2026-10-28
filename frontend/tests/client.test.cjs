@@ -54,3 +54,16 @@ test('prediction responses validate the complete scenario before display', () =>
     assert.throws(() => client.validatePrediction(override === null ? null : { ...valid, ...override }, 'Wheat', 'Amritsar'), /invalid estimate/);
   }
 });
+
+test('historical records reject malformed measurements and sort a copy chronologically', () => {
+  const row = { Year: 2024, District: 'Amritsar', Crop: 'Wheat', Yield: 3.5,
+    Temperature: 27, Rainfall: 750, Humidity: 65 };
+  const rows = [row, { ...row, Year: 2023 }];
+  assert.deepEqual(client.validateRecords(rows).map(value => value.Year), [2023, 2024]);
+  assert.equal(rows[0].Year, 2024, 'The API response must not be mutated');
+  assert.deepEqual(client.validateRecords([]), []);
+  for (const data of [null, {}, [null], [{ ...row, Yield: NaN }], [{ ...row, Rainfall: '750' }],
+    [{ ...row, Year: 2024.5 }], [{ ...row, District: '' }], [{ ...row, Crop: null }]]) {
+    assert.throws(() => client.validateRecords(data), /unexpected format/);
+  }
+});
