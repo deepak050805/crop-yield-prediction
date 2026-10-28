@@ -20,9 +20,11 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 try:
     from .dataset import load_dataset
     from .schema import FEATURES, NUMERIC
+    from .temporal import temporal_partitions
 except ImportError:  # Keep the documented `python backend/ml/train.py` entry point.
     from dataset import load_dataset
     from schema import FEATURES, NUMERIC
+    from temporal import temporal_partitions
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 
@@ -38,16 +40,8 @@ def scores(actual, predicted):
 def train():
     data_path = BASE_DIR / "data" / "real_final_dataset.csv"
     data = load_dataset(data_path)
-    years = sorted(data["Year"].unique())
-    if len(years) < 6:
-        raise ValueError("At least six distinct years are required for temporal evaluation.")
-    development = data[data["Year"] < years[-2]].reset_index(drop=True)
-    holdout = data[data["Year"] >= years[-2]].reset_index(drop=True)
-    folds = []
-    fold_years = sorted(development["Year"].unique())[-3:]
-    for year in fold_years:
-        folds.append((np.flatnonzero(development["Year"].lt(year)),
-                      np.flatnonzero(development["Year"].eq(year))))
+    development, holdout, folds = temporal_partitions(data)
+    fold_years = [int(development.iloc[validation]["Year"].iloc[0]) for _, validation in folds]
 
     preprocessing = ColumnTransformer([
         ("weather", StandardScaler(), NUMERIC),
