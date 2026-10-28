@@ -1,0 +1,30 @@
+"""Validated configuration shared by local startup and the app factory."""
+
+import os
+from pathlib import Path
+from typing import Any, Mapping
+
+BASE_DIR = Path(__file__).resolve().parent
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
+
+
+def load_config(environ: Mapping[str, str] | None = None) -> dict[str, Any]:
+    env = os.environ if environ is None else environ
+    try:
+        port = int(env.get("PORT", "10000"))
+    except ValueError as exc:
+        raise ValueError("PORT must be an integer from 1 to 65535.") from exc
+    if not 1 <= port <= 65535:
+        raise ValueError("PORT must be an integer from 1 to 65535.")
+    log_level = env.get("FIELDWISE_LOG_LEVEL", "INFO").upper()
+    if log_level not in {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}:
+        raise ValueError("FIELDWISE_LOG_LEVEL must be a standard logging level.")
+    return {
+        "PORT": port,
+        "LOG_LEVEL": log_level,
+        "DATA_PATH": Path(env.get("FIELDWISE_DATA_PATH", str(BASE_DIR / "data" / "real_final_dataset.csv"))),
+        "MODEL_PATH": Path(env.get("FIELDWISE_MODEL_PATH", str(BASE_DIR / "models" / "yield_model.pkl"))),
+        "METRICS_PATH": Path(env.get("FIELDWISE_METRICS_PATH", str(BASE_DIR / "models" / "model_metrics.json"))),
+        "DEBUG": False,
+        "TESTING": False,
+    }
