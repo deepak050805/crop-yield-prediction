@@ -34,6 +34,7 @@
     element.textContent = message;
     element.hidden = !message;
     element.classList.toggle('error', error);
+    if (id === 'dataStatus' && byId('retryData')) byId('retryData').hidden = !error;
   }
 
   function setRecordsState(state) {
@@ -233,6 +234,8 @@
     updateNavigation();
     notice('dataStatus', '');
     rows = []; comparison = []; allRows = [];
+    // A failed or empty reload must never leave exportable previous records.
+    if (byId('historyRows')) byId('historyRows').replaceChildren();
     if (byId('comparisonStatus')) byId('comparisonStatus').textContent = '';
     if (byId('downloadCsv')) byId('downloadCsv').disabled = true;
     if (byId('useAverages')) byId('useAverages').disabled = true;
@@ -276,11 +279,11 @@
       setRecordsState('error');
       if (byId('comparisonStatus')) byId('comparisonStatus').textContent = '';
       byId('filterContext').textContent = 'Historical records unavailable';
-      notice('dataStatus', `${error.message} Change a filter to try again.`, true);
+      notice('dataStatus', `${error.message} Retry historical data or change a filter.`, true);
       if (page === 'overview') {
         renderOverview();
         byId('summaryPeriod').textContent = 'Records unavailable';
-        byId('overviewInsight').textContent = 'Historical insights could not be loaded. Change a filter to try again.';
+        byId('overviewInsight').textContent = 'Historical insights could not be loaded. Retry historical data or change a filter.';
       }
       if (page === 'history') { byId('historyRows').replaceChildren(); byId('recordCount').textContent = 'Records unavailable'; }
       if (page === 'predictor') fields.forEach(field => { byId(`${field}Observed`).textContent = 'Historical range unavailable'; });
@@ -489,6 +492,7 @@
   window.addEventListener('pagehide', () => {
     recordsController?.abort(); predictionController?.abort(); modelController?.abort();
   });
+  byId('retryData')?.addEventListener('click', loadData);
   window.addEventListener('pageshow', event => {
     if (event.persisted) {
       if (predictionController) markStale();
