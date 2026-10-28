@@ -399,7 +399,7 @@
     try {
       const data = await requestJson('/predict', { method: 'POST', body: payload, signal: controller.signal });
       if (version !== predictionVersion || controller.signal.aborted) return;
-      if (![data.predicted, data.optimal, data.gap].every(Number.isFinite)) throw new Error('Prediction returned an invalid estimate. Please try again.');
+      window.FieldwiseClient.validatePrediction(data, crop(), district());
       byId('predictionEmpty').hidden = true; byId('predictionResult').hidden = false;
       byId('comparisonPanel').hidden = false; hasPrediction = true;
       byId('resultBadge').textContent = 'Estimate ready';

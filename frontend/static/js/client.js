@@ -14,6 +14,20 @@
       .map(row => row.map(csvCell).join(',')).join('\r\n') + '\r\n';
   }
 
+  function validatePrediction(data, crop, district) {
+    const finite = ['predicted', 'optimal', 'gap', 'best_rain', 'best_temp', 'best_hum'];
+    const valid = data && finite.every(key => Number.isFinite(data[key])) &&
+      data.crop === crop && data.district === district &&
+      data.gap >= 0 && data.optimal >= data.predicted &&
+      Math.abs(data.optimal - data.predicted - data.gap) <= 0.002 &&
+      data.best_rain >= 0 && data.best_rain <= 2000 &&
+      data.best_temp >= -20 && data.best_temp <= 60 &&
+      data.best_hum >= 0 && data.best_hum <= 100 &&
+      (data.warnings === undefined || Array.isArray(data.warnings) && data.warnings.every(value => typeof value === 'string'));
+    if (!valid) throw new Error('Prediction returned an invalid estimate. Please try again.');
+    return data;
+  }
+
   async function requestJson(url, options = {}, { timeoutMs = 20000, fetch = root.fetch.bind(root) } = {}) {
     const controller = new AbortController();
     const cancel = () => controller.abort();
@@ -39,7 +53,7 @@
     }
   }
 
-  const api = { csvCell, historicalCsv, requestJson };
+  const api = { csvCell, historicalCsv, requestJson, validatePrediction };
   if (typeof module === 'object' && module.exports) module.exports = api;
   else root.FieldwiseClient = api;
 })(typeof window === 'object' ? window : globalThis);

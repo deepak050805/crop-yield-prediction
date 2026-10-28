@@ -43,3 +43,14 @@ test('requests time out and preserve cancellation by callers', async () => {
   await assert.rejects(request, error => error.name === 'AbortError');
   await assert.rejects(client.requestJson('/already-cancelled', { signal: controller.signal }, { fetch }), error => error.name === 'AbortError');
 });
+
+test('prediction responses validate the complete scenario before display', () => {
+  const valid = { predicted: 3.4, optimal: 3.5, gap: 0.1, best_rain: 750,
+    best_temp: 27, best_hum: 65, crop: 'Wheat', district: 'Amritsar', warnings: [] };
+  assert.equal(client.validatePrediction(valid, 'Wheat', 'Amritsar'), valid);
+  for (const override of [null, { best_rain: undefined }, { best_temp: NaN }, { best_hum: 101 },
+    { predicted: '3.4' }, { warnings: 'warning' }, { warnings: [{}] }, { crop: 'Rice' },
+    { district: 'Ludhiana' }, { gap: -1 }, { gap: 1 }, { optimal: 3 }]) {
+    assert.throws(() => client.validatePrediction(override === null ? null : { ...valid, ...override }, 'Wheat', 'Amritsar'), /invalid estimate/);
+  }
+});
