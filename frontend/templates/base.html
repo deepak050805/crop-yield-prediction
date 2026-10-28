@@ -41,7 +41,7 @@
 </aside>
 <div class="workspace">
   <header class="topbar"><span>Workspace <span class="slash">/</span> <strong>{{ active|replace('predictor', 'Yield predictor')|replace('overview', 'Overview')|replace('history', 'Historical explorer') }}</strong></span><div class="topbar-actions"><button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" aria-pressed="false"><svg class="theme-icon-light" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg><svg class="theme-icon-dark" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 15.2A8.5 8.5 0 0 1 8.8 4a8.5 8.5 0 1 0 11.2 11.2Z"/></svg><span id="themeLabel">Light mode</span></button><span class="region-tag">Punjab region <span aria-hidden="true">↗</span></span></div></header>
-  <main id="main">
+  <main id="main" tabindex="-1">
     <div class="page-heading"><div><span class="eyebrow">GROW WITH UNDERSTANDING</span><h1>{% block heading %}{% endblock %}</h1><p>{% block description %}{% endblock %}</p></div>{% block heading_action %}{% endblock %}</div>
     <section class="filter-bar" aria-label="Dataset filters">
       <label>Crop<span class="themed-select"><select id="crop">{% for crop in crops %}<option {% if crop == 'Wheat' %}selected{% endif %}>{{ crop }}</option>{% endfor %}</select></span></label>
@@ -53,6 +53,8 @@
       <div class="filter-context"><span class="status-dot"></span><span id="filterContext" aria-live="polite">Loading historical records…</span></div>
     </section>
     <div id="dataStatus" class="notice" role="status" hidden></div>
+    <button id="retryData" type="button" class="button button-soft" hidden>Retry historical data</button>
+    <noscript><p class="notice">Fieldwise needs JavaScript to load historical records, charts, and predictions. Enable JavaScript and reload this page.</p></noscript>
     {% block content %}{% endblock %}
     <footer class="page-footer"><span>Fieldwise <span class="muted">/</span> Crop yield &amp; weather analysis</span><span>Historical patterns. Informed exploration.</span></footer>
   </main>
