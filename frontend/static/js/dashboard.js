@@ -98,10 +98,17 @@
         interaction: { mode: type === 'scatter' ? 'nearest' : 'index', intersect: false },
         plugins: {
           legend: { display: id === 'historyChart', position: 'bottom', labels: { color: colors.text, usePointStyle: true, boxWidth: 7, padding: 22 } },
-          tooltip: { backgroundColor: colors.tooltip, titleColor: colors.tooltipText, bodyColor: colors.tooltipText, padding: 12, cornerRadius: 8 },
+          tooltip: { backgroundColor: colors.tooltip, titleColor: colors.tooltipText, bodyColor: colors.tooltipText, padding: 12, cornerRadius: 8,
+            callbacks: {
+              label: context => type === 'scatter'
+                ? `Rainfall: ${format(context.parsed.x)} mm; Yield: ${format(context.parsed.y, 3)} t/ha`
+                : `${context.dataset.label}: ${format(context.parsed.y, 3)} ${axisTitles.unit || 't/ha'}`,
+              ...(type === 'scatter' ? { title: items => `Year: ${items[0]?.raw.year ?? 'unknown'}` } : {}),
+            } },
         },
         scales: {
-          x: { grid: { display: false, color: colors.grid }, border: { display: false }, ticks: { color: colors.text, maxTicksLimit: 8 },
+          x: { ...(id === 'historyChart' || id === 'yieldChart' ? { type: 'linear' } : {}),
+            grid: { display: false, color: colors.grid }, border: { display: false }, ticks: { color: colors.text, maxTicksLimit: 8, precision: 0 },
             title: { display: Boolean(axisTitles.x), text: axisTitles.x, color: colors.text } },
           y: { grid: { color: colors.grid }, border: { display: false },
             beginAtZero: type === 'bar', ticks: { color: colors.text, maxTicksLimit: 5 },
@@ -172,9 +179,9 @@
     }
     byId('summaryPeriod').textContent = rows.length ? `${rows[0].Year}–${rows.at(-1).Year} · ${rows.length} records` : 'No matching records';
     if (rows.length) {
-      draw('yieldChart', 'line', rows.map(row => row.Year), [line('Yield (t/ha)', rows.map(row => row.Yield), '#537b4d', true)]);
+      draw('yieldChart', 'line', rows.map(row => row.Year), [line('Yield', rows.map(row => ({ x: row.Year, y: row.Yield })), '#537b4d', true)], { x: 'Year', y: 'Yield (t/ha)' });
       draw('rainChart', 'scatter', [], [{ label: 'Rainfall vs yield',
-      data: rows.map(row => ({ x: row.Rainfall, y: row.Yield })), backgroundColor: '#759251', pointRadius: 5, pointHoverRadius: 7 }],
+      data: rows.map(row => ({ x: row.Rainfall, y: row.Yield, year: row.Year })), backgroundColor: '#759251', pointRadius: 5, pointHoverRadius: 7 }],
       { x: 'Rainfall (mm)', y: 'Yield (t/ha)' });
     }
     byId('insightTitle').textContent = `${crop()} in ${district()}`;
@@ -191,7 +198,7 @@
     const datasets = [line(district(), rows.map(row => ({ x: row.Year, y: row[measure] })))];
     if (comparison.length) datasets.push(line(byId('compareDistrict').value, comparison.map(row => ({ x: row.Year, y: row[measure] })), '#ba9654'));
     const years = [...new Set([...rows, ...comparison].map(row => row.Year))].sort((a, b) => a - b);
-    if (years.length) draw('historyChart', 'line', years, datasets, { y: `${measure} (${units[measure]})` });
+    if (years.length) draw('historyChart', 'line', years, datasets, { x: 'Year', y: `${measure} (${units[measure]})`, unit: units[measure] });
     byId('historyTitle').textContent = `${measure} through the years`;
     if (!updateTable) return;
     const displayRows = [...rows, ...comparison].sort((a, b) => a.Year - b.Year || a.District.localeCompare(b.District));
