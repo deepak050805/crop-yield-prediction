@@ -17,9 +17,12 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
+try:
+    from .schema import FEATURES, NUMERIC
+except ImportError:  # Keep the documented `python backend/ml/train.py` entry point.
+    from schema import FEATURES, NUMERIC
+
 BASE_DIR = Path(__file__).resolve().parents[1]
-FEATURES = ["Temperature", "Rainfall", "Humidity", "Crop", "District"]
-NUMERIC = FEATURES[:3]
 
 
 def scores(actual, predicted):
