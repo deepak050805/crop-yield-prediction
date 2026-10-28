@@ -438,9 +438,7 @@
   function exportCsv() {
     const records = [...rows, ...comparison].sort((a, b) => a.Year - b.Year || a.District.localeCompare(b.District));
     if (!records.length) return;
-    const headers = ['District', 'Crop', 'Year', 'Temperature', 'Rainfall', 'Humidity', 'Yield'];
-    const quote = value => `"${String(value).replaceAll('"', '""')}"`;
-    const csv = [headers, ...records.map(row => headers.map(key => row[key]))].map(row => row.map(quote).join(',')).join('\r\n');
+    const csv = window.FieldwiseClient.historicalCsv(records);
     const url = URL.createObjectURL(new Blob(['\uFEFF', csv], { type: 'text/csv;charset=utf-8;' }));
     const link = document.createElement('a'); link.href = url;
     link.download = `${crop()}-${district()}-${byId('fromYear').value}-${byId('toYear').value}.csv`;

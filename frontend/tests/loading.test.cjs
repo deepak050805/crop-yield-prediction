@@ -52,6 +52,7 @@ function setup(t, page = '/', { chartAvailable = true, testImage = false, cached
     Object.defineProperty(image, 'naturalWidth', { value: 37 });
   }
   window.eval(read('frontend/static/js/loading.js'));
+  window.eval(read('frontend/static/js/client.js'));
   window.eval(read('frontend/static/js/dashboard.js'));
   return {
     window, document, requests, instances,
