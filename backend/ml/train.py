@@ -18,8 +18,10 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 try:
+    from .dataset import load_dataset
     from .schema import FEATURES, NUMERIC
 except ImportError:  # Keep the documented `python backend/ml/train.py` entry point.
+    from dataset import load_dataset
     from schema import FEATURES, NUMERIC
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -35,11 +37,7 @@ def scores(actual, predicted):
 
 def train():
     data_path = BASE_DIR / "data" / "real_final_dataset.csv"
-    data = pd.read_csv(data_path).drop_duplicates()
-    for column in [*NUMERIC, "Year", "Yield"]:
-        data[column] = pd.to_numeric(data[column], errors="coerce")
-    data = data.dropna(subset=[*FEATURES, "Year", "Yield"])
-    data = data[data["Yield"].ge(0)].sort_values("Year").reset_index(drop=True)
+    data = load_dataset(data_path)
     years = sorted(data["Year"].unique())
     if len(years) < 6:
         raise ValueError("At least six distinct years are required for temporal evaluation.")
