@@ -452,7 +452,11 @@
   for (const [id, parameter] of [['crop', 'crop'], ['district', 'district'], ['fromYear', 'from'], ['toYear', 'to']]) {
     const element = byId(id), value = query.get(parameter);
     if (!element) continue;
-    if (value && [...element.options].some(option => option.value === value)) element.value = value;
+    if (value && [...element.options].some(option => option.value === value)) {
+      element.value = value;
+      // Enhanced dropdowns initialize before URL filters are restored.
+      element.dispatchEvent(new Event('change', { bubbles: true }));
+    }
     element.addEventListener('change', () => { markStale(); loadData(); });
   }
   if (page === 'predictor') {
