@@ -67,3 +67,14 @@ test('historical records reject malformed measurements and sort a copy chronolog
     assert.throws(() => client.validateRecords(data), /unexpected format/);
   }
 });
+
+test('published model metrics reject incomplete scores and allow undefined R squared as null', () => {
+  const score = { mae: .1, r2: null };
+  const valid = { model: 'Ridge', holdout_years: [2023, 2024], holdout: score,
+    baseline_holdout: score, per_crop: { Wheat: score } };
+  assert.equal(client.validateMetrics(valid), valid);
+  for (const override of [{ holdout_years: [] }, { model: null }, { baseline_holdout: null },
+    { holdout: { mae: -1, r2: .5 } }, { per_crop: [] }, { per_crop: { Wheat: { mae: '0.1' } } }]) {
+    assert.throws(() => client.validateMetrics({ ...valid, ...override }), /unexpected format/);
+  }
+});
