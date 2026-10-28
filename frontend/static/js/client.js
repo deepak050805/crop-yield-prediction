@@ -28,6 +28,17 @@
     return data;
   }
 
+  function validateRecords(data) {
+    const measures = ['Yield', 'Rainfall', 'Temperature', 'Humidity'];
+    if (!Array.isArray(data) || !data.every(row => row && Number.isInteger(row.Year) &&
+      typeof row.District === 'string' && row.District.trim() &&
+      typeof row.Crop === 'string' && row.Crop.trim() &&
+      measures.every(key => Number.isFinite(row[key])))) {
+      throw new Error('Historical data has an unexpected format. Please try again.');
+    }
+    return [...data].sort((a, b) => a.Year - b.Year);
+  }
+
   async function requestJson(url, options = {}, { timeoutMs = 20000, fetch = root.fetch.bind(root) } = {}) {
     const controller = new AbortController();
     const cancel = () => controller.abort();
@@ -53,7 +64,7 @@
     }
   }
 
-  const api = { csvCell, historicalCsv, requestJson, validatePrediction };
+  const api = { csvCell, historicalCsv, requestJson, validatePrediction, validateRecords };
   if (typeof module === 'object' && module.exports) module.exports = api;
   else root.FieldwiseClient = api;
 })(typeof window === 'object' ? window : globalThis);
