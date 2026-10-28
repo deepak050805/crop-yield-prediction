@@ -12,6 +12,7 @@
     trigger.setAttribute('aria-haspopup', 'listbox');
     trigger.setAttribute('aria-expanded', 'false');
     trigger.setAttribute('aria-controls', `${select.id}Listbox`);
+    trigger.setAttribute('aria-autocomplete', 'none');
     const label = select.labels[0];
     trigger.setAttribute('aria-label', label
       ? Array.from(label.childNodes).filter(node => node.nodeType === Node.TEXT_NODE)
@@ -51,8 +52,16 @@
     function sync() {
       value.textContent = select.selectedOptions[0]?.textContent || '';
       trigger.title = value.textContent;
-      trigger.disabled = select.disabled;
-      options.forEach((option, index) => option.setAttribute('aria-selected', String(index === select.selectedIndex)));
+      trigger.disabled = select.matches(':disabled');
+      for (const attribute of ['aria-describedby', 'aria-invalid']) {
+        if (select.hasAttribute(attribute)) trigger.setAttribute(attribute, select.getAttribute(attribute));
+        else trigger.removeAttribute(attribute);
+      }
+      options.forEach((option, index) => {
+        option.setAttribute('aria-selected', String(index === select.selectedIndex));
+        option.setAttribute('aria-disabled', String(select.options[index].disabled));
+      });
+      if (trigger.disabled) close();
     }
 
     function activate(index, scroll = true) {
@@ -148,11 +157,17 @@
       if (!wrapper.contains(event.relatedTarget)) close();
     });
     select.addEventListener('change', sync);
-    select.form?.addEventListener('reset', () => setTimeout(sync, 0));
+    select.addEventListener('input', sync);
+    select.form?.addEventListener('reset', () => { close(); setTimeout(sync, 0); });
     wrapper.append(trigger, menu);
     sync();
     select.hidden = true;
     if (label) label.htmlFor = trigger.id;
+    const observer = new MutationObserver(sync);
+    observer.observe(select, { attributes: true, subtree: true,
+      attributeFilter: ['disabled', 'aria-describedby', 'aria-invalid'] });
+    if (select.closest('fieldset')) observer.observe(select.closest('fieldset'), { attributes: true, attributeFilter: ['disabled'] });
+    window.addEventListener('pagehide', () => close());
   });
 
   document.addEventListener('pointerdown', event => {
