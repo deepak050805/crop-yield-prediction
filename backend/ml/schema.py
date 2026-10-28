@@ -7,6 +7,7 @@ is unknown. Temperature is degrees Celsius and humidity is percent.
 """
 
 import math
+from typing import Any
 
 import pandas as pd
 
@@ -22,7 +23,7 @@ NUMERIC_BOUNDS = {
 FEATURE_UNITS = {"Temperature": "C", "Rainfall": "mm", "Humidity": "%"}
 
 
-def validate_numeric(feature, value):
+def validate_numeric(feature: str, value: Any) -> float:
     """Parse a finite weather value and enforce the documented plausibility bound."""
     if feature not in NUMERIC_BOUNDS:
         raise ValueError(f"Unknown numeric feature: {feature}")
@@ -38,6 +39,8 @@ def validate_numeric(feature, value):
     return number
 
 
-def prepare_input(temp, rainfall, humidity, crop, district):
+def prepare_input(
+    temp: float, rainfall: float, humidity: float, crop: str, district: str
+) -> pd.DataFrame:
     """Construct a prediction row with the exact training feature order."""
     return pd.DataFrame([[temp, rainfall, humidity, crop, district]], columns=FEATURES)
