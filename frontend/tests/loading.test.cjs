@@ -215,3 +215,36 @@ test('themes, reduced motion, placeholder accessibility, and missing charts are 
   assert.equal(c.get('yieldChart').parentElement.dataset.state, 'error');
   assert.equal(c.get('avgYield').textContent, expectedYield);
 });
+
+test('historical charts preserve uneven year spacing and display measurement units', async t => {
+  const c = setup(t, '/history');
+  const records = [fixtures.records[0], fixtures.records.at(-1)];
+  c.take('/get_data').respond(records); await flush();
+  const chart = c.instances.get('historyChart')[0];
+  assert.equal(chart.options.scales.x.type, 'linear');
+  assert.equal(chart.options.scales.x.title.text, 'Year');
+  assert.deepEqual(Array.from(chart.data.datasets[0].data, point => point.x), records.map(row => row.Year));
+  c.change('historyMeasure', 'Rainfall');
+  const label = chart.options.plugins.tooltip.callbacks.label({ dataset: { label: 'Amritsar' }, parsed: { y: 750 } });
+  assert.match(label, /750.*mm/);
+  assert.equal(chart.options.scales.y.title.text, 'Rainfall (mm)');
+});
+
+test('malformed API records fail safely without partial tables or NaN charts', async t => {
+  const c = setup(t, '/history');
+  c.take('/get_data').respond([{ ...fixtures.records[0], Humidity: null }]); await flush();
+  assert.equal(c.document.querySelector('[data-records]').dataset.state, 'error');
+  assert.equal(c.get('historyRows').children.length, 0);
+  assert.equal(c.get('downloadCsv').disabled, true);
+  assert.match(c.get('dataStatus').textContent, /unexpected format/);
+});
+
+test('unavailable R squared is not presented as a measured zero', async t => {
+  const c = setup(t, '/predictor');
+  const metrics = JSON.parse(JSON.stringify(fixtures.metrics));
+  metrics.holdout.r2 = null;
+  metrics.per_crop.Wheat.r2 = null;
+  c.take('/model_info').respond(metrics); await flush();
+  assert.equal(c.get('modelMetrics').dataset.state, 'success');
+  assert.match(c.get('modelMetrics').textContent, /Overall R²: unavailable; Wheat R²: unavailable/);
+});
