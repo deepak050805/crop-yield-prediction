@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from backend.ml.dataset import DATA_COLUMNS, validate_dataset
+from backend.ml.dataset import DATA_COLUMNS, load_dataset, validate_dataset
 from backend.ml.validate_data import main as validate_main
 
 
@@ -112,3 +112,12 @@ class DatasetValidationTests(unittest.TestCase):
                 self.assertEqual(error.exception.code, 1)
                 self.assertEqual(stdout.getvalue(), "")
                 self.assertIn("Dataset validation failed:", stderr.getvalue())
+
+    def test_csv_nul_bytes_are_rejected_instead_of_truncating_fields(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "source.csv"
+            for field, value in [("Crop", "Wh\x00eat"), ("Yield", "4\x00.2")]:
+                with self.subTest(field=field):
+                    pd.DataFrame([observation(**{field: value})]).to_csv(source, index=False)
+                    with self.assertRaisesRegex(ValueError, "NUL"):
+                        load_dataset(source)
