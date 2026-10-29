@@ -7,7 +7,12 @@ from unittest.mock import patch
 
 import numpy as np
 
-from backend.ml.artifacts import ArtifactValidationError, load_model_bundle, publish_bundle
+from backend.ml.artifacts import (
+    ArtifactValidationError,
+    load_model_bundle,
+    publish_bundle,
+    text_sha256,
+)
 from backend.ml.schema import prepare_input
 
 BASE = Path(__file__).resolve().parents[1]
@@ -98,3 +103,21 @@ class ArtifactBundleTests(unittest.TestCase):
         self.assertEqual(report, original_report)
         features = prepare_input(27.5, 735, 67, "Wheat", "Amritsar")
         np.testing.assert_array_equal(model.predict(features), original_model.predict(features))
+
+    def test_nonfinite_and_duplicate_metadata_are_rejected_even_with_matching_hashes(self):
+        manifest_path = self.directory / "model_manifest.json"
+        original_manifest = manifest_path.read_bytes()
+        for name in ["model_manifest.json", "model_metrics.json"]:
+            path = self.directory / name
+            original = path.read_bytes()
+            for suffix in ['"extra":NaN', '"extra":Infinity', '"extra":1,"extra":2']:
+                with self.subTest(name=name, suffix=suffix):
+                    changed = original.rstrip()[:-1] + b"," + suffix.encode() + b"}"
+                    path.write_bytes(changed)
+                    if name == "model_metrics.json":
+                        self.edit_manifest(
+                            lambda manifest: manifest.update(metrics_sha256=text_sha256(changed))
+                        )
+                    self.assert_rejected_before_pickle()
+                    path.write_bytes(original)
+                    manifest_path.write_bytes(original_manifest)
