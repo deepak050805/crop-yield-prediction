@@ -55,9 +55,18 @@ async function start() {
   const deadline = Date.now() + 60000;
   while (!stopping) {
     const ready = await new Promise(resolve => {
-      const request = http.get(`http://127.0.0.1:${backendPort}/`, response => {
-        response.resume();
-        resolve(response.statusCode === 200);
+      const request = http.get(`http://127.0.0.1:${backendPort}/health/ready`, response => {
+        let body = '';
+        response.setEncoding('utf8');
+        response.on('data', chunk => {
+          body += chunk;
+          if (body.length > 1024) response.destroy(new Error('Unexpected readiness response.'));
+        });
+        response.on('error', () => resolve(false));
+        response.on('end', () => {
+          try { resolve(response.statusCode === 200 && JSON.parse(body).status === 'ready'); }
+          catch { resolve(false); }
+        });
       });
       request.setTimeout(1000, () => request.destroy());
       request.on('error', () => resolve(false));
