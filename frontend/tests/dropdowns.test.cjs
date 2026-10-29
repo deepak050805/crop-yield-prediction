@@ -4,10 +4,9 @@ const { readFileSync } = require('node:fs');
 const { JSDOM } = require('jsdom');
 const script = readFileSync(require.resolve('../static/js/dropdowns.js'), 'utf8');
 
-function setup(t) {
+function setup(t, options = '<option>Wheat</option><option disabled>Barley</option><option>Rice</option><option>Rye</option>') {
   const dom = new JSDOM('<form><fieldset><label>Crop<span class="themed-select">' +
-    '<select id="crop" aria-describedby="hint"><option>Wheat</option><option disabled>Barley</option>' +
-    '<option>Rice</option><option>Rye</option></select></span></label></fieldset></form>' +
+    '<select id="crop" aria-describedby="hint">' + options + '</select></span></label></fieldset></form>' +
     '<p id="hint">Choose a crop.</p><button id="outside">Outside</button>', { runScripts: 'outside-only' });
   t.after(() => dom.window.close());
   dom.window.eval(script);
@@ -64,4 +63,25 @@ test('form reset restores the visible selection and closes the popup', async t =
   await new Promise(resolve => c.window.setTimeout(resolve, 0));
   assert.equal(c.get('cropTrigger').textContent, 'Wheat');
   assert.equal(c.get('cropListbox').hidden, true);
+});
+
+test('disabled option groups and options changed while open cannot be selected', async t => {
+  const c = setup(t, '<option>Wheat</option><optgroup label="Unavailable" disabled><option>Rice</option><option>Rye</option></optgroup>');
+  c.key('End'); c.key('Enter');
+  assert.equal(c.get('crop').value, 'Wheat');
+  assert.equal(c.get('cropOption1').getAttribute('aria-disabled'), 'true');
+  c.window.document.querySelector('optgroup').disabled = false;
+  await Promise.resolve();
+  c.key('End');
+  assert.equal(c.get('cropTrigger').getAttribute('aria-activedescendant'), 'cropOption2');
+  c.get('crop').options[2].disabled = true;
+  await Promise.resolve();
+  c.key('Enter');
+  assert.equal(c.get('crop').value, 'Wheat');
+  c.get('crop').options[0].disabled = true;
+  c.get('crop').options[1].disabled = true;
+  await Promise.resolve();
+  c.key('ArrowDown'); c.key('Enter');
+  assert.equal(c.get('cropTrigger').hasAttribute('aria-activedescendant'), false);
+  assert.equal(c.get('crop').value, 'Wheat');
 });
