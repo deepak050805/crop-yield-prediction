@@ -90,6 +90,16 @@
 
   function draw(id, type, labels, datasets, axisTitles = {}) {
     if (!byId(id)) return;
+    const summary = datasets.map(dataset => {
+      const values = dataset.data.map((point, index) => {
+        if (type === 'scatter') return `${point.year}: ${format(point.x)} mm rainfall, ${format(point.y, 3)} t/ha yield`;
+        const x = typeof point === 'object' ? point.x : labels[index];
+        const y = typeof point === 'object' ? point.y : point;
+        return `${x}: ${format(y, 3)} ${axisTitles.unit || 't/ha'}`;
+      });
+      return `${dataset.label}: ${values.join('; ') || 'No records'}`;
+    }).join('. ');
+    byId(id).setAttribute('aria-label', `${crop()} in ${district()}. ${axisTitles.y || 'Yield (t/ha)'}. ${summary}`);
     if (!window.Chart) { failedCharts.add(id); setState(byId(id).parentElement, 'error'); return; }
     const colors = chartPalette();
     const config = {
