@@ -1,4 +1,5 @@
 {
+  "report_version": 2,
   "model": "Ridge",
   "sklearn_version": "1.8.0",
   "features": [
@@ -8,8 +9,9 @@
     "Crop",
     "District"
   ],
-  "dataset_sha256": "40cf51de10fc840499ded1a64cc2a8f4ad19179fdfacac28d5598a692c219966",
   "records": 2000,
+  "development_samples": 1600,
+  "holdout_samples": 400,
   "development_years": [
     2015,
     2016,
@@ -24,14 +26,111 @@
     2023,
     2024
   ],
+  "training_years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
   "validation_years": [
     2020,
     2021,
     2022
   ],
-  "selection": "Lowest temporal validation MAE, preferring simpler candidates within one standard error.",
+  "final_refit_on_all_records": true,
+  "selection": "Lowest temporal validation MAE, preferring predeclared simpler candidates within one standard error.",
+  "settings": {
+    "random_state": 42,
+    "trees": 200,
+    "n_jobs": 1,
+    "holdout_years": 2,
+    "validation_years": 3
+  },
   "cv_mae": 0.251,
   "baseline_cv_mae": 0.2515,
+  "cv_folds": [
+    {
+      "training_years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ],
+      "validation_years": [
+        2020
+      ],
+      "training_samples": 1000,
+      "validation_samples": 200,
+      "model": {
+        "mae": 0.2535,
+        "rmse": 0.2992,
+        "r2": 0.9494
+      },
+      "baseline": {
+        "mae": 0.2485,
+        "rmse": 0.2908,
+        "r2": 0.9522
+      }
+    },
+    {
+      "training_years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020
+      ],
+      "validation_years": [
+        2021
+      ],
+      "training_samples": 1200,
+      "validation_samples": 200,
+      "model": {
+        "mae": 0.2527,
+        "rmse": 0.2926,
+        "r2": 0.9547
+      },
+      "baseline": {
+        "mae": 0.2547,
+        "rmse": 0.2938,
+        "r2": 0.9544
+      }
+    },
+    {
+      "training_years": [
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "validation_years": [
+        2022
+      ],
+      "training_samples": 1400,
+      "validation_samples": 200,
+      "model": {
+        "mae": 0.2467,
+        "rmse": 0.2907,
+        "r2": 0.954
+      },
+      "baseline": {
+        "mae": 0.2513,
+        "rmse": 0.2916,
+        "r2": 0.9537
+      }
+    }
+  ],
   "train": {
     "mae": 0.2491,
     "rmse": 0.289,
@@ -51,53 +150,363 @@
     "Bajra": {
       "mae": 0.2532,
       "rmse": 0.2954,
-      "r2": -0.0898
+      "r2": -0.0898,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.2485,
+        "rmse": 0.2871,
+        "r2": -0.0295
+      }
     },
     "Cotton": {
       "mae": 0.2415,
       "rmse": 0.2828,
-      "r2": 0.0119
+      "r2": 0.0119,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.2455,
+        "rmse": 0.2855,
+        "r2": -0.0065
+      }
     },
     "Gram": {
       "mae": 0.2191,
       "rmse": 0.26,
-      "r2": -0.0242
+      "r2": -0.0242,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.2174,
+        "rmse": 0.2578,
+        "r2": -0.0068
+      }
     },
     "Maize": {
       "mae": 0.2533,
       "rmse": 0.2861,
-      "r2": 0.0173
+      "r2": 0.0173,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.2561,
+        "rmse": 0.2908,
+        "r2": -0.0151
+      }
     },
     "Mustard": {
       "mae": 0.2684,
       "rmse": 0.2975,
-      "r2": -0.0976
+      "r2": -0.0976,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.258,
+        "rmse": 0.2842,
+        "r2": -0.0013
+      }
     },
     "Potato": {
       "mae": 0.2358,
       "rmse": 0.2843,
-      "r2": -0.0045
+      "r2": -0.0045,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.2401,
+        "rmse": 0.2848,
+        "r2": -0.008
+      }
     },
     "Rice": {
       "mae": 0.2445,
       "rmse": 0.2826,
-      "r2": -0.0633
+      "r2": -0.0633,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.241,
+        "rmse": 0.274,
+        "r2": 0.0
+      }
     },
     "Sugarcane": {
       "mae": 0.2217,
       "rmse": 0.2595,
-      "r2": -0.0744
+      "r2": -0.0744,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.2313,
+        "rmse": 0.2667,
+        "r2": -0.1351
+      }
     },
     "Sunflower": {
       "mae": 0.2278,
       "rmse": 0.2567,
-      "r2": 0.0422
+      "r2": 0.0422,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.232,
+        "rmse": 0.2623,
+        "r2": -0.0
+      }
     },
     "Wheat": {
       "mae": 0.252,
       "rmse": 0.3024,
-      "r2": -0.0331
+      "r2": -0.0331,
+      "samples": 40,
+      "baseline": {
+        "mae": 0.2549,
+        "rmse": 0.3038,
+        "r2": -0.0425
+      }
     }
+  },
+  "per_district": {
+    "Amritsar": {
+      "mae": 0.2591,
+      "rmse": 0.3112,
+      "r2": 0.9469,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2488,
+        "rmse": 0.2941,
+        "r2": 0.9526
+      }
+    },
+    "Barnala": {
+      "mae": 0.2564,
+      "rmse": 0.3027,
+      "r2": 0.9545,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2599,
+        "rmse": 0.2876,
+        "r2": 0.959
+      }
+    },
+    "Bathinda": {
+      "mae": 0.2203,
+      "rmse": 0.2675,
+      "r2": 0.9536,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2248,
+        "rmse": 0.2722,
+        "r2": 0.952
+      }
+    },
+    "Faridkot": {
+      "mae": 0.2193,
+      "rmse": 0.2603,
+      "r2": 0.9604,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2206,
+        "rmse": 0.2635,
+        "r2": 0.9594
+      }
+    },
+    "Fatehgarh Sahib": {
+      "mae": 0.1865,
+      "rmse": 0.2361,
+      "r2": 0.9706,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.1876,
+        "rmse": 0.2362,
+        "r2": 0.9706
+      }
+    },
+    "Ferozepur": {
+      "mae": 0.2217,
+      "rmse": 0.2483,
+      "r2": 0.9659,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2198,
+        "rmse": 0.2436,
+        "r2": 0.9672
+      }
+    },
+    "Gurdaspur": {
+      "mae": 0.2445,
+      "rmse": 0.2795,
+      "r2": 0.9554,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2452,
+        "rmse": 0.2807,
+        "r2": 0.955
+      }
+    },
+    "Hoshiarpur": {
+      "mae": 0.2361,
+      "rmse": 0.2746,
+      "r2": 0.9584,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2356,
+        "rmse": 0.274,
+        "r2": 0.9585
+      }
+    },
+    "Jalandhar": {
+      "mae": 0.297,
+      "rmse": 0.326,
+      "r2": 0.9427,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2965,
+        "rmse": 0.326,
+        "r2": 0.9427
+      }
+    },
+    "Kapurthala": {
+      "mae": 0.2116,
+      "rmse": 0.26,
+      "r2": 0.9589,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.216,
+        "rmse": 0.2627,
+        "r2": 0.958
+      }
+    },
+    "Ludhiana": {
+      "mae": 0.2182,
+      "rmse": 0.2556,
+      "r2": 0.9651,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2236,
+        "rmse": 0.2592,
+        "r2": 0.9641
+      }
+    },
+    "Mansa": {
+      "mae": 0.2835,
+      "rmse": 0.3158,
+      "r2": 0.9452,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.283,
+        "rmse": 0.3164,
+        "r2": 0.945
+      }
+    },
+    "Moga": {
+      "mae": 0.2507,
+      "rmse": 0.291,
+      "r2": 0.953,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2458,
+        "rmse": 0.2853,
+        "r2": 0.9548
+      }
+    },
+    "Mohali": {
+      "mae": 0.2432,
+      "rmse": 0.2872,
+      "r2": 0.9569,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2423,
+        "rmse": 0.2865,
+        "r2": 0.9571
+      }
+    },
+    "Muktsar": {
+      "mae": 0.2412,
+      "rmse": 0.2633,
+      "r2": 0.963,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2391,
+        "rmse": 0.2642,
+        "r2": 0.9627
+      }
+    },
+    "Pathankot": {
+      "mae": 0.2111,
+      "rmse": 0.2449,
+      "r2": 0.9666,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.215,
+        "rmse": 0.2486,
+        "r2": 0.9656
+      }
+    },
+    "Patiala": {
+      "mae": 0.2964,
+      "rmse": 0.3343,
+      "r2": 0.9489,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2927,
+        "rmse": 0.331,
+        "r2": 0.9499
+      }
+    },
+    "Rupnagar": {
+      "mae": 0.2269,
+      "rmse": 0.2622,
+      "r2": 0.9612,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2282,
+        "rmse": 0.2609,
+        "r2": 0.9616
+      }
+    },
+    "Sangrur": {
+      "mae": 0.283,
+      "rmse": 0.3062,
+      "r2": 0.9443,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2863,
+        "rmse": 0.3092,
+        "r2": 0.9432
+      }
+    },
+    "Tarn Taran": {
+      "mae": 0.2279,
+      "rmse": 0.27,
+      "r2": 0.9609,
+      "samples": 20,
+      "baseline": {
+        "mae": 0.2388,
+        "rmse": 0.2747,
+        "r2": 0.9595
+      }
+    }
+  },
+  "per_year": {
+    "2023": {
+      "mae": 0.2428,
+      "rmse": 0.2809,
+      "r2": 0.957,
+      "samples": 200,
+      "baseline": {
+        "mae": 0.2438,
+        "rmse": 0.2799,
+        "r2": 0.9573
+      }
+    },
+    "2024": {
+      "mae": 0.2406,
+      "rmse": 0.2814,
+      "r2": 0.9563,
+      "samples": 200,
+      "baseline": {
+        "mae": 0.2412,
+        "rmse": 0.2802,
+        "r2": 0.9566
+      }
+    }
+  },
+  "holdout_unseen_categories": {
+    "Crop": [],
+    "District": []
   },
   "candidates": [
     {
@@ -105,21 +514,24 @@
       "parameters": {
         "alpha": 1.0
       },
-      "cv_mae": 0.251
+      "cv_mae": 0.251,
+      "selected": true
     },
     {
       "model": "Ridge",
       "parameters": {
         "alpha": 10.0
       },
-      "cv_mae": 0.2524
+      "cv_mae": 0.2524,
+      "selected": false
     },
     {
       "model": "Ridge",
       "parameters": {
         "alpha": 100.0
       },
-      "cv_mae": 0.5507
+      "cv_mae": 0.5507,
+      "selected": false
     },
     {
       "model": "RandomForestRegressor",
@@ -127,7 +539,8 @@
         "max_depth": 4,
         "min_samples_leaf": 5
       },
-      "cv_mae": 0.351
+      "cv_mae": 0.3504,
+      "selected": false
     },
     {
       "model": "RandomForestRegressor",
@@ -135,7 +548,8 @@
         "max_depth": 4,
         "min_samples_leaf": 15
       },
-      "cv_mae": 0.3501
+      "cv_mae": 0.3497,
+      "selected": false
     },
     {
       "model": "RandomForestRegressor",
@@ -143,7 +557,8 @@
         "max_depth": 8,
         "min_samples_leaf": 5
       },
-      "cv_mae": 0.2583
+      "cv_mae": 0.2572,
+      "selected": false
     },
     {
       "model": "RandomForestRegressor",
@@ -151,7 +566,8 @@
         "max_depth": 8,
         "min_samples_leaf": 15
       },
-      "cv_mae": 0.2551
+      "cv_mae": 0.2547,
+      "selected": false
     },
     {
       "model": "ExtraTreesRegressor",
@@ -159,7 +575,8 @@
         "max_depth": 4,
         "min_samples_leaf": 5
       },
-      "cv_mae": 0.3516
+      "cv_mae": 0.3516,
+      "selected": false
     },
     {
       "model": "ExtraTreesRegressor",
@@ -167,7 +584,8 @@
         "max_depth": 4,
         "min_samples_leaf": 15
       },
-      "cv_mae": 0.3497
+      "cv_mae": 0.3497,
+      "selected": false
     },
     {
       "model": "ExtraTreesRegressor",
@@ -175,7 +593,8 @@
         "max_depth": 8,
         "min_samples_leaf": 5
       },
-      "cv_mae": 0.2585
+      "cv_mae": 0.2584,
+      "selected": false
     },
     {
       "model": "ExtraTreesRegressor",
@@ -183,13 +602,53 @@
         "max_depth": 8,
         "min_samples_leaf": 15
       },
-      "cv_mae": 0.2541
+      "cv_mae": 0.254,
+      "selected": false
     }
   ],
   "limitations": [
     "Metrics evaluate the model fitted on development years, before final refitting on all records.",
     "Overall R2 includes differences between crops; inspect per-crop errors and the crop-mean baseline.",
-    "Dataset provenance is undocumented. These scores do not establish real-world farm accuracy.",
+    "Dataset provenance, rainfall accumulation period, and yield units are undocumented.",
+    "These scores do not establish real-world farm accuracy or a calibrated prediction interval.",
+    "Small subgroup samples have uncertain metrics; R2 is null for constant or single observations.",
     "Weather comparisons are observational scenarios, not causal agronomic recommendations."
-  ]
+  ],
+  "model_version": "2ebfdae92238c37b",
+  "dataset_sha256": "31716fc62cc20c8b77710127de256a7cd335856ec518c03c4bd3459e69123f58",
+  "feature_schema": {
+    "version": 1,
+    "features": [
+      "Temperature",
+      "Rainfall",
+      "Humidity",
+      "Crop",
+      "District"
+    ],
+    "numeric_bounds": {
+      "Temperature": [
+        -20.0,
+        60.0
+      ],
+      "Rainfall": [
+        0.0,
+        2000.0
+      ],
+      "Humidity": [
+        0.0,
+        100.0
+      ]
+    },
+    "units": {
+      "Temperature": "C",
+      "Rainfall": "mm",
+      "Humidity": "%"
+    }
+  },
+  "runtime_versions": {
+    "python": "3.12.10",
+    "sklearn": "1.8.0",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6"
+  }
 }

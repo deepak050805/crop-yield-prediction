@@ -1,0 +1,43 @@
+{
+  "format_version": 1,
+  "model_version": "2ebfdae92238c37b",
+  "model_sha256": "2ebfdae92238c37ba2aa4f52b4fdd440b7283e466d885f3e7ed93d67a51eb4bb",
+  "metrics_sha256": "b5b2f7ea3c363eacdfbb1bda2841b14994b17d9ef583fae223490b6c2c97d72c",
+  "text_hash_normalization": "utf8-lf-v1",
+  "dataset_sha256": "31716fc62cc20c8b77710127de256a7cd335856ec518c03c4bd3459e69123f58",
+  "feature_schema": {
+    "version": 1,
+    "features": [
+      "Temperature",
+      "Rainfall",
+      "Humidity",
+      "Crop",
+      "District"
+    ],
+    "numeric_bounds": {
+      "Temperature": [
+        -20.0,
+        60.0
+      ],
+      "Rainfall": [
+        0.0,
+        2000.0
+      ],
+      "Humidity": [
+        0.0,
+        100.0
+      ]
+    },
+    "units": {
+      "Temperature": "C",
+      "Rainfall": "mm",
+      "Humidity": "%"
+    }
+  },
+  "runtime_versions": {
+    "python": "3.12.10",
+    "sklearn": "1.8.0",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6"
+  }
+}
