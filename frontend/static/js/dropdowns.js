@@ -29,6 +29,8 @@
     menu.hidden = true;
     let activeIndex = select.selectedIndex;
     let search = '', lastKeyTime = 0;
+    const disabled = index => !select.options[index] || select.options[index].disabled ||
+      select.options[index].parentElement.disabled;
     const options = Array.from(select.options).map((option, index) => {
       const item = document.createElement('span');
       item.id = `${select.id}Option${index}`;
@@ -36,18 +38,18 @@
       item.setAttribute('role', 'option');
       item.textContent = option.textContent;
       item.title = option.textContent;
-      if (option.disabled) item.setAttribute('aria-disabled', 'true');
+      if (disabled(index)) item.setAttribute('aria-disabled', 'true');
       item.addEventListener('pointermove', event => {
-        if (event.pointerType !== 'touch' && !option.disabled) activate(index, false);
+        if (event.pointerType !== 'touch' && !disabled(index)) activate(index, false);
       });
       item.addEventListener('click', event => {
         event.preventDefault();
-        if (!option.disabled) choose(index);
+        if (!disabled(index)) choose(index);
       });
       menu.append(item);
       return item;
     });
-    const enabled = () => options.map((_, index) => index).filter(index => !select.options[index].disabled);
+    const enabled = () => options.map((_, index) => index).filter(index => !disabled(index));
 
     function sync() {
       value.textContent = select.options[select.selectedIndex]?.textContent || '';
@@ -59,16 +61,17 @@
       }
       options.forEach((option, index) => {
         option.setAttribute('aria-selected', String(index === select.selectedIndex));
-        option.setAttribute('aria-disabled', String(select.options[index].disabled));
+        option.setAttribute('aria-disabled', String(Boolean(disabled(index))));
       });
       if (trigger.disabled) close();
+      else if (!menu.hidden && disabled(activeIndex)) activate(enabled()[0]);
     }
 
     function activate(index, scroll = true) {
       activeIndex = index;
       options.forEach((option, itemIndex) => option.classList.toggle('is-active', itemIndex === index));
       const option = options[index];
-      if (!option) return;
+      if (!option) { trigger.removeAttribute('aria-activedescendant'); return; }
       trigger.setAttribute('aria-activedescendant', option.id);
       if (scroll) {
         const top = option.offsetTop, bottom = top + option.offsetHeight;
@@ -98,10 +101,11 @@
       wrapper.classList.add('is-open');
       trigger.setAttribute('aria-expanded', 'true');
       opened = { wrapper, close };
-      activate(select.options[select.selectedIndex]?.disabled ? enabled()[0] : select.selectedIndex);
+      activate(disabled(select.selectedIndex) ? enabled()[0] : select.selectedIndex);
     }
 
     function choose(index) {
+      if (trigger.disabled || disabled(index)) return;
       const changed = select.selectedIndex !== index;
       select.selectedIndex = index;
       sync();
