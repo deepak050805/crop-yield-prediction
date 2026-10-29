@@ -1,4 +1,6 @@
+import tempfile
 import unittest
+from pathlib import Path
 
 from backend.config import BASE_DIR
 from backend.data_store import DataStore
@@ -20,3 +22,22 @@ class HistoricalStoreTests(unittest.TestCase):
         bounds = self.store.bounds("Wheat")
         bounds["Rainfall"] = (0, 0)
         self.assertGreater(self.store.bounds("Wheat")["Rainfall"][1], 0)
+
+    def test_corrupt_observations_prevent_store_creation(self):
+        for column, value in [("Humidity", 101), ("Yield", -1), ("Temperature", float("inf"))]:
+            with self.subTest(column=column), tempfile.TemporaryDirectory() as directory:
+                data = self.store.frame.copy()
+                data.loc[0, column] = value
+                path = Path(directory) / "corrupt.csv"
+                data.to_csv(path, index=False)
+                with self.assertRaises(ValueError):
+                    DataStore(path)
+
+    def test_duplicate_keys_prevent_serving_ambiguous_history(self):
+        with tempfile.TemporaryDirectory() as directory:
+            data = self.store.frame.copy()
+            data.loc[len(data)] = data.iloc[0]
+            path = Path(directory) / "duplicate.csv"
+            data.to_csv(path, index=False)
+            with self.assertRaisesRegex(ValueError, "duplicate"):
+                DataStore(path)
