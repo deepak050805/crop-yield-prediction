@@ -6,9 +6,9 @@ import numpy as np
 import pandas as pd
 
 try:
-    from .schema import CATEGORICAL, FEATURES, NUMERIC, NUMERIC_BOUNDS
+    from .schema import CATEGORICAL, NUMERIC, NUMERIC_BOUNDS
 except ImportError:  # Direct training script execution.
-    from schema import CATEGORICAL, FEATURES, NUMERIC, NUMERIC_BOUNDS
+    from schema import CATEGORICAL, NUMERIC, NUMERIC_BOUNDS
 
 DATA_COLUMNS = ["District", "Crop", "Year", *NUMERIC, "Yield"]
 OBSERVATION_KEY = ["District", "Crop", "Year"]
@@ -24,12 +24,18 @@ def validate_dataset(frame):
     if data.isna().any().any():
         raise ValueError("Dataset contains missing values.")
     for column in CATEGORICAL:
-        if not data[column].map(
-            lambda value: isinstance(value, str)
-            and bool(value.strip())
-            and value == value.strip()
-            and all(character.isprintable() for character in value)
-        ).all():
+        if (
+            not data[column]
+            .map(
+                lambda value: (
+                    isinstance(value, str)
+                    and bool(value.strip())
+                    and value == value.strip()
+                    and all(character.isprintable() for character in value)
+                )
+            )
+            .all()
+        ):
             raise ValueError(f"{column} must contain nonempty, trimmed text labels.")
     for column in [*NUMERIC, "Year", "Yield"]:
         if data[column].map(lambda value: isinstance(value, (bool, np.bool_))).any():
@@ -38,6 +44,8 @@ def validate_dataset(frame):
             data[column] = pd.to_numeric(data[column], errors="raise")
         except (ValueError, TypeError) as exc:
             raise ValueError(f"{column} contains invalid numeric values.") from exc
+        if np.iscomplexobj(data[column].to_numpy()):
+            raise ValueError(f"{column} must contain real numbers.")
         if not np.isfinite(data[column].to_numpy(dtype=float)).all():
             raise ValueError(f"{column} must contain finite numbers.")
     for column, (lower, upper) in NUMERIC_BOUNDS.items():
