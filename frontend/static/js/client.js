@@ -63,7 +63,10 @@
       const response = await fetch(url, { ...options, signal: controller.signal });
       let data;
       try { data = await response.json(); }
-      catch { throw new Error('The server returned an unreadable response. Please try again.'); }
+      catch (error) {
+        if (controller.signal.aborted) throw error;
+        throw new Error('The server returned an unreadable response. Please try again.');
+      }
       if (!response.ok) {
         throw new Error(typeof data?.error === 'string' ? data.error : `The request failed (HTTP ${response.status}). Please try again.`);
       }
