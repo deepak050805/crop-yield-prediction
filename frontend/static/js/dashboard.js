@@ -154,6 +154,12 @@
       query.set('from', byId('fromYear').value);
       query.set('to', byId('toYear').value);
     }
+    if (byId('compareDistrict')) {
+      const compare = byId('compareDistrict').value;
+      if (compare) query.set('compare', compare);
+      else query.delete('compare');
+      query.set('measure', byId('historyMeasure').value);
+    }
     history.replaceState(null, '', `${location.pathname}?${query}`);
     document.querySelectorAll('[data-nav]').forEach(link => {
       const url = new URL(link.href);
@@ -458,7 +464,8 @@
   }
 
   const query = new URLSearchParams(location.search);
-  for (const [id, parameter] of [['crop', 'crop'], ['district', 'district'], ['fromYear', 'from'], ['toYear', 'to']]) {
+  for (const [id, parameter] of [['crop', 'crop'], ['district', 'district'], ['fromYear', 'from'], ['toYear', 'to'],
+    ['compareDistrict', 'compare'], ['historyMeasure', 'measure']]) {
     const element = byId(id), value = query.get(parameter);
     if (!element) continue;
     if (value && [...element.options].some(option => option.value === value)) {
@@ -466,7 +473,10 @@
       // Enhanced dropdowns initialize before URL filters are restored.
       element.dispatchEvent(new Event('change', { bubbles: true }));
     }
-    element.addEventListener('change', () => { markStale(); loadData(); });
+    element.addEventListener('change', () => {
+      if (id === 'historyMeasure') { updateNavigation(); renderHistory(false); }
+      else { markStale(); loadData(); }
+    });
   }
   if (page === 'predictor') {
     fields.forEach(field => {
@@ -480,8 +490,6 @@
     loadModelInfo();
   }
   if (page === 'history') {
-    byId('compareDistrict').addEventListener('change', loadData);
-    byId('historyMeasure').addEventListener('change', () => renderHistory(false));
     for (const view of ['chart', 'table']) {
       byId(`${view}View`).addEventListener('click', () => {
         byId('historyChartView').hidden = view !== 'chart';
