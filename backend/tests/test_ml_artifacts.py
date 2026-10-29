@@ -121,3 +121,22 @@ class ArtifactBundleTests(unittest.TestCase):
                     self.assert_rejected_before_pickle()
                     path.write_bytes(original)
                     manifest_path.write_bytes(original_manifest)
+
+    def test_consistent_release_from_other_numerical_runtimes_is_rejected_before_pickle(self):
+        report_path = self.directory / "model_metrics.json"
+        manifest_path = self.directory / "model_manifest.json"
+        original_report, original_manifest = report_path.read_bytes(), manifest_path.read_bytes()
+        for package in ["numpy", "pandas"]:
+            with self.subTest(package=package):
+                report = json.loads(original_report)
+                report["runtime_versions"][package] = "0.0.0"
+                report_path.write_text(json.dumps(report), encoding="utf-8")
+                self.edit_manifest(
+                    lambda manifest: manifest.update(
+                        runtime_versions=report["runtime_versions"],
+                        metrics_sha256=text_sha256(report_path.read_bytes()),
+                    )
+                )
+                self.assert_rejected_before_pickle()
+                report_path.write_bytes(original_report)
+                manifest_path.write_bytes(original_manifest)
