@@ -222,6 +222,8 @@
   }
 
   function renderHistory(updateTable = true) {
+    const state = document.querySelector('[data-records]').dataset.state;
+    if (state !== 'success' && state !== 'empty') return;
     const measure = byId('historyMeasure').value;
     const datasets = [line(district(), rows.map(row => ({ x: row.Year, y: row[measure] })))];
     if (comparison.length) datasets.push(line(byId('compareDistrict').value, comparison.map(row => ({ x: row.Year, y: row[measure] })), '#ba9654'));
