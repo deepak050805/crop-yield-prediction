@@ -25,7 +25,7 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const styles = ['dashboard', 'theme', 'skeletons'].map(name => read(`frontend/static/css/${name}.css`)).join('\n');
 const flush = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
 
-function setup(t, page = '/', { chartAvailable = true, testImage = false, cachedImage = false, search = '' } = {}) {
+function setup(t, page = '/', { chartAvailable = true, chartThrows = false, testImage = false, cachedImage = false, search = '' } = {}) {
   const dom = new JSDOM(fixtures.pages[page], { url: `http://localhost${page}${search}`, runScripts: 'outside-only' });
   t.after(() => dom.window.close());
   const window = dom.window, document = window.document, requests = [], instances = new Map();
@@ -34,6 +34,7 @@ function setup(t, page = '/', { chartAvailable = true, testImage = false, cached
   if (chartAvailable) window.Chart = class {
     static defaults = { font: {} };
     constructor(element, config) {
+      if (chartThrows) throw new Error('Canvas unavailable');
       this.data = config.data; this.options = config.options; this.updates = 0;
       instances.set(element.id, [...(instances.get(element.id) || []), this]);
     }
@@ -266,4 +267,40 @@ test('historical shared links restore comparison and measure without extra measu
   const invalid = setup(t, '/history', { search: '?compare=unknown&measure=unknown' });
   assert.equal(invalid.get('compareDistrict').value, '');
   assert.equal(invalid.get('historyMeasure').value, 'Yield');
+});
+
+test('broken chart construction preserves exportable tables and numerical estimates', async t => {
+  const c = setup(t, '/history', { chartThrows: true });
+  c.take('/get_data').respond(fixtures.records); await flush();
+  assert.equal(c.get('historyChartView').dataset.state, 'error');
+  assert.equal(c.document.querySelector('[data-records]').dataset.state, 'success');
+  assert.equal(c.get('historyRows').children.length, fixtures.records.length);
+  assert.equal(c.get('downloadCsv').disabled, false);
+  const prediction = setup(t, '/predictor', { chartThrows: true });
+  prediction.take('/get_data').respond(fixtures.records);
+  prediction.take('/model_info').respond(fixtures.metrics); await flush();
+  prediction.submit();
+  prediction.take('/predict').respond({ predicted: 3.4, optimal: 3.5, gap: .1, best_rain: 750,
+    best_temp: 27, best_hum: 65, crop: 'Wheat', district: 'Amritsar', warnings: [] });
+  await flush();
+  assert.equal(prediction.get('resultPanel').dataset.state, 'success');
+  assert.equal(prediction.get('predictedYield').textContent, yieldText(3.4, 3));
+  assert.equal(prediction.get('predictionChart').parentElement.dataset.state, 'error');
+});
+
+test('a failed chart update can recover without refetching or losing records', async t => {
+  const c = setup(t, '/history');
+  c.take('/get_data').respond(fixtures.records); await flush();
+  const chart = c.instances.get('historyChart')[0];
+  let destroyed = false;
+  chart.update = () => { throw new Error('Rendering failed'); };
+  chart.destroy = () => { destroyed = true; };
+  c.change('historyMeasure', 'Rainfall');
+  assert.equal(destroyed, true);
+  assert.equal(c.get('historyChartView').dataset.state, 'error');
+  assert.equal(c.get('historyRows').children.length, fixtures.records.length);
+  c.change('historyMeasure', 'Humidity');
+  assert.equal(c.instances.get('historyChart').length, 2);
+  assert.equal(c.get('historyChartView').dataset.state, 'success');
+  assert.equal(c.requests.length, 0);
 });
