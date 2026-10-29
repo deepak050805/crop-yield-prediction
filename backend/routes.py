@@ -5,7 +5,8 @@ from pathlib import Path
 
 from flask import jsonify, render_template, request
 
-from backend.validation import ValidationError, parse_prediction, parse_selection
+from backend.request_data import read_payload
+from backend.validation import parse_prediction, parse_selection
 
 
 def register_routes(app):
@@ -27,10 +28,6 @@ def register_routes(app):
             and predictor.model is not None
         )
         return jsonify(status="ready" if ready else "not_ready"), 200 if ready else 503
-
-    @app.errorhandler(ValidationError)
-    def invalid_input(error):
-        return jsonify(error=str(error), code="invalid_input", field=error.field), 400
 
     def page(template, active):
         return render_template(
@@ -56,9 +53,7 @@ def register_routes(app):
 
     @app.post("/get_data")
     def get_data():
-        data = request.get_json(silent=True)
-        if not isinstance(data, dict):
-            raise ValidationError("Send a JSON object with crop and district.")
+        data = read_payload()
         selection = parse_selection(data, store.crops, store.districts)
         return jsonify(store.records(selection.crop, selection.district))
 
@@ -73,7 +68,13 @@ def register_routes(app):
 
     @app.post("/predict")
     def predict():
-        values = parse_prediction(request.form, store.crops, store.districts)
+        # Preserve the existing empty-form 400 response while accepting JSON too.
+        data = (
+            {}
+            if not request.mimetype and not request.content_length
+            else read_payload(allow_form=True)
+        )
+        values = parse_prediction(data, store.crops, store.districts)
         try:
             return jsonify(
                 app.extensions["fieldwise"]["predictor"].predict(
