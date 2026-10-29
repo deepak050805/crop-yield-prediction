@@ -1,5 +1,6 @@
 """Fail-closed validation for the local historical observation table."""
 
+from io import BytesIO
 from pathlib import Path
 
 import numpy as np
@@ -65,4 +66,8 @@ def validate_dataset(frame):
 
 def load_dataset(path):
     """Read the UTF-8 CSV and validate every record before use."""
-    return validate_dataset(pd.read_csv(Path(path), encoding="utf-8", skip_blank_lines=False))
+    content = Path(path).read_bytes()
+    # The C CSV parser silently truncates fields at NUL, even in valid UTF-8.
+    if b"\x00" in content:
+        raise ValueError("Dataset contains NUL bytes; fields must not be silently truncated.")
+    return validate_dataset(pd.read_csv(BytesIO(content), encoding="utf-8", skip_blank_lines=False))
