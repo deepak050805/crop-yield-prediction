@@ -184,6 +184,11 @@ def load_model_bundle(
             raise ArtifactValidationError(
                 "Artifact scikit-learn version does not match this runtime."
             )
+        for package, current in {"numpy": np.__version__, "pandas": pd.__version__}.items():
+            if versions.get(package) != current:
+                raise ArtifactValidationError(
+                    f"Artifact {package} version does not match this runtime."
+                )
         if (
             str(versions.get("python", "")).split(".")[:2]
             != platform.python_version().split(".")[:2]
