@@ -3,12 +3,12 @@
 from copy import deepcopy
 from pathlib import Path
 
-import pandas as pd
+from backend.ml.dataset import load_dataset
 
 
 class DataStore:
     def __init__(self, path: Path):
-        self.frame = pd.read_csv(path)
+        self.frame = load_dataset(path)
         self.crops = sorted(self.frame["Crop"].unique().tolist())
         self.districts = sorted(self.frame["District"].unique().tolist())
         self.first_year = int(self.frame["Year"].min())
