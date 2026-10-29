@@ -1,8 +1,5 @@
 """HTTP adapters for the historical explorer and prediction service."""
 
-import json
-from pathlib import Path
-
 from flask import jsonify, render_template, request
 
 from backend.request_data import read_payload
@@ -59,12 +56,12 @@ def register_routes(app):
 
     @app.get("/model_info")
     def model_info():
-        path = Path(app.config["METRICS_PATH"])
-        if not path.exists():
+        report = app.extensions["fieldwise"].get("model_info")
+        if not isinstance(report, dict):
             return jsonify(
                 error="Model evaluation is not available.", code="model_unavailable"
             ), 503
-        return jsonify(json.loads(path.read_text(encoding="utf-8")))
+        return jsonify(report)
 
     @app.post("/predict")
     def predict():
