@@ -21,6 +21,9 @@ COPY backend/ ./backend/
 COPY frontend/templates/ ./frontend/templates/
 COPY frontend/static/ ./frontend/static/
 
+# Gunicorn's local control socket must use writable storage on a read-only root.
+ENV HOME=/tmp
+
 USER appuser
 
 EXPOSE 10000
