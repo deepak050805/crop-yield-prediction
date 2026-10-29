@@ -2,12 +2,25 @@ const { spawn, spawnSync } = require('node:child_process');
 const { existsSync } = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
-const browserSync = require('browser-sync').create();
 
 const root = path.resolve(__dirname, '..', '..');
 const venvPython = path.join(root, '.venv', process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python');
 const python = process.env.PYTHON || (existsSync(venvPython) ? venvPython : 'python');
-const backendPort = 5001;
+function readPort(name, fallback) {
+  const value = process.env[name] ?? String(fallback);
+  const parsed = /^\d+$/.test(value) ? Number(value) : NaN;
+  if (!Number.isInteger(parsed) || parsed < 1 || parsed > 65535) {
+    throw new Error(`${name} must be an integer from 1 to 65535.`);
+  }
+  return parsed;
+}
+
+const backendPort = readPort('FIELDWISE_BACKEND_PORT', 5001);
+const frontendPort = readPort('FIELDWISE_DEV_PORT', 5173);
+if (backendPort === frontendPort) {
+  throw new Error('FIELDWISE_BACKEND_PORT and FIELDWISE_DEV_PORT must be different.');
+}
+const browserSync = require('browser-sync').create();
 let stopping = false;
 
 const backend = spawn(python, [
@@ -61,7 +74,7 @@ async function start() {
   if (stopping) return;
   browserSync.init({
     proxy: `http://127.0.0.1:${backendPort}`,
-    listen: '127.0.0.1', port: 5173, open: false, ui: false, online: false,
+    listen: '127.0.0.1', port: frontendPort, open: false, ui: false, online: false,
     notify: false,
     files: ['frontend/templates/**/*.html', 'frontend/static/**/*'],
     reloadDebounce: 200,
