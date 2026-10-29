@@ -25,8 +25,8 @@ const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 const styles = ['dashboard', 'theme', 'skeletons'].map(name => read(`frontend/static/css/${name}.css`)).join('\n');
 const flush = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
 
-function setup(t, page = '/', { chartAvailable = true, testImage = false, cachedImage = false } = {}) {
-  const dom = new JSDOM(fixtures.pages[page], { url: `http://localhost${page}`, runScripts: 'outside-only' });
+function setup(t, page = '/', { chartAvailable = true, testImage = false, cachedImage = false, search = '' } = {}) {
+  const dom = new JSDOM(fixtures.pages[page], { url: `http://localhost${page}${search}`, runScripts: 'outside-only' });
   t.after(() => dom.window.close());
   const window = dom.window, document = window.document, requests = [], instances = new Map();
   const style = document.createElement('style'); style.textContent = styles; document.head.append(style);
@@ -247,4 +247,23 @@ test('unavailable R squared is not presented as a measured zero', async t => {
   c.take('/model_info').respond(metrics); await flush();
   assert.equal(c.get('modelMetrics').dataset.state, 'success');
   assert.match(c.get('modelMetrics').textContent, /Overall R²: unavailable; Wheat R²: unavailable/);
+});
+
+test('historical shared links restore comparison and measure without extra measure requests', async t => {
+  const c = setup(t, '/history', { search: '?compare=Ludhiana&measure=Rainfall' });
+  assert.equal(c.get('compareDistrict').value, 'Ludhiana');
+  assert.equal(c.get('historyMeasure').value, 'Rainfall');
+  assert.equal(JSON.parse(c.take('/get_data').options.body).district, 'Ludhiana');
+  c.take('/get_data').respond(fixtures.records); await flush();
+  assert.equal(c.instances.get('historyChart')[0].options.scales.y.title.text, 'Rainfall (mm)');
+  c.change('historyMeasure', 'Humidity');
+  assert.equal(c.requests.length, 0);
+  assert.equal(new URL(c.window.location.href).searchParams.get('measure'), 'Humidity');
+  assert.ok([...c.document.querySelectorAll('[data-nav]')].every(link =>
+    new URL(link.href).searchParams.get('compare') === 'Ludhiana'));
+  c.change('compareDistrict', '');
+  assert.equal(new URL(c.window.location.href).searchParams.has('compare'), false);
+  const invalid = setup(t, '/history', { search: '?compare=unknown&measure=unknown' });
+  assert.equal(invalid.get('compareDistrict').value, '');
+  assert.equal(invalid.get('historyMeasure').value, 'Yield');
 });
