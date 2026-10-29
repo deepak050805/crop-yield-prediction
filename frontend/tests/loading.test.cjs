@@ -304,3 +304,21 @@ test('a failed chart update can recover without refetching or losing records', a
   assert.equal(c.get('historyChartView').dataset.state, 'success');
   assert.equal(c.requests.length, 0);
 });
+
+test('screen reader chart summaries expose selected context, years, values and current units', async t => {
+  const c = setup(t, '/history', { search: '?compare=Ludhiana' });
+  c.take('/get_data').respond(fixtures.records.map(row => ({ ...row, District: 'Ludhiana' })));
+  c.take('/get_data').respond(fixtures.records); await flush();
+  const label = c.get('historyChart').getAttribute('aria-label');
+  assert.match(label, /Wheat in Amritsar/);
+  assert.match(label, /Ludhiana/);
+  assert.ok(label.includes(`${fixtures.records[0].Year}: ${yieldText(fixtures.records[0].Yield, 3)} t/ha`));
+  c.change('historyMeasure', 'Humidity');
+  assert.match(c.get('historyChart').getAttribute('aria-label'), /Humidity \(%\)/);
+  assert.ok(c.get('historyChart').getAttribute('aria-label').includes(`${yieldText(fixtures.records[0].Humidity, 3)} %`));
+  const overview = setup(t);
+  overview.take('/get_data').respond(fixtures.records); await flush();
+  const rainfall = overview.get('rainChart').getAttribute('aria-label');
+  assert.ok(rainfall.includes(`${fixtures.records[0].Year}: ${yieldText(fixtures.records[0].Rainfall, 1)} mm rainfall`));
+  assert.match(rainfall, /t\/ha yield/);
+});
