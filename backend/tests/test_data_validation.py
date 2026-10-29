@@ -1,8 +1,14 @@
+import contextlib
+import io
+import json
+import tempfile
 import unittest
+from pathlib import Path
 
 import pandas as pd
 
 from backend.ml.dataset import DATA_COLUMNS, validate_dataset
+from backend.ml.validate_data import main as validate_main
 
 
 def observation(**changes):
@@ -75,3 +81,34 @@ class DatasetValidationTests(unittest.TestCase):
                 with self.subTest(field=field, value=value):
                     with self.assertRaisesRegex(ValueError, "real numbers"):
                         validate_dataset(pd.DataFrame([observation(**{field: value})]))
+
+    def test_validation_command_reports_coverage_without_modifying_source(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "source.csv"
+            pd.DataFrame([observation(Year=2021), observation(Year=2020)]).to_csv(
+                source, index=False
+            )
+            original = source.read_bytes()
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                validate_main([str(source)])
+            report = json.loads(output.getvalue())
+            self.assertEqual(report["records"], 2)
+            self.assertEqual(report["years"], [2020, 2021])
+            self.assertEqual(report["records_per_year"], {"2020": 1, "2021": 1})
+            self.assertEqual(report["observed_ranges"]["Yield"], {"min": 4.2, "max": 4.2})
+            self.assertEqual(report["yield_unit"], "undocumented")
+            self.assertEqual(source.read_bytes(), original)
+
+    def test_validation_command_fails_without_printing_a_partial_report(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "bad.csv"
+            pd.DataFrame([observation(Yield=-1)]).to_csv(source, index=False)
+            for path in [source, source.with_name("missing.csv")]:
+                stdout, stderr = io.StringIO(), io.StringIO()
+                with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
+                    with self.assertRaises(SystemExit) as error:
+                        validate_main([str(path)])
+                self.assertEqual(error.exception.code, 1)
+                self.assertEqual(stdout.getvalue(), "")
+                self.assertIn("Dataset validation failed:", stderr.getvalue())
