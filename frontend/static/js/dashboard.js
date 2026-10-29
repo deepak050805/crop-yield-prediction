@@ -3,6 +3,7 @@
   const byId = id => document.getElementById(id);
   const page = document.body.dataset.page;
   const charts = new Map();
+  const failedCharts = new Set();
   const { setState } = window.FieldwiseLoading;
   const { requestJson } = window.FieldwiseClient;
   const fields = ['rainfall', 'temperature', 'humidity'];
@@ -89,7 +90,7 @@
 
   function draw(id, type, labels, datasets, axisTitles = {}) {
     if (!byId(id)) return;
-    if (!window.Chart) { setState(byId(id).parentElement, 'error'); return; }
+    if (!window.Chart) { failedCharts.add(id); setState(byId(id).parentElement, 'error'); return; }
     const colors = chartPalette();
     const config = {
       type,
@@ -117,12 +118,22 @@
         },
       },
     };
-    if (charts.has(id)) {
-      const chart = charts.get(id);
-      chart.data = config.data;
-      chart.options = config.options;
-      chart.update();
-    } else charts.set(id, new Chart(byId(id), config));
+    try {
+      if (charts.has(id)) {
+        const chart = charts.get(id);
+        chart.data = config.data;
+        chart.options = config.options;
+        chart.update();
+      } else charts.set(id, new Chart(byId(id), config));
+    } catch {
+      const failed = charts.get(id) || Chart.getChart?.(byId(id));
+      try { failed?.destroy?.(); } catch { /* Preserve the records if chart cleanup also fails. */ }
+      charts.delete(id);
+      failedCharts.add(id);
+      setState(byId(id).parentElement, 'error');
+      return;
+    }
+    failedCharts.delete(id);
     setState(byId(id).parentElement, 'success');
   }
 
@@ -390,7 +401,7 @@
     byId('predictBtn').textContent = 'Predict yield ↗';
     setState(byId('resultPanel'), state);
     setState(byId('comparisonPanel'), state);
-    setState(byId('predictionChart').parentElement, state === 'success' && !window.Chart ? 'error' : state);
+    setState(byId('predictionChart').parentElement, state === 'success' && failedCharts.has('predictionChart') ? 'error' : state);
     if (state === 'idle') byId('comparisonPanel').hidden = true;
   }
 
