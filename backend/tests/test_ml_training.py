@@ -16,9 +16,13 @@ from backend.ml.train import build_pipeline, select_candidate, train
 
 class TrainingTests(unittest.TestCase):
     def test_preprocessing_learns_only_fitted_training_categories_and_ranges(self):
-        earlier = pd.DataFrame([
-            [20, 700, 60, "Wheat", "A"], [22, 800, 70, "Rice", "B"],
-        ], columns=FEATURES)
+        earlier = pd.DataFrame(
+            [
+                [20, 700, 60, "Wheat", "A"],
+                [22, 800, 70, "Rice", "B"],
+            ],
+            columns=FEATURES,
+        )
         pipeline = build_pipeline().fit(earlier, [2, 4])
         scaler = pipeline.named_steps["prepare"].named_transformers_["weather"]
         encoder = pipeline.named_steps["prepare"].named_transformers_["categories"]
@@ -37,9 +41,15 @@ class TrainingTests(unittest.TestCase):
 
     def test_holdout_targets_do_not_affect_selection_or_fold_baselines(self):
         rows = [
-            {"District": district, "Crop": crop, "Year": year,
-             "Temperature": 20 + (year - 2015), "Rainfall": 700 + (year - 2015),
-             "Humidity": 60, "Yield": crop_index + 2 + (year - 2015) * 0.02}
+            {
+                "District": district,
+                "Crop": crop,
+                "Year": year,
+                "Temperature": 20 + (year - 2015),
+                "Rainfall": 700 + (year - 2015),
+                "Humidity": 60,
+                "Yield": crop_index + 2 + (year - 2015) * 0.02,
+            }
             for year in range(2015, 2025)
             for district in ["A", "B"]
             for crop_index, crop in enumerate(["Wheat", "Rice"])
@@ -55,7 +65,10 @@ class TrainingTests(unittest.TestCase):
                 changed.to_csv(source, index=False)
                 output = directory / f"release-{index}"
                 grid = [{"regressor": [Ridge()], "regressor__alpha": [1.0, 10.0]}]
-                with patch("backend.ml.train.candidate_grid", return_value=grid), contextlib.redirect_stdout(io.StringIO()):
+                with (
+                    patch("backend.ml.train.candidate_grid", return_value=grid),
+                    contextlib.redirect_stdout(io.StringIO()),
+                ):
                     report = train(source, output, trees=1)
                 model, loaded_report = load_model_bundle(
                     output / "yield_model.pkl", output / "model_metrics.json", source
@@ -72,6 +85,29 @@ class TrainingTests(unittest.TestCase):
             self.assertLess(reports[0]["holdout"]["mae"], reports[1]["holdout"]["mae"])
 
     def test_invalid_training_options_fail_before_reading_files(self):
-        for settings in [{"trees": 0}, {"n_jobs": -1}, {"random_state": -1}, {"random_state": True}]:
+        for settings in [
+            {"trees": 0},
+            {"n_jobs": -1},
+            {"random_state": -1},
+            {"random_state": True},
+        ]:
             with self.assertRaises(ValueError):
                 train(data_path="missing.csv", **settings)
+
+    def test_selector_rejects_misaligned_scores_and_invalid_standard_errors(self):
+        for means, deviations in [
+            ([], []),
+            ([1, 2], [0]),
+            ([[1, 2]], [[0, 0]]),
+            ([1], [-0.1]),
+            ([1], [np.inf]),
+        ]:
+            with self.subTest(means=means, deviations=deviations):
+                with self.assertRaises(ValueError):
+                    select_candidate({"mean_test_score": means, "std_test_score": deviations}, 3)
+        results = {"mean_test_score": [-0.4, -0.2], "std_test_score": [0.0, 0.0]}
+        self.assertEqual(select_candidate(results, 3), 1)
+        for count in [0, -1, True, 1.5]:
+            with self.subTest(fold_count=count):
+                with self.assertRaises(ValueError):
+                    select_candidate(results, count)
