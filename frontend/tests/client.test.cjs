@@ -44,6 +44,19 @@ test('requests time out and preserve cancellation by callers', async () => {
   await assert.rejects(client.requestJson('/already-cancelled', { signal: controller.signal }, { fetch }), error => error.name === 'AbortError');
 });
 
+test('cancelling response body parsing preserves AbortError and releases the request timer', async () => {
+  const controller = new AbortController();
+  const aborted = new DOMException('Body read cancelled', 'AbortError');
+  const request = client.requestJson('/stream', { signal: controller.signal }, {
+    fetch: async (url, { signal }) => ({ ok: true, json: () => new Promise((resolve, reject) => {
+      signal.addEventListener('abort', () => reject(aborted), { once: true });
+    }) }),
+  });
+  await Promise.resolve();
+  controller.abort();
+  await assert.rejects(request, error => error === aborted);
+});
+
 test('prediction responses validate the complete scenario before display', () => {
   const valid = { predicted: 3.4, optimal: 3.5, gap: 0.1, best_rain: 750,
     best_temp: 27, best_hum: 65, crop: 'Wheat', district: 'Amritsar', warnings: [] };
