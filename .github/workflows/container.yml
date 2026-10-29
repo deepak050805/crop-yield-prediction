@@ -1,0 +1,29 @@
+name: Production container
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: container-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate Compose without exposing interpolated environment values
+        run: docker compose config --quiet
+      - name: Build the locked Linux runtime image
+        run: docker build --pull --tag fieldwise:smoke .
+      - name: Verify health, API, nonroot user, read-only filesystem and image exclusions
+        run: python -m scripts.container_smoke --image fieldwise:smoke
