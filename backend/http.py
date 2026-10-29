@@ -39,6 +39,22 @@ def register_http_errors(app):
             response.status_code,
             max(0, duration),
         )
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Referrer-Policy"] = "no-referrer"
+        response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+        if request.endpoint != "static" or response.status_code >= 400:
+            response.headers["Cache-Control"] = "no-store"
+        if not app.debug:
+            response.headers["Content-Security-Policy"] = (
+                "default-src 'self'; script-src 'self'; "
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+                "font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; "
+                "connect-src 'self'; object-src 'none'; base-uri 'none'; "
+                "frame-ancestors 'none'; form-action 'self'"
+            )
+        if app.config.get("HTTPS", False):
+            response.headers["Strict-Transport-Security"] = "max-age=31536000"
         return response
 
     @app.errorhandler(ValidationError)

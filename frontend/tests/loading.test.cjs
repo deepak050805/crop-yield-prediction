@@ -322,3 +322,23 @@ test('screen reader chart summaries expose selected context, years, values and c
   assert.ok(rainfall.includes(`${fixtures.records[0].Year}: ${yieldText(fixtures.records[0].Rainfall, 1)} mm rainfall`));
   assert.match(rainfall, /t\/ha yield/);
 });
+
+test('changing measure cannot expose early comparison data while primary records load or fail', async t => {
+  const c = setup(t, '/history', { search: '?compare=Ludhiana' });
+  c.take('/get_data').respond(fixtures.records.map(row => ({ ...row, District: 'Ludhiana' })));
+  const primary = c.take('/get_data'); await flush();
+  c.change('historyMeasure', 'Rainfall');
+  assert.equal(c.get('historyChartView').dataset.state, 'loading');
+  assert.equal(c.get('historyChartView').getAttribute('aria-busy'), 'true');
+  assert.equal(c.get('historyChartView').querySelector('.chart-skeleton').hidden, false);
+  assert.equal(c.instances.size, 0);
+  primary.respond(fixtures.records); await flush();
+  assert.equal(c.instances.get('historyChart')[0].options.scales.y.title.text, 'Rainfall (mm)');
+  c.change('crop', 'Rice');
+  c.take('/get_data').respond(fixtures.records.map(row => ({ ...row, Crop: 'Rice', District: 'Ludhiana' })));
+  c.take('/get_data').fail('Primary unavailable'); await flush();
+  c.change('historyMeasure', 'Humidity');
+  assert.equal(c.get('historyChartView').dataset.state, 'error');
+  assert.equal(c.get('historyRows').children.length, 0);
+  assert.equal(c.get('downloadCsv').disabled, true);
+});

@@ -38,7 +38,12 @@ function stop(code = 0) {
   if (backend.exitCode === null && backend.pid) {
     if (process.platform === 'win32') {
       spawnSync('taskkill', ['/pid', String(backend.pid), '/t', '/f'], { stdio: 'ignore', windowsHide: true });
-    } else backend.kill();
+    } else {
+      backend.kill('SIGTERM');
+      const forceStop = setTimeout(() => backend.kill('SIGKILL'), 5000);
+      forceStop.unref();
+      backend.once('exit', () => clearTimeout(forceStop));
+    }
   }
   process.exitCode = code;
 }
@@ -50,6 +55,8 @@ backend.on('error', error => {
 backend.on('exit', code => { if (!stopping) stop(code || 1); });
 process.on('SIGINT', () => stop());
 process.on('SIGTERM', () => stop());
+process.once('uncaughtException', error => { console.error(error); stop(1); });
+process.once('unhandledRejection', error => { console.error(error); stop(1); });
 
 async function start() {
   const deadline = Date.now() + 60000;
