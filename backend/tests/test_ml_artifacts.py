@@ -31,7 +31,9 @@ class ArtifactBundleTests(unittest.TestCase):
 
     def load(self):
         return load_model_bundle(
-            self.directory / "yield_model.pkl", self.directory / "model_metrics.json", self.dataset_copy
+            self.directory / "yield_model.pkl",
+            self.directory / "model_metrics.json",
+            self.dataset_copy,
         )
 
     def edit_manifest(self, callback):
@@ -50,9 +52,10 @@ class ArtifactBundleTests(unittest.TestCase):
         model, report = self.load()
         features = prepare_input(27.5, 735, 67, "Wheat", "Amritsar")
         np.testing.assert_array_equal(model.predict(features), self.model.predict(features))
-        self.assertEqual(report["model_version"], json.loads(
-            (self.directory / "model_manifest.json").read_text()
-        )["model_version"])
+        self.assertEqual(
+            report["model_version"],
+            json.loads((self.directory / "model_manifest.json").read_text())["model_version"],
+        )
 
     def test_modified_model_report_or_dataset_is_rejected_before_deserialization(self):
         for name in ["yield_model.pkl", "model_metrics.json", "observations.csv"]:
@@ -85,3 +88,13 @@ class ArtifactBundleTests(unittest.TestCase):
         original = {name: (self.directory / name).read_bytes() for name in names}
         publish_bundle(self.model, self.report, self.dataset_copy, self.directory)
         self.assertEqual(original, {name: (self.directory / name).read_bytes() for name in names})
+
+    def test_windows_text_checkouts_preserve_release_integrity(self):
+        original_model, original_report = self.load()
+        for path in [self.dataset_copy, self.directory / "model_metrics.json"]:
+            normalized = path.read_bytes().replace(b"\r\n", b"\n")
+            path.write_bytes(normalized.replace(b"\n", b"\r\n"))
+        model, report = self.load()
+        self.assertEqual(report, original_report)
+        features = prepare_input(27.5, 735, 67, "Wheat", "Amritsar")
+        np.testing.assert_array_equal(model.predict(features), original_model.predict(features))
