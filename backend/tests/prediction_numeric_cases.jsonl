@@ -255,3 +255,4 @@
 {"field": "humidity", "value": -2.0, "accepted": false}
 {"field": "humidity", "value": -2.1, "accepted": false}
 {"field": "humidity", "value": -2.2, "accepted": false}
+{"field": "humidity", "value": -2.3, "accepted": false}
