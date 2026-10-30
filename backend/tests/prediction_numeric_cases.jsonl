@@ -1,1 +1,2 @@
 {"field": "rainfall", "value": 0.0, "accepted": true, "expected": 0.0}
+{"field": "rainfall", "value": "0.00000000", "accepted": true, "expected": 0.0}
