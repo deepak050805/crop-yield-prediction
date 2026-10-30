@@ -185,3 +185,4 @@
 {"field": "temperature", "value": 62.0, "accepted": false}
 {"field": "temperature", "value": 62.1, "accepted": false}
 {"field": "temperature", "value": 62.2, "accepted": false}
+{"field": "temperature", "value": 62.3, "accepted": false}
