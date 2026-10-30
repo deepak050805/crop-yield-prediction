@@ -93,3 +93,4 @@
 {"field": "rainfall", "value": 2002.3, "accepted": false}
 {"field": "rainfall", "value": 2002.4, "accepted": false}
 {"field": "rainfall", "value": 2002.5, "accepted": false}
+{"field": "temperature", "value": -20.0, "accepted": true, "expected": -20.0}
