@@ -41,7 +41,8 @@
 
   function validateMetrics(data) {
     const score = value => value && Number.isFinite(value.mae) && value.mae >= 0 &&
-      (value.r2 === null || Number.isFinite(value.r2));
+      Number.isFinite(value.rmse) && value.rmse >= 0 &&
+      (value.r2 === null || Number.isFinite(value.r2) && value.r2 <= 1);
     if (!data || typeof data.model !== 'string' || !data.model.trim() ||
       !Array.isArray(data.holdout_years) || !data.holdout_years.length ||
       !data.holdout_years.every(Number.isInteger) || !score(data.holdout) ||
