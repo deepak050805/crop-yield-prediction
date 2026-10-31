@@ -121,3 +121,23 @@ class DatasetValidationTests(unittest.TestCase):
                     pd.DataFrame([observation(**{field: value})]).to_csv(source, index=False)
                     with self.assertRaisesRegex(ValueError, "NUL"):
                         load_dataset(source)
+
+    def test_csv_record_width_and_quoting_never_discard_source_fields(self):
+        header = ",".join(DATA_COLUMNS) + "\n"
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "source.csv"
+            for row in [
+                "ignored,Amritsar,Wheat,2020,27.5,735,67,4.2\n",
+                "Amritsar,Wheat,2020,27.5,735,67\n",
+                '"Amritsar,Wheat,2020,27.5,735,67,4.2\n',
+                "\n",
+            ]:
+                with self.subTest(row=row):
+                    source.write_text(header + row, encoding="utf-8")
+                    with self.assertRaisesRegex(ValueError, "fields|malformed CSV"):
+                        load_dataset(source)
+            source.write_text(
+                header + '"Amritsar, Punjab",Wheat,2020,27.5,735,67,4.2\n',
+                encoding="utf-8-sig",
+            )
+            self.assertEqual(load_dataset(source)["District"].tolist(), ["Amritsar, Punjab"])
