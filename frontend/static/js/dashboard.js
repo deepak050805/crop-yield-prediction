@@ -73,20 +73,32 @@
     const colors = chartPalette();
     Chart.defaults.color = colors.text;
     charts.forEach((chart, id) => {
-      chart.data.datasets = themeDatasets(id, chart.data.datasets, colors);
-      chart.options.color = colors.text;
-      chart.options.plugins.legend.labels.color = colors.text;
-      Object.assign(chart.options.plugins.tooltip, {
-        backgroundColor: colors.tooltip, titleColor: colors.tooltipText, bodyColor: colors.tooltipText,
-      });
-      for (const axis of ['x', 'y']) {
-        chart.options.scales[axis].ticks.color = colors.text;
-        chart.options.scales[axis].title.color = colors.text;
-        chart.options.scales[axis].grid.color = colors.grid;
+      try {
+        chart.data.datasets = themeDatasets(id, chart.data.datasets, colors);
+        chart.options.color = colors.text;
+        chart.options.plugins.legend.labels.color = colors.text;
+        Object.assign(chart.options.plugins.tooltip, {
+          backgroundColor: colors.tooltip, titleColor: colors.tooltipText, bodyColor: colors.tooltipText,
+        });
+        for (const axis of ['x', 'y']) {
+          chart.options.scales[axis].ticks.color = colors.text;
+          chart.options.scales[axis].title.color = colors.text;
+          chart.options.scales[axis].grid.color = colors.grid;
+        }
+        chart.update('none');
+      } catch {
+        failChart(id);
       }
-      chart.update('none');
     });
   });
+
+  function failChart(id) {
+    const failed = charts.get(id) || Chart.getChart?.(byId(id));
+    try { failed?.destroy?.(); } catch { /* Preserve the records if chart cleanup also fails. */ }
+    charts.delete(id);
+    failedCharts.add(id);
+    setState(byId(id).parentElement, 'error');
+  }
 
   function draw(id, type, labels, datasets, axisTitles = {}) {
     if (!byId(id)) return;
@@ -136,11 +148,7 @@
         chart.update();
       } else charts.set(id, new Chart(byId(id), config));
     } catch {
-      const failed = charts.get(id) || Chart.getChart?.(byId(id));
-      try { failed?.destroy?.(); } catch { /* Preserve the records if chart cleanup also fails. */ }
-      charts.delete(id);
-      failedCharts.add(id);
-      setState(byId(id).parentElement, 'error');
+      failChart(id);
       return;
     }
     failedCharts.delete(id);
