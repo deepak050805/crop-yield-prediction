@@ -23,10 +23,20 @@
   const scoreText = value => Number.isFinite(value) ? format(value, 3) : 'unavailable';
 
   if (window.Chart) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     Chart.defaults.font.family = "'DM Sans', sans-serif";
     Chart.defaults.font.size = 10;
     Chart.defaults.color = chartPalette().text;
-    Chart.defaults.animation = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? false : { duration: 450 };
+    Chart.defaults.animation = reducedMotion.matches ? false : { duration: 450 };
+    reducedMotion.addEventListener?.('change', () => {
+      Chart.defaults.animation = reducedMotion.matches ? false : { duration: 450 };
+      charts.forEach((chart, id) => {
+        try {
+          chart.options.animation = Chart.defaults.animation;
+          chart.update('none');
+        } catch { failChart(id); }
+      });
+    });
   }
 
   function notice(id, message, error = false) {
