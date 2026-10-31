@@ -113,14 +113,45 @@ class SmokeTests(unittest.TestCase):
             request.assert_not_called()
 
     def test_cli_rejects_invalid_urls_and_timeouts(self):
-        for arguments in (["file:///tmp/app"], ["http://localhost?q=x"], ["--timeout", "nan"]):
+        invalid_arguments = (
+            ["file:///tmp/app"],
+            ["http://localhost?q=x"],
+            ["http://localhost#fragment"],
+            ["http://localhost:not-a-port"],
+            ["http://localhost:65536"],
+            ["http://localhost:0"],
+            ["http://[::1"],
+            ["http://:10000"],
+            ["http://operator:private-password@localhost"],
+            ["http://local host"],
+            ["http://local\nhost"],
+            ["http://localhost\\unexpected"],
+            ["--timeout", "nan"],
+            ["--timeout", "inf"],
+            ["--timeout", "0"],
+        )
+        for arguments in invalid_arguments:
             with self.subTest(arguments=arguments), patch("sys.argv", ["smoke", *arguments]):
+                stderr = io.StringIO()
                 with (
-                    contextlib.redirect_stderr(io.StringIO()),
+                    contextlib.redirect_stderr(stderr),
+                    patch.object(smoke, "smoke") as run_smoke,
                     self.assertRaises(SystemExit) as error,
                 ):
                     smoke.main()
                 self.assertEqual(error.exception.code, 2)
+                run_smoke.assert_not_called()
+                self.assertNotIn("private-password", stderr.getvalue())
+
+    def test_cli_accepts_ipv6_and_preserves_deployment_path_prefix(self):
+        for base in ("http://[::1]:10000/", "https://fieldwise.example/app/"):
+            with (
+                self.subTest(base=base),
+                patch("sys.argv", ["smoke", base, "--timeout", "1.5"]),
+                patch.object(smoke, "smoke") as run_smoke,
+            ):
+                smoke.main()
+            run_smoke.assert_called_once_with(base.rstrip("/"), 1.5)
 
 
 if __name__ == "__main__":
