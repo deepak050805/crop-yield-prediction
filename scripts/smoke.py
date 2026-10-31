@@ -109,14 +109,26 @@ def main():
     parser.add_argument("base_url", nargs="?", default="http://127.0.0.1:10000")
     parser.add_argument("--timeout", type=float, default=60)
     args = parser.parse_args()
-    parsed = urllib.parse.urlsplit(args.base_url)
-    if (
-        parsed.scheme not in {"http", "https"}
-        or not parsed.netloc
-        or parsed.query
-        or parsed.fragment
-    ):
-        parser.error("base_url must be an HTTP(S) URL without query or fragment")
+    try:
+        parsed = urllib.parse.urlsplit(args.base_url)
+        valid_url = (
+            parsed.scheme in {"http", "https"}
+            and bool(parsed.hostname)
+            and parsed.username is None
+            and parsed.password is None
+            and (parsed.port is None or 1 <= parsed.port <= 65535)
+            and not parsed.query
+            and not parsed.fragment
+            and not any(character.isspace() for character in args.base_url)
+            and "\\" not in args.base_url
+        )
+    except ValueError:
+        valid_url = False
+    if not valid_url:
+        parser.error(
+            "base_url must be an HTTP(S) URL with a valid host and port, "
+            "without credentials, query or fragment"
+        )
     if not math.isfinite(args.timeout) or args.timeout <= 0:
         parser.error("timeout must be a positive finite number")
     smoke(args.base_url.rstrip("/"), args.timeout)
