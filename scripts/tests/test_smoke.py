@@ -80,6 +80,38 @@ class SmokeTests(unittest.TestCase):
                 with self.assertRaisesRegex(AssertionError, "deadline"):
                     smoke.wait_ready(self.base, 1)
 
+    def test_readiness_reduces_socket_timeout_as_deadline_approaches(self):
+        with (
+            patch.object(smoke, "request", side_effect=TimeoutError("starting")) as request,
+            patch.object(smoke.time, "monotonic", side_effect=[0, 0.2, 0.6, 0.9, 1.01]),
+            patch.object(smoke.time, "sleep") as sleep,
+            self.assertRaisesRegex(AssertionError, "deadline"),
+        ):
+            smoke.wait_ready(self.base, 1)
+        self.assertEqual(request.call_count, 2)
+        self.assertAlmostEqual(request.call_args_list[0].kwargs["timeout"], 0.8)
+        self.assertAlmostEqual(request.call_args_list[1].kwargs["timeout"], 0.1)
+        sleep.assert_called_once_with(0.25)
+
+    def test_readiness_never_starts_request_after_deadline(self):
+        with (
+            patch.object(smoke, "request") as request,
+            patch.object(smoke.time, "monotonic", side_effect=[0, 1]),
+            self.assertRaisesRegex(AssertionError, "deadline"),
+        ):
+            smoke.wait_ready(self.base, 1)
+        request.assert_not_called()
+
+    def test_direct_readiness_calls_reject_invalid_timeouts(self):
+        for timeout in (0, -1, float("nan"), float("inf")):
+            with (
+                self.subTest(timeout=timeout),
+                patch.object(smoke, "request") as request,
+                self.assertRaisesRegex(ValueError, "positive finite"),
+            ):
+                smoke.wait_ready(self.base, timeout)
+            request.assert_not_called()
+
     def test_cli_rejects_invalid_urls_and_timeouts(self):
         for arguments in (["file:///tmp/app"], ["http://localhost?q=x"], ["--timeout", "nan"]):
             with self.subTest(arguments=arguments), patch("sys.argv", ["smoke", *arguments]):
