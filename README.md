@@ -21,6 +21,8 @@ A Flask application that brings historical agricultural data and machine learnin
 
 The Fieldwise workspace includes three pages: **Overview**, **Yield Predictor**, and **Historical Explorer**. A trained regression pipeline and a CSV dataset are bundled, so retraining is optional when getting started.
 
+Engineering references: [API contracts](docs/api.md), [local development and checks](docs/development.md), [production deployment and rollback](docs/deployment.md), [dataset provenance and units](docs/data.md), and [model evaluation and release integrity](docs/model.md).
+
 ## Features
 
 - **District and crop filters** — explore 20 Punjab districts and 10 crop types.
