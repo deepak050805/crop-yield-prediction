@@ -72,3 +72,27 @@ class PredictionServiceTests(unittest.TestCase):
                 self.assertEqual(result["predicted"], 4.0)
                 self.assertEqual(result["optimal"], output[1])
                 self.assertEqual(result["warnings"], [])
+
+    def test_negative_yields_are_preserved_with_a_single_warning(self):
+        cases = [
+            ([-4.0, -3.5, -5.0], -4.0, -3.5, 0.5),
+            ([-1.0, 4.0, 3.0], -1.0, 4.0, 5.0),
+            ([4.0, -1.0, 3.0], 4.0, 4.0, 0.0),
+            ([4.0, 5.0, -1.0], 4.0, 5.0, 1.0),
+        ]
+        for output, predicted, optimal, gap in cases:
+            with self.subTest(output=output):
+                self.model.predict.return_value = np.array(output)
+                result = self.service.predict("Wheat", "Amritsar", 750, 29, 72)
+                self.assertEqual(result["predicted"], predicted)
+                self.assertEqual(result["optimal"], optimal)
+                self.assertEqual(result["gap"], gap)
+                self.assertEqual(len(result["warnings"]), 1)
+                self.assertIn("negative yield estimate", result["warnings"][0])
+
+    def test_negative_yield_warning_preserves_historical_range_warnings(self):
+        self.model.predict.return_value = np.array([-1.0, 4.0, 3.0])
+        result = self.service.predict("Wheat", "Amritsar", 1500, 29, 72)
+        self.assertEqual(len(result["warnings"]), 2)
+        self.assertIn("Rainfall", result["warnings"][0])
+        self.assertIn("negative yield estimate", result["warnings"][1])
