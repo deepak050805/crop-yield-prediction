@@ -185,6 +185,23 @@ test('prediction skeletons handle success, errors, cancellation, and late respon
   assert.equal(c.get('predictBtn').disabled, false);
 });
 
+test('late historical averages preserve weather edits and explicit resets', async t => {
+  for (const control of ['rainfallNumber', 'temperatureRange', 'resetInputs']) {
+    const c = setup(t, '/predictor');
+    if (control === 'resetInputs') c.get(control).click();
+    else {
+      c.get(control).value = control === 'rainfallNumber' ? '981' : '19.5';
+      c.get(control).dispatchEvent(new c.window.Event('input', { bubbles: true }));
+    }
+    const before = ['rainfall', 'temperature', 'humidity'].map(field => c.get(`${field}Number`).value);
+    c.take('/get_data').respond(fixtures.records); await flush();
+    assert.deepEqual(['rainfall', 'temperature', 'humidity'].map(field => c.get(`${field}Number`).value), before, control);
+    c.get('useAverages').click();
+    assert.notDeepEqual(['rainfall', 'temperature', 'humidity'].map(field => c.get(`${field}Number`).value), before,
+      'Historical averages remain available as an explicit action');
+  }
+});
+
 test('cached images skip placeholders; image errors preserve dimensions and expose fallback', t => {
   const cached = setup(t, '/', { testImage: true, cachedImage: true });
   const cachedFrame = cached.document.querySelector('[data-image]');
