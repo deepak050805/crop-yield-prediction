@@ -4,6 +4,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from flask import request
+
 from backend.config import BASE_DIR
 from backend.factory import create_app
 from backend.ml.artifacts import ArtifactValidationError
@@ -59,3 +61,52 @@ class ApplicationFactoryTests(unittest.TestCase):
             response = client.get("/model_info")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json()["model_version"], expected)
+
+    def test_forwarded_values_require_one_explicitly_trusted_proxy(self):
+        for enabled in [False, True]:
+            with self.subTest(trust_proxy=enabled):
+                app = create_app({"TESTING": True, "TRUST_PROXY": enabled, "LOG_LEVEL": "ERROR"})
+                app.add_url_rule(
+                    "/request-context",
+                    view_func=lambda: {
+                        "address": request.remote_addr,
+                        "scheme": request.scheme,
+                        "host": request.host,
+                    },
+                )
+                response = app.test_client().get(
+                    "/request-context",
+                    headers={
+                        "X-Forwarded-For": "203.0.113.4, 203.0.113.99",
+                        "X-Forwarded-Proto": "https",
+                        "X-Forwarded-Host": "untrusted.example",
+                    },
+                )
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(
+                    response.json["address"], "203.0.113.99" if enabled else "127.0.0.1"
+                )
+                self.assertEqual(response.json["scheme"], "https" if enabled else "http")
+                self.assertEqual(response.json["host"], "localhost")
+
+    def test_host_allowlist_cannot_be_bypassed_by_forwarded_host(self):
+        app = create_app(
+            {
+                "TESTING": True,
+                "TRUST_PROXY": True,
+                "TRUSTED_HOSTS": ["fieldwise.example", "127.0.0.1"],
+                "LOG_LEVEL": "ERROR",
+            }
+        )
+        client = app.test_client()
+        self.assertEqual(client.get("/health/ready", base_url="http://127.0.0.1").status_code, 200)
+        self.assertEqual(
+            client.get("/health/live", base_url="http://fieldwise.example").status_code, 200
+        )
+        response = client.get(
+            "/health/live",
+            base_url="http://untrusted.example",
+            headers={"X-Forwarded-Host": "fieldwise.example"},
+        )
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json["request_id"], response.headers["X-Request-ID"])
