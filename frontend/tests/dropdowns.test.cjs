@@ -119,3 +119,25 @@ test('option labels and selected attributes stay consistent with native select s
   c.key('b');
   assert.equal(c.get('cropTrigger').getAttribute('aria-activedescendant'), 'cropOption0');
 });
+
+test('hidden options and groups cannot be reached by keyboard or pointer', async t => {
+  const c = setup(t, '<option>Wheat</option><option hidden>Rice</option>' +
+    '<optgroup label="Hidden" hidden><option>Rye</option></optgroup><option>Millet</option>');
+  assert.equal(c.get('cropOption1').hidden, true);
+  assert.equal(c.get('cropOption2').hidden, true);
+  c.key('ArrowDown'); c.key('ArrowDown');
+  assert.equal(c.get('cropTrigger').getAttribute('aria-activedescendant'), 'cropOption3');
+  c.get('cropOption1').click();
+  assert.equal(c.get('crop').value, 'Wheat');
+  c.get('crop').options[1].hidden = false;
+  c.window.document.querySelector('optgroup').hidden = false;
+  await Promise.resolve();
+  assert.equal(c.get('cropOption1').hidden, false);
+  assert.equal(c.get('cropOption2').hidden, false);
+  c.key('Home'); c.key('ArrowDown'); c.key('Enter');
+  assert.equal(c.get('crop').value, 'Rice');
+  c.get('cropTrigger').click();
+  c.get('crop').options[1].hidden = true;
+  await Promise.resolve();
+  assert.notEqual(c.get('cropTrigger').getAttribute('aria-activedescendant'), 'cropOption1');
+});
