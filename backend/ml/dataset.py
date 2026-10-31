@@ -65,9 +65,10 @@ def validate_dataset(frame):
     return data.sort_values("Year", kind="stable").reset_index(drop=True)
 
 
-def load_dataset(path):
-    """Read the UTF-8 CSV and validate every record before use."""
-    content = Path(path).read_bytes()
+def load_dataset(path, *, content: bytes | None = None):
+    """Validate a UTF-8 CSV, optionally using a caller's immutable file snapshot."""
+    if content is None:
+        content = Path(path).read_bytes()
     # The C CSV parser silently truncates fields at NUL, even in valid UTF-8.
     if b"\x00" in content:
         raise ValueError("Dataset contains NUL bytes; fields must not be silently truncated.")
