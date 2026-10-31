@@ -85,3 +85,37 @@ test('disabled option groups and options changed while open cannot be selected',
   assert.equal(c.get('cropTrigger').hasAttribute('aria-activedescendant'), false);
   assert.equal(c.get('crop').value, 'Wheat');
 });
+
+test('native option additions removals and text updates rebuild the visible popup', async t => {
+  const c = setup(t);
+  c.get('cropTrigger').click();
+  const added = new c.window.Option('Millet', 'millet');
+  c.get('crop').prepend(added);
+  await Promise.resolve();
+  assert.equal(c.get('cropListbox').children.length, 5);
+  assert.equal(c.get('cropOption0').textContent, 'Millet');
+  c.get('cropOption0').click();
+  assert.equal(c.get('crop').value, 'millet');
+  added.firstChild.data = 'Pearl millet';
+  await Promise.resolve();
+  assert.equal(c.get('cropTrigger').textContent, 'Pearl millet');
+  assert.equal(c.get('cropOption0').textContent, 'Pearl millet');
+  added.remove();
+  await Promise.resolve();
+  assert.equal(c.get('cropListbox').children.length, 4);
+  assert.equal(c.get('cropTrigger').textContent, 'Wheat');
+  c.key('End'); c.key('Enter');
+  assert.equal(c.get('crop').value, 'Rye');
+});
+
+test('option labels and selected attributes stay consistent with native select state', async t => {
+  const c = setup(t, '<option label="Bread wheat">Wheat</option><option>Rice</option>');
+  assert.equal(c.get('cropTrigger').textContent, 'Bread wheat');
+  c.get('crop').options[1].setAttribute('selected', '');
+  c.get('crop').options[1].label = 'Paddy rice';
+  await Promise.resolve();
+  assert.equal(c.get('cropTrigger').textContent, 'Paddy rice');
+  assert.equal(c.get('cropOption1').getAttribute('aria-selected'), 'true');
+  c.key('b');
+  assert.equal(c.get('cropTrigger').getAttribute('aria-activedescendant'), 'cropOption0');
+});
