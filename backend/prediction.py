@@ -33,6 +33,10 @@ class PredictionService:
             raise ValueError("Model predictions must contain one numeric yield per scenario.")
         if not np.isfinite(yields).all():
             raise ValueError("Model predictions must be finite.")
+        if (yields < 0).any():
+            warnings.append(
+                "The model produced a negative yield estimate; estimates are less reliable."
+            )
         best = int(yields.argmax())
         best_rain, best_temp, best_hum = options[best]
         predicted, best_yield = float(yields[0]), float(yields[best])
