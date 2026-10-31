@@ -54,7 +54,8 @@ class ApplicationFactoryTests(unittest.TestCase):
     def test_report_uses_the_verified_snapshot_without_reopening_files(self):
         app = create_app({"TESTING": True})
         expected = app.extensions["fieldwise"]["model_info"]["model_version"]
+        client = app.test_client()
         with patch("pathlib.Path.read_text", side_effect=AssertionError("unexpected disk read")):
-            response = app.test_client().get("/model_info")
+            response = client.get("/model_info")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json()["model_version"], expected)
