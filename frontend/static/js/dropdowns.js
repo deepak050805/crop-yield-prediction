@@ -29,8 +29,9 @@
     menu.hidden = true;
     let activeIndex = select.selectedIndex;
     let search = '', lastKeyTime = 0;
+    const hidden = index => select.options[index]?.hidden || select.options[index]?.closest('optgroup')?.hidden;
     const disabled = index => !select.options[index] || select.options[index].disabled ||
-      select.options[index].parentElement.disabled;
+      select.options[index].parentElement.disabled || hidden(index);
     let options = [];
     function rebuildOptions() {
       options = Array.from(select.options).map((option, index) => {
@@ -65,6 +66,7 @@
         else trigger.removeAttribute(attribute);
       }
       options.forEach((option, index) => {
+        option.hidden = Boolean(hidden(index));
         option.setAttribute('aria-selected', String(index === select.selectedIndex));
         option.setAttribute('aria-disabled', String(Boolean(disabled(index))));
       });
@@ -178,7 +180,7 @@
       sync();
     });
     observer.observe(select, { attributes: true, childList: true, characterData: true, subtree: true,
-      attributeFilter: ['disabled', 'aria-describedby', 'aria-invalid', 'selected', 'label'] });
+      attributeFilter: ['disabled', 'hidden', 'aria-describedby', 'aria-invalid', 'selected', 'label'] });
     if (select.closest('fieldset')) observer.observe(select.closest('fieldset'), { attributes: true, attributeFilter: ['disabled'] });
     window.addEventListener('pagehide', () => close());
   });
