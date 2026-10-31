@@ -512,12 +512,12 @@
   if (page === 'predictor') {
     fields.forEach(field => {
       const number = byId(`${field}Number`), range = byId(`${field}Range`);
-      range.addEventListener('input', () => { number.value = range.value; markStale(); });
-      number.addEventListener('input', () => { range.value = number.value; markStale(); });
+      range.addEventListener('input', () => { firstLoad = false; number.value = range.value; markStale(); });
+      number.addEventListener('input', () => { firstLoad = false; range.value = number.value; markStale(); });
     });
     byId('predictionForm').addEventListener('submit', predict);
     byId('useAverages').addEventListener('click', fillAverages);
-    byId('resetInputs').addEventListener('click', () => { byId('predictionForm').reset(); markStale(); });
+    byId('resetInputs').addEventListener('click', () => { firstLoad = false; byId('predictionForm').reset(); markStale(); });
     loadModelInfo();
   }
   if (page === 'history') {
