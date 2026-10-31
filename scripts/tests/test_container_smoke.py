@@ -55,6 +55,45 @@ class ContainerSmokeTests(unittest.TestCase):
             container_smoke.container_smoke("fieldwise:test")
         self.assertEqual(docker.call_args_list[-1].args[:2], ("rm", "--force"))
 
+    def test_failed_diagnostic_logs_preserve_the_original_failure(self):
+        with (
+            patch.object(
+                container_smoke, "docker", side_effect=["id", "", OSError("logs unavailable"), ""]
+            ) as docker,
+            patch.object(container_smoke, "inspect_running", return_value=self.runtime()),
+            patch.object(container_smoke, "smoke", side_effect=AssertionError("prediction broken")),
+            contextlib.redirect_stdout(io.StringIO()),
+            self.assertRaisesRegex(AssertionError, "prediction broken") as failure,
+        ):
+            container_smoke.container_smoke("fieldwise:test")
+        self.assertEqual(docker.call_args_list[-1].args[:2], ("rm", "--force"))
+        self.assertIn("logs unavailable", failure.exception.__notes__[0])
+
+    def test_failed_cleanup_preserves_the_original_failure(self):
+        with (
+            patch.object(
+                container_smoke, "docker", side_effect=["id", "", "", OSError("remove failed")]
+            ),
+            patch.object(container_smoke, "inspect_running", return_value=self.runtime()),
+            patch.object(container_smoke, "smoke", side_effect=AssertionError("prediction broken")),
+            contextlib.redirect_stdout(io.StringIO()),
+            self.assertRaisesRegex(AssertionError, "prediction broken") as failure,
+        ):
+            container_smoke.container_smoke("fieldwise:test")
+        self.assertIn("Could not remove test container fieldwise-smoke-", failure.exception.__notes__[0])
+
+    def test_cleanup_failure_after_success_is_reported(self):
+        with (
+            patch.object(
+                container_smoke, "docker", side_effect=["id", "", "", OSError("remove failed")]
+            ),
+            patch.object(container_smoke, "inspect_running", return_value=self.runtime()),
+            patch.object(container_smoke, "smoke"),
+            contextlib.redirect_stdout(io.StringIO()),
+            self.assertRaisesRegex(OSError, "remove failed"),
+        ):
+            container_smoke.container_smoke("fieldwise:test")
+
     def test_unhealthy_or_writable_containers_fail(self):
         for runtime, message in (
             (self.runtime(health="unhealthy"), "did not become healthy"),
