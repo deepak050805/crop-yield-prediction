@@ -23,6 +23,7 @@ def inspect_running(name):
 def container_smoke(image):
     name = "fieldwise-smoke-" + uuid.uuid4().hex[:12]
     started = False
+    failure = None
     try:
         docker(
             "create",
@@ -81,13 +82,22 @@ def container_smoke(image):
         print(
             "PASS: healthy Linux image, nonroot user, read-only root, temporary storage, context exclusions"
         )
-    except Exception:
+    except Exception as error:
+        failure = error
         if started:
-            print(docker("logs", "--tail", "100", name))
+            try:
+                print(docker("logs", "--tail", "100", name))
+            except (OSError, subprocess.SubprocessError) as diagnostic_error:
+                error.add_note(f"Could not read container logs: {diagnostic_error}")
         raise
     finally:
         if started:
-            docker("rm", "--force", name, timeout=30)
+            try:
+                docker("rm", "--force", name, timeout=30)
+            except (OSError, subprocess.SubprocessError) as cleanup_error:
+                if failure is None:
+                    raise
+                failure.add_note(f"Could not remove test container {name}: {cleanup_error}")
 
 
 def main():
