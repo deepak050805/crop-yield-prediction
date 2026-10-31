@@ -22,6 +22,9 @@ def _invalid_constant(value):
 
 
 def read_payload(*, allow_form=False):
+    content_encoding = request.headers.get("Content-Encoding", "identity").strip().lower()
+    if content_encoding not in {"", "identity"}:
+        raise UnsupportedMediaType("Encoded request bodies are not supported.")
     if request.is_json:
         try:
             data = json.loads(
