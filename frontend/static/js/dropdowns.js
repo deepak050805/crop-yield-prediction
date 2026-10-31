@@ -31,28 +31,33 @@
     let search = '', lastKeyTime = 0;
     const disabled = index => !select.options[index] || select.options[index].disabled ||
       select.options[index].parentElement.disabled;
-    const options = Array.from(select.options).map((option, index) => {
-      const item = document.createElement('span');
-      item.id = `${select.id}Option${index}`;
-      item.className = 'select-option';
-      item.setAttribute('role', 'option');
-      item.textContent = option.textContent;
-      item.title = option.textContent;
-      if (disabled(index)) item.setAttribute('aria-disabled', 'true');
-      item.addEventListener('pointermove', event => {
-        if (event.pointerType !== 'touch' && !disabled(index)) activate(index, false);
+    let options = [];
+    function rebuildOptions() {
+      options = Array.from(select.options).map((option, index) => {
+        const item = document.createElement('span');
+        item.id = `${select.id}Option${index}`;
+        item.className = 'select-option';
+        item.setAttribute('role', 'option');
+        item.textContent = option.label;
+        item.title = option.label;
+        if (disabled(index)) item.setAttribute('aria-disabled', 'true');
+        item.addEventListener('pointermove', event => {
+          if (event.pointerType !== 'touch' && !disabled(index)) activate(index, false);
+        });
+        item.addEventListener('click', event => {
+          event.preventDefault();
+          if (!disabled(index)) choose(index);
+        });
+        return item;
       });
-      item.addEventListener('click', event => {
-        event.preventDefault();
-        if (!disabled(index)) choose(index);
-      });
-      menu.append(item);
-      return item;
-    });
+      menu.replaceChildren(...options);
+      activeIndex = select.selectedIndex;
+    }
+    rebuildOptions();
     const enabled = () => options.map((_, index) => index).filter(index => !disabled(index));
 
     function sync() {
-      value.textContent = select.options[select.selectedIndex]?.textContent || '';
+      value.textContent = select.options[select.selectedIndex]?.label || '';
       trigger.title = value.textContent;
       trigger.disabled = select.matches(':disabled');
       for (const attribute of ['aria-describedby', 'aria-invalid']) {
@@ -64,7 +69,7 @@
         option.setAttribute('aria-disabled', String(Boolean(disabled(index))));
       });
       if (trigger.disabled) close();
-      else if (!menu.hidden && disabled(activeIndex)) activate(enabled()[0]);
+      else if (!menu.hidden) activate(disabled(activeIndex) ? enabled()[0] : activeIndex, false);
     }
 
     function activate(index, scroll = true) {
@@ -153,7 +158,7 @@
         const indices = enabled();
         const start = repeated ? indices.indexOf(activeIndex) + 1 : 0;
         const ordered = indices.slice(start).concat(indices.slice(0, start));
-        const match = ordered.find(index => select.options[index].textContent.toLowerCase().startsWith(prefix));
+        const match = ordered.find(index => select.options[index].label.toLowerCase().startsWith(prefix));
         if (match !== undefined) activate(match);
       }
     });
@@ -167,9 +172,13 @@
     sync();
     select.hidden = true;
     if (label) label.htmlFor = trigger.id;
-    const observer = new MutationObserver(sync);
-    observer.observe(select, { attributes: true, subtree: true,
-      attributeFilter: ['disabled', 'aria-describedby', 'aria-invalid'] });
+    const observer = new MutationObserver(mutations => {
+      if (mutations.some(mutation => mutation.type !== 'attributes' ||
+        ['selected', 'label'].includes(mutation.attributeName))) rebuildOptions();
+      sync();
+    });
+    observer.observe(select, { attributes: true, childList: true, characterData: true, subtree: true,
+      attributeFilter: ['disabled', 'aria-describedby', 'aria-invalid', 'selected', 'label'] });
     if (select.closest('fieldset')) observer.observe(select.closest('fieldset'), { attributes: true, attributeFilter: ['disabled'] });
     window.addEventListener('pagehide', () => close());
   });
