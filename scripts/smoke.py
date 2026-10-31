@@ -9,6 +9,12 @@ import urllib.parse
 import urllib.request
 
 
+def check(condition, message):
+    """Keep release checks active when Python runs with optimization enabled."""
+    if not condition:
+        raise AssertionError(message)
+
+
 def request(base_url, path, *, data=None, content_type=None, status=200):
     headers = {"Accept": "application/json", "User-Agent": "Fieldwise-Smoke/1"}
     if content_type:
@@ -44,11 +50,11 @@ def wait_ready(base_url, timeout):
 
 def smoke(base_url, timeout=60):
     wait_ready(base_url, timeout)
-    assert request(base_url, "/health/live") == {"status": "alive"}
+    check(request(base_url, "/health/live") == {"status": "alive"}, "Liveness check failed")
     for path in ("/", "/predictor", "/history"):
-        assert b"<!doctype html" in request(base_url, path).lower(), path
+        check(b"<!doctype html" in request(base_url, path).lower(), f"{path}: expected HTML")
     for path in ("/static/js/dashboard.js", "/static/css/dashboard.css"):
-        assert request(base_url, path), path
+        check(request(base_url, path), f"{path}: asset is empty")
     selection = {"crop": "Wheat", "district": "Amritsar"}
     records = request(
         base_url,
@@ -56,10 +62,14 @@ def smoke(base_url, timeout=60):
         data=json.dumps(selection).encode(),
         content_type="application/json",
     )
-    assert records and all(
-        row["Crop"] == selection["crop"] and row["District"] == selection["district"]
-        for row in records
-    ), "Historical selection did not match"
+    check(
+        records
+        and all(
+            row["Crop"] == selection["crop"] and row["District"] == selection["district"]
+            for row in records
+        ),
+        "Historical selection did not match",
+    )
     payload = {**selection, "rainfall": "735", "temperature": "27.5", "humidity": "67"}
     result = request(
         base_url,
@@ -67,8 +77,11 @@ def smoke(base_url, timeout=60):
         data=urllib.parse.urlencode(payload).encode(),
         content_type="application/x-www-form-urlencoded",
     )
-    assert all(math.isfinite(result[key]) for key in ("predicted", "optimal", "gap"))
-    assert result["optimal"] >= result["predicted"]
+    check(
+        all(math.isfinite(result[key]) for key in ("predicted", "optimal", "gap")),
+        "Prediction contains non-finite values",
+    )
+    check(result["optimal"] >= result["predicted"], "Optimal yield is below predicted yield")
     invalid = request(
         base_url,
         "/predict",
@@ -76,9 +89,12 @@ def smoke(base_url, timeout=60):
         content_type="application/x-www-form-urlencoded",
         status=400,
     )
-    assert invalid.get("code") == "invalid_input"
-    assert request(base_url, "/not-a-fieldwise-route", status=404).get("code") == "not_found"
-    assert request(base_url, "/model_info").get("features")
+    check(invalid.get("code") == "invalid_input", "Invalid input error code did not match")
+    check(
+        request(base_url, "/not-a-fieldwise-route", status=404).get("code") == "not_found",
+        "Unknown route error code did not match",
+    )
+    check(request(base_url, "/model_info").get("features"), "Model feature metadata is missing")
     print("PASS: readiness, liveness, pages, assets, history, prediction, errors, model report")
 
 
