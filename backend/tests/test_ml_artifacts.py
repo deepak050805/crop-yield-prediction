@@ -9,6 +9,7 @@ import numpy as np
 
 from backend.ml.artifacts import (
     ArtifactValidationError,
+    feature_schema,
     load_model_bundle,
     publish_bundle,
     text_sha256,
@@ -93,6 +94,15 @@ class ArtifactBundleTests(unittest.TestCase):
         original = {name: (self.directory / name).read_bytes() for name in names}
         publish_bundle(self.model, self.report, self.dataset_copy, self.directory)
         self.assertEqual(original, {name: (self.directory / name).read_bytes() for name in names})
+
+    def test_returned_schema_cannot_mutate_future_release_contracts(self):
+        original = feature_schema()
+        changed = feature_schema()
+        changed["features"].clear()
+        changed["units"].clear()
+        changed["numeric_bounds"]["Temperature"].clear()
+        self.assertEqual(feature_schema(), original)
+        self.assertEqual(self.load()[1]["feature_schema"], original)
 
     def test_windows_text_checkouts_preserve_release_integrity(self):
         original_model, original_report = self.load()
