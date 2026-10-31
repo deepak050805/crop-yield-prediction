@@ -15,13 +15,13 @@ def check(condition, message):
         raise AssertionError(message)
 
 
-def request(base_url, path, *, data=None, content_type=None, status=200):
+def request(base_url, path, *, data=None, content_type=None, status=200, timeout=5):
     headers = {"Accept": "application/json", "User-Agent": "Fieldwise-Smoke/1"}
     if content_type:
         headers["Content-Type"] = content_type
     message = urllib.request.Request(base_url + path, data=data, headers=headers)
     try:
-        response = urllib.request.urlopen(message, timeout=5)
+        response = urllib.request.urlopen(message, timeout=timeout)
     except urllib.error.HTTPError as error:
         response = error
     with response:
@@ -36,16 +36,22 @@ def request(base_url, path, *, data=None, content_type=None, status=200):
 
 
 def wait_ready(base_url, timeout):
+    if not math.isfinite(timeout) or timeout <= 0:
+        raise ValueError("Readiness timeout must be a positive finite number")
     deadline = time.monotonic() + timeout
     while True:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise AssertionError("Deployment did not become ready before the deadline")
         try:
-            if request(base_url, "/health/ready") == {"status": "ready"}:
+            if request(base_url, "/health/ready", timeout=min(5, remaining)) == {"status": "ready"}:
                 return
         except (OSError, AssertionError, ValueError):
             pass
-        if time.monotonic() >= deadline:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
             raise AssertionError("Deployment did not become ready before the deadline")
-        time.sleep(min(0.25, max(0, deadline - time.monotonic())))
+        time.sleep(min(0.25, remaining))
 
 
 def smoke(base_url, timeout=60):
