@@ -1,5 +1,7 @@
 import unittest
+from unittest.mock import patch
 
+import numpy as np
 from werkzeug.datastructures import MultiDict
 
 from backend.factory import create_app
@@ -51,3 +53,33 @@ class ApiContractTests(unittest.TestCase):
             response = self.client.get(path)
             self.assertEqual(response.status_code, 404)
             self.assertTrue(response.is_json)
+
+    def test_invalid_model_outputs_return_structured_prediction_errors(self):
+        model = self.app.extensions["fieldwise"]["predictor"].model
+        for output in [
+            np.array([4.0, np.nan, 3.0]),
+            np.array([4.0, np.inf, 3.0]),
+            np.array([[4.0], [5.0], [3.0]]),
+            np.array([-1e308, 1e308, 0]),
+        ]:
+            with self.subTest(output=output):
+                with patch.object(model, "predict", return_value=output):
+                    with self.assertLogs(self.app.logger, level="ERROR"):
+                        response = self.client.post("/predict", json=self.payload)
+                self.assertEqual(response.status_code, 500)
+                self.assertEqual(response.get_json(), {
+                    "error": "Prediction could not be completed. Please try again.",
+                    "code": "prediction_failed",
+                    "request_id": response.headers["X-Request-ID"],
+                })
+
+    def test_negative_model_outputs_preserve_estimates_and_warn(self):
+        model = self.app.extensions["fieldwise"]["predictor"].model
+        with patch.object(model, "predict", return_value=np.array([-4.0, -3.5, -5.0])):
+            response = self.client.post("/predict", json=self.payload)
+        self.assertEqual(response.status_code, 200)
+        result = response.get_json()
+        self.assertEqual(result["predicted"], -4.0)
+        self.assertEqual(result["optimal"], -3.5)
+        self.assertEqual(result["gap"], 0.5)
+        self.assertTrue(any("negative yield estimate" in warning for warning in result["warnings"]))
