@@ -43,9 +43,9 @@ def text_sha256(content: bytes) -> str:
 def feature_schema() -> dict[str, Any]:
     return {
         "version": SCHEMA_VERSION,
-        "features": FEATURES,
+        "features": list(FEATURES),
         "numeric_bounds": {key: list(bounds) for key, bounds in NUMERIC_BOUNDS.items()},
-        "units": FEATURE_UNITS,
+        "units": dict(FEATURE_UNITS),
     }
 
 
