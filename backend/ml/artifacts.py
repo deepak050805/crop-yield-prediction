@@ -149,8 +149,10 @@ def load_model_bundle(
     metrics_path: str | Path,
     data_path: str | Path,
     manifest_path: str | Path | None = None,
+    *,
+    data_content: bytes | None = None,
 ) -> tuple[Any, dict[str, Any]]:
-    """Verify a trusted release in memory before any pickle code is executed."""
+    """Verify a release against the same CSV snapshot used by its historical store."""
     model_path, metrics_path, data_path = map(Path, (model_path, metrics_path, data_path))
     manifest_path = Path(manifest_path) if manifest_path else model_path.with_name(MANIFEST_NAME)
     try:
@@ -171,7 +173,9 @@ def load_model_bundle(
         expected_hashes = {
             "model_sha256": sha256(model_bytes),
             "metrics_sha256": text_sha256(metrics_bytes),
-            "dataset_sha256": text_sha256(data_path.read_bytes()),
+            "dataset_sha256": text_sha256(
+                data_path.read_bytes() if data_content is None else data_content
+            ),
         }
         if any(manifest.get(key) != value for key, value in expected_hashes.items()):
             raise ArtifactValidationError(
