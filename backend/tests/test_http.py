@@ -1,5 +1,7 @@
 import logging
+import tempfile
 import unittest
+from pathlib import Path
 
 from flask import Flask, jsonify
 
@@ -46,3 +48,42 @@ class HttpLifecycleTests(unittest.TestCase):
         self.assertEqual(response.get_json()["code"], "internal_error")
         self.assertNotIn("private implementation", response.get_data(as_text=True))
         self.assertEqual(response.get_json()["request_id"], response.headers["X-Request-ID"])
+
+    def test_security_headers_cover_success_errors_and_head(self):
+        for path in ["/ok", "/missing"]:
+            for method in ["get", "head"]:
+                with self.subTest(path=path, method=method):
+                    response = getattr(self.client, method)(path)
+                    self.assertEqual(response.headers["X-Content-Type-Options"], "nosniff")
+                    self.assertEqual(response.headers["X-Frame-Options"], "DENY")
+                    self.assertEqual(response.headers["Referrer-Policy"], "no-referrer")
+                    self.assertEqual(response.headers["Cache-Control"], "no-store")
+                    self.assertIn("script-src 'self'", response.headers["Content-Security-Policy"])
+                    self.assertIn(
+                        "frame-ancestors 'none'", response.headers["Content-Security-Policy"]
+                    )
+                    self.assertNotIn("Strict-Transport-Security", response.headers)
+                    if method == "head":
+                        self.assertEqual(response.data, b"")
+
+    def test_tls_and_development_headers_require_explicit_modes(self):
+        self.app.config["HTTPS"] = True
+        self.assertEqual(
+            self.client.get("/ok").headers["Strict-Transport-Security"], "max-age=31536000"
+        )
+        self.app.debug = True
+        response = self.client.get("/ok")
+        self.assertNotIn("Content-Security-Policy", response.headers)
+        self.assertEqual(response.headers["X-Content-Type-Options"], "nosniff")
+
+    def test_static_assets_keep_conditional_caching_and_security_headers(self):
+        with tempfile.TemporaryDirectory() as directory:
+            Path(directory, "asset.css").write_text("body { color: green; }", encoding="utf-8")
+            self.app.static_folder = directory
+            with self.client.get("/static/asset.css") as response:
+                self.assertEqual(response.status_code, 200)
+                self.assertNotEqual(response.headers["Cache-Control"], "no-store")
+                etag = response.headers["ETag"]
+            with self.client.get("/static/asset.css", headers={"If-None-Match": etag}) as response:
+                self.assertEqual(response.status_code, 304)
+                self.assertEqual(response.headers["X-Content-Type-Options"], "nosniff")
