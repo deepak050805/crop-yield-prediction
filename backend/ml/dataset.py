@@ -1,6 +1,7 @@
 """Fail-closed validation for the local historical observation table."""
 
-from io import BytesIO
+import csv
+from io import BytesIO, StringIO
 from pathlib import Path
 
 import numpy as np
@@ -70,4 +71,15 @@ def load_dataset(path):
     # The C CSV parser silently truncates fields at NUL, even in valid UTF-8.
     if b"\x00" in content:
         raise ValueError("Dataset contains NUL bytes; fields must not be silently truncated.")
+    # pandas can infer an implicit index and silently discard surplus leading fields.
+    try:
+        records = csv.reader(StringIO(content.decode("utf-8-sig")), strict=True)
+        for record in records:
+            if len(record) != len(DATA_COLUMNS):
+                raise ValueError(
+                    f"CSV record ending at line {records.line_num} must contain "
+                    f"exactly {len(DATA_COLUMNS)} fields."
+                )
+    except csv.Error as exc:
+        raise ValueError(f"Dataset contains malformed CSV: {exc}") from exc
     return validate_dataset(pd.read_csv(BytesIO(content), encoding="utf-8", skip_blank_lines=False))
