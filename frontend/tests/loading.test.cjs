@@ -305,6 +305,28 @@ test('a failed chart update can recover without refetching or losing records', a
   assert.equal(c.requests.length, 0);
 });
 
+test('a failed theme refresh hides the broken chart and still refreshes other charts', async t => {
+  const c = setup(t);
+  c.take('/get_data').respond(fixtures.records); await flush();
+  const chart = c.instances.get('yieldChart')[0];
+  const rainfall = c.instances.get('rainChart')[0];
+  let destroyed = false;
+  const errors = [];
+  c.window.addEventListener('error', event => { errors.push(event.error); event.preventDefault(); });
+  chart.update = () => { throw new Error('Theme rendering failed'); };
+  chart.destroy = () => { destroyed = true; };
+  c.window.dispatchEvent(new c.window.Event('themechange'));
+  assert.equal(c.get('yieldChart').parentElement.dataset.state, 'error');
+  assert.equal(destroyed, true);
+  assert.equal(rainfall.updates, 1, 'A broken chart must not prevent the other chart refreshing');
+  assert.equal(c.get('avgYield').textContent, expectedYield);
+  assert.equal(errors.length, 0, 'Theme refresh failures must be handled within the chart');
+  c.change('district', 'Ludhiana');
+  c.take('/get_data').respond(fixtures.records); await flush();
+  assert.equal(c.instances.get('yieldChart').length, 2);
+  assert.equal(c.get('yieldChart').parentElement.dataset.state, 'success');
+});
+
 test('screen reader chart summaries expose selected context, years, values and current units', async t => {
   const c = setup(t, '/history', { search: '?compare=Ludhiana' });
   c.take('/get_data').respond(fixtures.records.map(row => ({ ...row, District: 'Ludhiana' })));
