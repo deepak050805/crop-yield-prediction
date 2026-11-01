@@ -303,3 +303,4 @@
 {"field": "rainfall", "value": "2000.0\t", "accepted": true, "expected": 2000.0}
 {"field": "rainfall", "value": "1000.0\t", "accepted": true, "expected": 1000.0}
 {"field": "rainfall", "value": "1.000e+03\t", "accepted": true, "expected": 1000.0}
+{"field": "rainfall", "value": "+1000.0\t", "accepted": true, "expected": 1000.0}
