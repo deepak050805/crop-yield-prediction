@@ -667,3 +667,4 @@
 {"field": "humidity", "value": "\n-0\n", "accepted": true, "expected": -0.0}
 {"field": "humidity", "value": "\n000\n", "accepted": true, "expected": 0.0}
 {"field": "humidity", "value": "\n.5\n", "accepted": true, "expected": 0.5}
+{"field": "rainfall", "value": "1,000", "accepted": false}
