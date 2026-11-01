@@ -388,3 +388,4 @@
 {"field": "rainfall", "value": "\n000", "accepted": true, "expected": 0.0}
 {"field": "rainfall", "value": "\n.5", "accepted": true, "expected": 0.5}
 {"field": "rainfall", "value": "\n0.0 ", "accepted": true, "expected": 0.0}
+{"field": "rainfall", "value": "\n2000.0 ", "accepted": true, "expected": 2000.0}
