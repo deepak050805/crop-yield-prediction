@@ -540,3 +540,4 @@
 {"field": "temperature", "value": "\n000\n", "accepted": true, "expected": 0.0}
 {"field": "temperature", "value": "\n.5\n", "accepted": true, "expected": 0.5}
 {"field": "humidity", "value": "0.0", "accepted": true, "expected": 0.0}
+{"field": "humidity", "value": "100.0", "accepted": true, "expected": 100.0}
