@@ -412,3 +412,4 @@
 {"field": "rainfall", "value": "\n000\n", "accepted": true, "expected": 0.0}
 {"field": "rainfall", "value": "\n.5\n", "accepted": true, "expected": 0.5}
 {"field": "temperature", "value": "-20.0", "accepted": true, "expected": -20.0}
+{"field": "temperature", "value": "60.0", "accepted": true, "expected": 60.0}
