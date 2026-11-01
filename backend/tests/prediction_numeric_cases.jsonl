@@ -679,3 +679,4 @@
 {"field": "rainfall", "value": "1e+", "accepted": false}
 {"field": "temperature", "value": "1/2", "accepted": false}
 {"field": "humidity", "value": "12mm", "accepted": false}
+{"field": "rainfall", "value": true, "accepted": false}
