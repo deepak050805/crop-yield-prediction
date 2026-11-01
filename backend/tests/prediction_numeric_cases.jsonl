@@ -671,3 +671,4 @@
 {"field": "temperature", "value": "1_", "accepted": false}
 {"field": "humidity", "value": "--1", "accepted": false}
 {"field": "rainfall", "value": "++1", "accepted": false}
+{"field": "temperature", "value": "1.2.3", "accepted": false}
