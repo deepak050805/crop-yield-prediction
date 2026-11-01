@@ -432,3 +432,4 @@
 {"field": "temperature", "value": "20.0\t", "accepted": true, "expected": 20.0}
 {"field": "temperature", "value": "2.000e+01\t", "accepted": true, "expected": 20.0}
 {"field": "temperature", "value": "+20.0\t", "accepted": true, "expected": 20.0}
+{"field": "temperature", "value": "-0\t", "accepted": true, "expected": -0.0}
