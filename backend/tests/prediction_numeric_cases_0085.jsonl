@@ -380,3 +380,4 @@
 {"field": "temperature", "value": -20.0000000000203, "accepted": false}
 {"field": "temperature", "value": -20.000000000020304, "accepted": false}
 {"field": "temperature", "value": -20.000000000020307, "accepted": false}
+{"field": "temperature", "value": -20.00000000002031, "accepted": false}
