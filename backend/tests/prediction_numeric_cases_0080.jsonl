@@ -37,3 +37,4 @@
 {"field": "temperature", "value": -20.0000000000102, "accepted": false}
 {"field": "temperature", "value": -20.000000000010203, "accepted": false}
 {"field": "temperature", "value": -20.000000000010207, "accepted": false}
+{"field": "temperature", "value": -20.00000000001021, "accepted": false}
