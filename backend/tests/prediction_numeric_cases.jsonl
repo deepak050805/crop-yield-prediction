@@ -684,3 +684,4 @@
 {"field": "humidity", "value": [], "accepted": false}
 {"field": "rainfall", "value": {}, "accepted": false}
 {"field": "rainfall", "value": 5e-324, "accepted": true, "expected": 5e-324}
+{"field": "rainfall", "value": 1e-323, "accepted": true, "expected": 1e-323}
