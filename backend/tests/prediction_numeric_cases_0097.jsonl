@@ -1,2 +1,3 @@
 {"field": "temperature", "value": 59.99999999997275, "accepted": true, "expected": 59.99999999997275}
 {"field": "temperature", "value": 59.999999999972744, "accepted": true, "expected": 59.999999999972744}
+{"field": "temperature", "value": 59.99999999997274, "accepted": true, "expected": 59.99999999997274}
