@@ -2048,3 +2048,4 @@
 {"field": "rainfall", "value": -9.73e-322, "accepted": false}
 {"field": "rainfall", "value": -9.8e-322, "accepted": false}
 {"field": "rainfall", "value": -9.83e-322, "accepted": false}
+{"field": "rainfall", "value": -9.9e-322, "accepted": false}
