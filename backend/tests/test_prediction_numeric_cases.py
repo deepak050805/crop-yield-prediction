@@ -10,6 +10,10 @@ from backend.validation import ValidationError, parse_prediction
 class PredictionNumericCasesTests(unittest.TestCase):
     def test_weather_input_cases(self):
         cases_path = Path(__file__).with_name("prediction_numeric_cases.jsonl")
+        cases_paths = [
+            cases_path,
+            *sorted(cases_path.parent.glob("prediction_numeric_cases_*.jsonl")),
+        ]
         payload = {
             "crop": "Wheat",
             "district": "Amritsar",
@@ -17,7 +21,12 @@ class PredictionNumericCasesTests(unittest.TestCase):
             "temperature": 27,
             "humidity": 70,
         }
-        for line in cases_path.read_text(encoding="utf-8").splitlines():
+        lines = (
+            line
+            for fixture in cases_paths
+            for line in fixture.read_text(encoding="utf-8").splitlines()
+        )
+        for line in lines:
             case = json.loads(line)
             field = case["field"]
             with self.subTest(case=case):
