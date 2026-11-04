@@ -477,3 +477,4 @@
 {"field": "humidity", "value": -3.365e-320, "accepted": false}
 {"field": "humidity", "value": -3.3656e-320, "accepted": false}
 {"field": "humidity", "value": -3.366e-320, "accepted": false}
+{"field": "humidity", "value": -3.3666e-320, "accepted": false}
