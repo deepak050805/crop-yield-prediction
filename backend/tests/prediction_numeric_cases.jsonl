@@ -956,3 +956,4 @@
 {"field": "temperature", "value": 60.000000000000234, "accepted": false}
 {"field": "temperature", "value": 60.00000000000024, "accepted": false}
 {"field": "humidity", "value": 5e-324, "accepted": true, "expected": 5e-324}
+{"field": "humidity", "value": 1e-323, "accepted": true, "expected": 1e-323}
