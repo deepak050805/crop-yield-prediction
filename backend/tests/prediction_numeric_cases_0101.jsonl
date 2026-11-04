@@ -452,3 +452,4 @@
 {"field": "temperature", "value": 59.999999999955335, "accepted": true, "expected": 59.999999999955335}
 {"field": "temperature", "value": 59.99999999995533, "accepted": true, "expected": 59.99999999995533}
 {"field": "temperature", "value": 59.99999999995532, "accepted": true, "expected": 59.99999999995532}
+{"field": "temperature", "value": 59.999999999955314, "accepted": true, "expected": 59.999999999955314}
