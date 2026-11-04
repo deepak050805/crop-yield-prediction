@@ -4284,3 +4284,4 @@
 {"field": "rainfall", "value": 2000.0000000001894, "accepted": false}
 {"field": "rainfall", "value": 2000.0000000001896, "accepted": false}
 {"field": "temperature", "value": -19.999999999999876, "accepted": true, "expected": -19.999999999999876}
+{"field": "temperature", "value": -19.999999999999872, "accepted": true, "expected": -19.999999999999872}
