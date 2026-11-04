@@ -163,3 +163,4 @@
 {"field": "humidity", "value": 99.99999999988636, "accepted": true, "expected": 99.99999999988636}
 {"field": "humidity", "value": 99.99999999988634, "accepted": true, "expected": 99.99999999988634}
 {"field": "humidity", "value": 99.99999999988633, "accepted": true, "expected": 99.99999999988633}
+{"field": "humidity", "value": 99.99999999988631, "accepted": true, "expected": 99.99999999988631}
