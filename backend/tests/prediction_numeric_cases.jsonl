@@ -2101,3 +2101,4 @@
 {"field": "rainfall", "value": -1.235e-321, "accepted": false}
 {"field": "rainfall", "value": -1.24e-321, "accepted": false}
 {"field": "rainfall", "value": -1.245e-321, "accepted": false}
+{"field": "rainfall", "value": -1.25e-321, "accepted": false}
