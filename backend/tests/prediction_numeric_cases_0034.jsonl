@@ -433,3 +433,4 @@
 {"field": "rainfall", "value": 1999.9999999993709, "accepted": true, "expected": 1999.9999999993709}
 {"field": "rainfall", "value": 1999.9999999993706, "accepted": true, "expected": 1999.9999999993706}
 {"field": "rainfall", "value": 1999.9999999993704, "accepted": true, "expected": 1999.9999999993704}
+{"field": "rainfall", "value": 1999.9999999993702, "accepted": true, "expected": 1999.9999999993702}
