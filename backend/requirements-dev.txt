@@ -2,7 +2,7 @@
 
 # Reproducible local and CI quality tools, excluded from the runtime image.
 ruff==0.17.3
-mypy==2.4.0
+mypy==2.4.1
 ast-serialize==0.13.1
 librt==0.16.0
 mypy_extensions==1.1.0
